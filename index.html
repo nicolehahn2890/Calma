@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a1410">
+<title>Calma — Ruhe für dein Nervensystem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1410;
+    --bg-soft: #221a14;
+    --surface: #2a201a;
+    --cream: #f4ead8;
+    --cream-dim: #c9bfa9;
+    --terracotta: #c97b5b;
+    --terracotta-soft: #a86349;
+    --olive: #8a956b;
+    --olive-soft: #6b7556;
+    --sand: #d4b896;
+    --text: #f4ead8;
+    --text-muted: #9a8e76;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at top, rgba(201, 123, 91, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(138, 149, 107, 0.06) 0%, transparent 50%);
+  }
+
+  .app {
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 11, 8, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 32px;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.1);
+    border-radius: 24px;
+    padding: 32px 28px 24px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .modal-text {
+    font-size: 14px;
+    color: var(--cream-dim);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    padding: 14px 22px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .modal-btn.primary {
+    background: var(--terracotta);
+    color: var(--bg);
+  }
+
+  .modal-btn.primary:active {
+    transform: scale(0.96);
+    background: var(--terracotta-soft);
+  }
+
+  .modal-btn.secondary {
+    background: transparent;
+    border: 1px solid rgba(244, 234, 216, 0.15);
+    color: var(--cream-dim);
+  }
+
+  .modal-btn.secondary:active {
+    transform: scale(0.96);
+    color: var(--cream);
+    border-color: rgba(244, 234, 216, 0.3);
+  }
+
+  /* HOME */
+  .home {
+    min-height: 100%;
+    padding: 48px 28px 60px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-header {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 56px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 24px;
+    opacity: 0.85;
+  }
+
+  .home-title {
+    font-size: 56px;
+    line-height: 1;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .home-title em {
+    color: var(--terracotta);
+  }
+
+  .home-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .greeting {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 0 16px;
+    animation: fadeInUp 1s ease-out 0.2s both;
+  }
+
+  .greeting-text {
+    font-size: 19px;
+    color: var(--cream-dim);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .greeting-author {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+  }
+
+  .greeting-author::before {
+    content: '— ';
+  }
+
+  .modes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeInUp 1s ease-out 0.4s both;
+  }
+
+  .mode-card {
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.06);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    color: var(--text);
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .mode-card:active {
+    transform: scale(0.98);
+  }
+
+  .mode-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 16px;
+  }
+
+  .mode-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mode-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  .mode-duration {
+    font-size: 11px;
+    color: var(--terracotta);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .mode-desc {
+    font-size: 14px;
+    color: var(--cream-dim);
+    line-height: 1.5;
+  }
+
+  .home-footer {
+    margin-top: auto;
+    padding-top: 56px;
+    text-align: center;
+    animation: fadeInUp 1s ease-out 0.6s both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: var(--bg-soft);
+    border: 1px solid rgba(244, 234, 216, 0.08);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--cream-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .streak-flame {
+    color: var(--terracotta);
+    font-size: 14px;
+  }
+
+  .streak-num {
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .sound-toggle {
+    background: transparent;
+    border: 1px solid rgba(244, 234, 216, 0.12);
+    color: var(--cream-dim);
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .sound-toggle:active { transform: scale(0.95); }
+  .sound-toggle.active {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+  }
+
+  /* EXERCISE LIST */
+  .exercises {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .exercise-card {
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.06);
+    border-radius: 16px;
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text);
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .exercise-card:active { transform: scale(0.98); }
+
+  .exercise-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--terracotta);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .exercise-info { flex: 1; min-width: 0; }
+
+  .exercise-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .exercise-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .exercise-tagline {
+    font-size: 13px;
+    color: var(--cream-dim);
+    line-height: 1.4;
+  }
+
+  /* EXERCISE SCREEN */
+  .exercise-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
+    position: relative;
+  }
+
+  .exercise-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 10;
+    gap: 12px;
+  }
+
+  .exercise-title-bar {
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .exercise-title-small {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--cream-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .exercise-cycle {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .breath-stage {
+    text-align: center;
+    padding: 24px 0 16px;
+  }
+
+  .breath-instruction {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    color: var(--cream);
+    transition: opacity 0.6s ease;
+    min-height: 42px;
+  }
+
+  .breath-counter {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .breath-circle-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 280px;
+  }
+
+  .breath-circle {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--terracotta) 0%, var(--terracotta-soft) 50%, var(--olive-soft) 100%);
+    box-shadow:
+      0 0 80px rgba(201, 123, 91, 0.25),
+      inset 0 0 60px rgba(0, 0, 0, 0.15);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 4s ease;
+    position: relative;
+  }
+
+  .breath-circle::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    border: 1px solid rgba(244, 234, 216, 0.08);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .breath-circle.expand {
+    transform: scale(1.4);
+    box-shadow:
+      0 0 120px rgba(201, 123, 91, 0.4),
+      inset 0 0 60px rgba(0, 0, 0, 0.1);
+  }
+
+  .breath-circle.expand::after { transform: scale(1.15); }
+
+  .breath-circle.contract {
+    transform: scale(0.7);
+    box-shadow:
+      0 0 60px rgba(138, 149, 107, 0.2),
+      inset 0 0 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .breath-circle.contract::after { transform: scale(0.95); }
+
+  .humming-circle {
+    background: radial-gradient(circle at 35% 30%, var(--olive) 0%, var(--olive-soft) 50%, var(--terracotta-soft) 100%) !important;
+  }
+
+  .exercise-controls {
+    padding: 24px 0 32px;
+    text-align: center;
+  }
+
+  .timer-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--cream-dim);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .control-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .icon-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.1);
+    color: var(--cream);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .icon-btn:active {
+    transform: scale(0.92);
+    background: var(--bg-soft);
+  }
+
+  .icon-btn.primary {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: var(--bg);
+    width: 72px;
+    height: 72px;
+  }
+
+  .icon-btn.primary:active { background: var(--terracotta-soft); }
+
+  .icon-btn svg { width: 22px; height: 22px; }
+  .icon-btn.primary svg { width: 28px; height: 28px; }
+
+  /* NAV BUTTONS */
+  .nav-back {
+    background: transparent;
+    border: 1px solid rgba(244, 234, 216, 0.12);
+    color: var(--cream-dim);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 18px 10px 14px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .nav-back:active {
+    transform: scale(0.95);
+    color: var(--cream);
+    border-color: rgba(244, 234, 216, 0.25);
+  }
+
+  .nav-back-spacer { width: 88px; flex-shrink: 0; }
+
+  .screen-header {
+    padding-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .screen-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-top: 16px;
+  }
+
+  .screen-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* COMPLETION */
+  .completion {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .completion-mark {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  .completion-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--cream);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .completion-text {
+    font-size: 16px;
+    color: var(--cream-dim);
+    max-width: 320px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .completion-btn {
+    background: var(--terracotta);
+    color: var(--bg);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .completion-btn:active {
+    transform: scale(0.96);
+    background: var(--terracotta-soft);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .hidden { display: none !important; }
+
+  /* GROUNDING */
+  .grounding-step {
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.06);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    margin: 24px 0;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  .grounding-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 72px;
+    color: var(--terracotta);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .grounding-sense {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .grounding-prompt {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 24px;
+  }
+
+  .grounding-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .grounding-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+  }
+
+  .grounding-dot.active {
+    opacity: 1;
+    background: var(--terracotta);
+  }
+
+  /* BODY SCAN */
+  .bodyscan-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px 24px;
+  }
+
+  .bodyscan-area {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 42px;
+    color: var(--cream);
+    margin-bottom: 16px;
+    transition: opacity 0.8s ease;
+  }
+
+  .bodyscan-instruction {
+    font-size: 16px;
+    color: var(--cream-dim);
+    line-height: 1.6;
+    max-width: 320px;
+    transition: opacity 0.8s ease;
+  }
+
+  /* STATIC EXERCISE (Cold Face) */
+  .static-content {
+    padding: 24px 0;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  .static-card {
+    background: var(--surface);
+    border: 1px solid rgba(244, 234, 216, 0.06);
+    border-radius: 20px;
+    padding: 24px 22px;
+    margin-bottom: 14px;
+  }
+
+  .static-step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .static-step-text {
+    color: var(--cream);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .info-box {
+    background: rgba(138, 149, 107, 0.08);
+    border-left: 2px solid var(--olive);
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--cream-dim);
+    line-height: 1.6;
+  }
+
+  .info-box-title {
+    color: var(--olive);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- HOME -->
+  <div id="screen-home" class="home">
+    <div class="home-header">
+      <svg class="logo-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="18" stroke="#c97b5b" stroke-width="1.2" opacity="0.8"/>
+        <circle cx="24" cy="24" r="10" stroke="#8a956b" stroke-width="1" opacity="0.7"/>
+        <circle cx="24" cy="24" r="3" fill="#c97b5b"/>
+      </svg>
+      <h1 class="display home-title">Cal<em>ma</em></h1>
+      <p class="home-subtitle">Atme · Beruhige · Sei</p>
+    </div>
+
+    <div class="greeting" id="greeting">
+      <div class="greeting-text" id="greetingText"></div>
+      <div class="greeting-author" id="greetingAuthor"></div>
+    </div>
+
+    <div class="modes">
+      <button class="mode-card" onclick="showMode('quick')">
+        <div class="mode-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <path d="M18 4 L18 32 M4 18 L32 18" stroke="#c97b5b" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="18" cy="18" r="6" fill="#c97b5b" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="mode-duration">1–3 Minuten · Sofortwirkung</div>
+        <h2 class="mode-title">Akut — gestresst, Herz rast</h2>
+        <p class="mode-desc">Wenn das System gerade hochfährt. Vier schnelle, wissenschaftlich belegte Techniken, die in Minuten wirken.</p>
+      </button>
+
+      <button class="mode-card" onclick="showMode('evening')">
+        <div class="mode-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <path d="M22 6 C 14 8, 10 16, 14 24 C 18 30, 26 28, 30 22 C 26 24, 18 22, 16 16 C 14 12, 18 8, 22 6 Z" fill="#c97b5b" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="mode-duration">5–10 Minuten · Tiefer sinken</div>
+        <h2 class="mode-title">Müde & überdreht — komm runter</h2>
+        <p class="mode-desc">Wenn der Körper erschöpft ist, aber der Kopf nicht abschaltet. Längere Praktiken zum bewussten Loslassen.</p>
+      </button>
+
+      <button class="mode-card" onclick="showMode('routine')">
+        <div class="mode-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <path d="M 18 18 m -12 0 a 12 12 0 1 1 24 0 a 9 9 0 1 1 -18 0 a 6 6 0 1 1 12 0 a 3 3 0 1 1 -6 0" stroke="#c97b5b" stroke-width="1.2" opacity="0.7" stroke-linecap="round" fill="none"/>
+            <circle cx="18" cy="18" r="1.5" fill="#c97b5b"/>
+          </svg>
+        </div>
+        <div class="mode-duration">3–5 Minuten · Ankommen</div>
+        <h2 class="mode-title">Im Kopfkarussell — bin nicht da</h2>
+        <p class="mode-desc">Wenn die Gedanken kreisen oder du dich abwesend fühlst. Holt dich sanft in den gegenwärtigen Moment zurück.</p>
+      </button>
+    </div>
+
+    <div class="home-footer">
+      <div class="streak" id="streakDisplay">
+        <span class="streak-flame">●</span>
+        <span><span class="streak-num" id="streakNum">0</span> Tage in Folge</span>
+      </div>
+      <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">
+        <span id="soundIcon">♪</span>
+        <span id="soundLabel">Ton aus</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODE LIST -->
+  <div id="screen-mode" class="hidden home">
+    <div class="exercise-top" style="margin-bottom: 8px;">
+      <button class="nav-back" onclick="goHome()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Zurück
+      </button>
+      <div style="flex: 1;"></div>
+    </div>
+    <div class="screen-header">
+      <h2 class="screen-title" id="modeTitle"></h2>
+      <p class="screen-subtitle" id="modeSubtitle"></p>
+    </div>
+    <div class="exercises" id="exerciseList"></div>
+  </div>
+
+  <!-- BREATHING -->
+  <div id="screen-breath" class="hidden exercise-screen">
+    <div class="exercise-top">
+      <button class="nav-back" onclick="confirmStop()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Beenden
+      </button>
+      <div class="exercise-title-bar">
+        <div class="exercise-title-small" id="breathExerciseName"></div>
+        <div class="exercise-cycle" id="breathCycle">Zyklus 1</div>
+      </div>
+      <div class="nav-back-spacer"></div>
+    </div>
+
+    <div class="breath-stage">
+      <div class="breath-instruction" id="breathInstruction">Bereit?</div>
+      <div class="breath-counter" id="breathCounter"></div>
+    </div>
+
+    <div class="breath-circle-wrap">
+      <div class="breath-circle" id="breathCircle"></div>
+    </div>
+
+    <div class="exercise-controls">
+      <div class="timer-display" id="breathTimer">0:00</div>
+      <div class="control-row">
+        <button class="icon-btn primary" id="playPauseBtn" onclick="togglePlay()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY SCAN -->
+  <div id="screen-bodyscan" class="hidden exercise-screen">
+    <div class="exercise-top">
+      <button class="nav-back" onclick="confirmStop()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Beenden
+      </button>
+      <div class="exercise-title-bar">
+        <div class="exercise-title-small">Body Scan</div>
+        <div class="exercise-cycle" id="bodyscanProgress"></div>
+      </div>
+      <div class="nav-back-spacer"></div>
+    </div>
+
+    <div class="bodyscan-stage">
+      <div class="bodyscan-area" id="bodyscanArea">Beginnen wir</div>
+      <div class="bodyscan-instruction" id="bodyscanInstruction">Setz oder leg dich bequem hin.</div>
+    </div>
+
+    <div class="exercise-controls">
+      <div class="timer-display" id="bodyscanTimer">0:00</div>
+      <div class="control-row">
+        <button class="icon-btn primary" id="bodyscanPlayBtn" onclick="toggleBodyscan()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUNDING -->
+  <div id="screen-grounding" class="hidden home">
+    <div class="exercise-top" style="margin-bottom: 16px;">
+      <button class="nav-back" onclick="confirmStop()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Beenden
+      </button>
+      <div class="exercise-title-bar">
+        <div class="exercise-title-small">5-4-3-2-1 Grounding</div>
+      </div>
+      <div class="nav-back-spacer"></div>
+    </div>
+
+    <div class="grounding-step" id="groundingStep">
+      <div class="grounding-num" id="groundingNum">5</div>
+      <div class="grounding-sense" id="groundingSense">Sehen</div>
+      <div class="grounding-prompt" id="groundingPrompt">Finde 5 Dinge, die du sehen kannst.</div>
+      <div class="grounding-progress" id="groundingDots"></div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+      <button class="completion-btn" onclick="nextGrounding()" id="groundingNextBtn">Weiter</button>
+    </div>
+  </div>
+
+  <!-- COLD FACE (STATIC) -->
+  <div id="screen-coldface" class="hidden home">
+    <div class="exercise-top" style="margin-bottom: 16px;">
+      <button class="nav-back" onclick="goBackToMode()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Zurück
+      </button>
+      <div class="exercise-title-bar">
+        <div class="exercise-title-small">Kalt-Reflex</div>
+      </div>
+      <div class="nav-back-spacer"></div>
+    </div>
+
+    <div class="screen-header">
+      <h2 class="screen-title" style="font-size: 32px;">Kalt-Reflex</h2>
+      <p class="screen-subtitle">Aktiviert den Tauchreflex — eine der schnellsten Methoden, das Nervensystem zu beruhigen.</p>
+    </div>
+
+    <div class="static-content">
+      <div class="static-card">
+        <div class="static-step-num">1.</div>
+        <div class="static-step-text">Eine Schüssel mit kaltem Wasser füllen (etwa 10–15°C). Optional ein paar Eiswürfel dazu.</div>
+      </div>
+      <div class="static-card">
+        <div class="static-step-num">2.</div>
+        <div class="static-step-text">Tief einatmen, Luft anhalten und das Gesicht für 15–30 Sekunden ins Wasser tauchen — Stirn, Augen und Wangen sollten bedeckt sein.</div>
+      </div>
+      <div class="static-card">
+        <div class="static-step-num">3.</div>
+        <div class="static-step-text">Auftauchen, ruhig durch die Nase atmen. Bei Bedarf 2–3 Mal wiederholen.</div>
+      </div>
+      <div class="static-card">
+        <div class="static-step-num">Alternative</div>
+        <div class="static-step-text">Falls keine Schüssel da ist: ein kaltes, nasses Tuch fest auf Stirn und Wangen drücken, oder einen Eisbeutel an die Halsseiten halten.</div>
+      </div>
+      <div class="info-box">
+        <div class="info-box-title">Warum das wirkt</div>
+        Kälte auf Stirn und Wangen löst den Tauchreflex aus — ein evolutionärer Mechanismus, der den Herzschlag verlangsamt und die parasympathische Aktivität sofort erhöht. Studien (Richer et al. 2022) zeigen messbare Cortisol-Reduktion nach einer einzelnen Anwendung.
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+      <button class="completion-btn" onclick="completeStaticExercise()">Erledigt</button>
+    </div>
+  </div>
+
+  <!-- COMPLETION -->
+  <div id="screen-done" class="hidden completion">
+    <svg class="completion-mark" viewBox="0 0 80 80" fill="none">
+      <circle cx="40" cy="40" r="36" stroke="#c97b5b" stroke-width="1" opacity="0.4"/>
+      <circle cx="40" cy="40" r="24" stroke="#8a956b" stroke-width="1" opacity="0.5"/>
+      <circle cx="40" cy="40" r="12" stroke="#c97b5b" stroke-width="1" opacity="0.7"/>
+      <circle cx="40" cy="40" r="4" fill="#c97b5b"/>
+    </svg>
+    <h2 class="completion-title">Geschafft.</h2>
+    <p class="completion-text" id="completionText">Du hast dir gerade etwas Gutes getan. Spür einen Moment nach.</p>
+    <button class="completion-btn" onclick="goHome()">Zurück zum Start</button>
+  </div>
+
+  <!-- MODAL: Confirm Stop -->
+  <div id="modalStop" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-title">Übung beenden?</div>
+      <div class="modal-text">Du bist gerade mittendrin. Wirklich abbrechen?</div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="confirmStopYes()">Ja, beenden</button>
+        <button class="modal-btn secondary" onclick="confirmStopNo()">Weitermachen</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============ STATE ============
+const STORAGE_KEY = 'calma_v2';
+let state = {
+  streak: 0,
+  lastDate: null,
+  totalSessions: 0,
+  soundEnabled: false
+};
+
+let currentExercise = null;
+let currentMode = null;
+let isPlaying = false;
+let breathTimeout = null;
+let timerInterval = null;
+let elapsedSeconds = 0;
+let cycleCount = 0;
+let wakeLock = null;
+let bodyscanIndex = 0;
+let bodyscanInterval = null;
+let bodyscanPlaying = false;
+let groundingStep = 0;
+const BODYSCAN_DURATION_PER_AREA = 30;
+
+// ============ AUDIO ============
+let audioCtx = null;
+let droneNodes = [];
+
+function ensureAudioCtx() {
+  if (!audioCtx) {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) { return false; }
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+  return true;
+}
+
+function playTone(freq, duration, volume) {
+  if (!state.soundEnabled || !ensureAudioCtx()) return;
+  try {
+    const now = audioCtx.currentTime;
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    osc1.type = 'sine';
+    osc1.frequency.value = freq;
+    osc2.type = 'sine';
+    osc2.frequency.value = freq * 2.01;
+
+    filter.type = 'lowpass';
+    filter.frequency.value = 2200;
+    filter.Q.value = 1;
+
+    gain.gain.value = 0;
+    gain.gain.linearRampToValueAtTime(volume, now + 0.08);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+    const osc2Gain = audioCtx.createGain();
+    osc2Gain.gain.value = 0.3;
+
+    osc1.connect(filter);
+    osc2.connect(osc2Gain);
+    osc2Gain.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + duration + 0.1);
+    osc2.stop(now + duration + 0.1);
+  } catch (e) {}
+}
+
+function playInhaleTone() { playTone(396, 0.9, 0.10); }
+function playExhaleTone() { playTone(264, 1.4, 0.10); }
+function playHoldTone() { playTone(330, 0.5, 0.06); }
+
+function playCompletionChime() {
+  if (!state.soundEnabled || !ensureAudioCtx()) return;
+  playTone(396, 2.0, 0.10);
+  setTimeout(() => playTone(528, 2.0, 0.09), 450);
+  setTimeout(() => playTone(660, 2.5, 0.07), 900);
+}
+
+function playStartTone() { playTone(440, 1.0, 0.08); }
+
+function startDrone(baseFreq) {
+  if (!state.soundEnabled || !ensureAudioCtx()) return;
+  stopDrone();
+  try {
+    const now = audioCtx.currentTime;
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    osc1.type = 'sine';
+    osc1.frequency.value = baseFreq;
+    osc2.type = 'sine';
+    osc2.frequency.value = baseFreq * 1.5;
+
+    filter.type = 'lowpass';
+    filter.frequency.value = 700;
+
+    gain.gain.value = 0;
+    gain.gain.linearRampToValueAtTime(0.025, now + 2);
+
+    const osc2Gain = audioCtx.createGain();
+    osc2Gain.gain.value = 0.2;
+
+    osc1.connect(filter);
+    osc2.connect(osc2Gain);
+    osc2Gain.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc1.start();
+    osc2.start();
+
+    droneNodes = [osc1, osc2, gain];
+  } catch (e) {}
+}
+
+function stopDrone() {
+  if (droneNodes.length === 0) return;
+  try {
+    const now = audioCtx.currentTime;
+    const gain = droneNodes[2];
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.linearRampToValueAtTime(0, now + 0.5);
+    droneNodes[0].stop(now + 0.6);
+    droneNodes[1].stop(now + 0.6);
+  } catch (e) {}
+  droneNodes = [];
+}
+
+function toggleSound() {
+  state.soundEnabled = !state.soundEnabled;
+  saveState();
+  updateSoundUI();
+  if (state.soundEnabled) {
+    ensureAudioCtx();
+    playStartTone();
+  } else {
+    stopDrone();
+  }
+}
+
+function updateSoundUI() {
+  const btn = document.getElementById('soundToggle');
+  const label = document.getElementById('soundLabel');
+  if (state.soundEnabled) {
+    btn.classList.add('active');
+    label.textContent = 'Ton an';
+  } else {
+    btn.classList.remove('active');
+    label.textContent = 'Ton aus';
+  }
+}
+
+// ============ EXERCISES ============
+// Wissenschaftliche Quellen:
+// - Balban et al. 2023 (Cell Reports Medicine) — Cyclic Sighing > andere Atemtechniken
+// - Laborde et al. 2022 (Meta-Analyse 223 Studien) — Slow Breathing & HRV
+// - Gerritsen & Band 2018 — Cortisol -23% bei Slow Breathing in 20 Min
+// - Richer et al. 2022 — Cold Face Test reduziert Cortisol
+const EXERCISES = {
+  'physiological-sigh': {
+    name: 'Doppelseufzer',
+    symbol: '~',
+    meta: '2 Min · Stanford-Studie 2023',
+    tagline: 'Die wirksamste Sofort-Technik laut Forschung. Schlägt sogar Meditation.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 2500, label: 'Tief einatmen', circle: 'expand', sound: 'inhale' },
+      { phase: 'inhale2', duration: 1200, label: 'Nochmal kurz nach', circle: 'expand', sound: null },
+      { phase: 'exhale', duration: 6000, label: 'Lang ausatmen', circle: 'contract', sound: 'exhale' }
+    ],
+    cycles: 12,
+    droneFreq: 110
+  },
+  'box-breathing': {
+    name: 'Box-Atmung',
+    symbol: '□',
+    meta: '3 Min · Navy SEALs-Technik',
+    tagline: 'Klarheit und Fokus — gut bei Unruhe vor wichtigen Momenten.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 4000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
+      { phase: 'hold1', duration: 4000, label: 'Halten', circle: 'hold', sound: 'hold' },
+      { phase: 'exhale', duration: 4000, label: 'Ausatmen', circle: 'contract', sound: 'exhale' },
+      { phase: 'hold2', duration: 4000, label: 'Halten', circle: 'hold', sound: 'hold' }
+    ],
+    cycles: 10,
+    droneFreq: 110
+  },
+  '478-breathing': {
+    name: '4-7-8 Atmung',
+    symbol: '◐',
+    meta: '3 Min · Dr. Andrew Weil',
+    tagline: 'Lange Ausatmung mit Pause — kraftvoller Schalter in den Ruhe-Modus.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 4000, label: 'Einatmen durch die Nase', circle: 'expand', sound: 'inhale' },
+      { phase: 'hold', duration: 7000, label: 'Halten', circle: 'hold', sound: 'hold' },
+      { phase: 'exhale', duration: 8000, label: 'Durch den Mund ausatmen', circle: 'contract', sound: 'exhale' }
+    ],
+    cycles: 6,
+    droneFreq: 98
+  },
+  'cold-face': {
+    name: 'Kalt-Reflex',
+    symbol: '❄',
+    meta: '1 Min · Tauchreflex',
+    tagline: 'Kaltes Wasser ins Gesicht — eine der schnellsten Wege in die Ruhe.',
+    type: 'static',
+    staticScreen: 'screen-coldface'
+  },
+  'extended-exhale': {
+    name: 'Lange Ausatmung',
+    symbol: '∽',
+    meta: '6 Min · 4 ein, 8 aus',
+    tagline: 'Doppelt so lange ausatmen wie einatmen — direkter Weg in den Parasympathikus.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 4000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 8000, label: 'Lang ausatmen', circle: 'contract', sound: 'exhale' }
+    ],
+    cycles: 25,
+    droneFreq: 98
+  },
+  'body-scan': {
+    name: 'Body Scan',
+    symbol: '◇',
+    meta: '5 Min · Geführt',
+    tagline: 'Bewusst durch den Körper wandern — von Kopf bis Fuß loslassen.',
+    type: 'bodyscan',
+    droneFreq: 98
+  },
+  'vagus-humming': {
+    name: 'Summen',
+    symbol: '♪',
+    meta: '4 Min · Vagusnerv-Stimulation',
+    tagline: 'Beim Ausatmen "Mmmm" summen — vibriert den Vagusnerv direkt.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 3000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 8000, label: 'Summen — "Mmmm..."', circle: 'contract', sound: null }
+    ],
+    cycles: 18,
+    droneFreq: 110,
+    circleClass: 'humming-circle'
+  },
+  'coherence': {
+    name: 'Kohärenz-Atmung',
+    symbol: '○',
+    meta: '5 Min · Meta-Analyse 223 Studien',
+    tagline: 'Die am besten erforschte Atmung. Synchronisiert Herz und Gehirn.',
+    type: 'breath',
+    pattern: [
+      { phase: 'inhale', duration: 5500, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 5500, label: 'Ausatmen', circle: 'contract', sound: 'exhale' }
+    ],
+    cycles: 27,
+    droneFreq: 110
+  },
+  'grounding': {
+    name: '5-4-3-2-1',
+    symbol: '◈',
+    meta: '3-5 Min · Grounding',
+    tagline: 'Über die Sinne ankommen — perfekt bei Gedankenkarussell.',
+    type: 'grounding'
+  }
+};
+
+const MODES = {
+  quick: {
+    title: 'Akut — gestresst, Herz rast',
+    subtitle: 'Schnelle Techniken für den Moment, in dem das System hochfährt. Wirken in 1–3 Minuten.',
+    exercises: ['physiological-sigh', 'cold-face', 'box-breathing', '478-breathing']
+  },
+  evening: {
+    title: 'Müde & überdreht — komm runter',
+    subtitle: 'Längere Praktiken zum Tiefer-Sinken. Ideal abends, vor dem Schlafen oder bei Erschöpfung. 5–10 Minuten.',
+    exercises: ['extended-exhale', 'vagus-humming', 'body-scan']
+  },
+  routine: {
+    title: 'Im Kopfkarussell — bin nicht da',
+    subtitle: 'Wenn die Gedanken kreisen oder du dich wie abwesend fühlst. Holt dich zurück in den Moment. 3–5 Minuten.',
+    exercises: ['grounding', 'coherence']
+  }
+};
+
+const GROUNDING_STEPS = [
+  { num: 5, sense: 'Sehen', prompt: 'Schau dich um — finde 5 Dinge, die du sehen kannst. Nimm dir Zeit.' },
+  { num: 4, sense: 'Spüren', prompt: 'Berühre 4 Dinge. Spür die Textur, die Temperatur, das Gewicht.' },
+  { num: 3, sense: 'Hören', prompt: 'Lausche — welche 3 Geräusche nimmst du wahr? Auch die leisen.' },
+  { num: 2, sense: 'Riechen', prompt: 'Atme bewusst durch die Nase. Welche 2 Gerüche sind da?' },
+  { num: 1, sense: 'Schmecken', prompt: 'Bemerke einen Geschmack im Mund. Du bist hier. Du bist da.' }
+];
+
+const BODYSCAN_AREAS = [
+  { area: 'Stirn & Augen', instruction: 'Spür deine Stirn. Lass die Falte zwischen den Augenbrauen weich werden.' },
+  { area: 'Kiefer', instruction: 'Öffne den Mund leicht. Lass den Kiefer schwer werden, die Zunge entspannen.' },
+  { area: 'Nacken', instruction: 'Atme in deinen Nacken. Lass die Schultern fallen — sie dürfen schwer sein.' },
+  { area: 'Brust', instruction: 'Spür deinen Brustkorb beim Atmen. Sanft. Ohne Eile.' },
+  { area: 'Bauch', instruction: 'Leg innerlich die Hand auf den Bauch. Lass ihn weich werden.' },
+  { area: 'Rücken', instruction: 'Wandere durch deinen Rücken — von oben bis ins Kreuz. Loslassen.' },
+  { area: 'Arme & Hände', instruction: 'Spür deine Arme schwer werden. Jeder Finger einzeln.' },
+  { area: 'Beine', instruction: 'Wandere weiter — Oberschenkel, Knie, Waden. Lass los.' },
+  { area: 'Füße', instruction: 'Komm an in den Füßen. Sie tragen dich. Spür den Boden.' },
+  { area: 'Ganzer Körper', instruction: 'Spür deinen ganzen Körper auf einmal. Du bist hier. Atme.' }
+];
+
+// Kuratierte Sammlung echter Zitate aus drei Traditionen:
+// Stoa (Marc Aurel, Seneca, Epiktet), Östliche Weisheit (Lao Tzu, Rumi, Thich Nhat Hanh, Buddha),
+// Moderne (Rilke, Hesse, Tolle, Kabat-Zinn, Etty Hillesum)
+const GREETINGS = [
+  // Stoa
+  { text: 'Es gibt für den Menschen keine ungestörtere Zufluchtsstätte als seine eigene Seele.', author: 'Marc Aurel' },
+  { text: 'Beginne jeden Tag mit der festen Absicht, dich nicht aus der Ruhe bringen zu lassen.', author: 'Marc Aurel' },
+  { text: 'Unser Leben ist das, wozu unser Denken es macht.', author: 'Marc Aurel' },
+  { text: 'Es ist nicht wenig Zeit, die wir haben, sondern es ist viel Zeit, die wir nicht nutzen.', author: 'Seneca' },
+  { text: 'Nirgendwo kann der Mensch sich ruhiger zurückziehen als in seine eigene Seele.', author: 'Marc Aurel' },
+
+  // Östliche Weisheit
+  { text: 'Hast du die Geduld zu warten, bis sich der Schlamm setzt und das Wasser klar wird?', author: 'Laotse' },
+  { text: 'Stille ist die Herrin der Bewegung.', author: 'Laotse' },
+  { text: 'Atme ein und du weißt, dass du am Leben bist. Atme aus und du weißt, dass das Leben dich trägt.', author: 'Thích Nhất Hạnh' },
+  { text: 'Der gegenwärtige Moment ist immer voller Wunder.', author: 'Thích Nhất Hạnh' },
+  { text: 'Die Wunde ist der Ort, an dem das Licht in dich eintritt.', author: 'Rumi' },
+
+  // Moderne
+  { text: 'Du musst das Leben nicht verstehen, dann wird es werden wie ein Fest.', author: 'Rainer Maria Rilke' },
+  { text: 'In jedem Anfang wohnt ein Zauber inne.', author: 'Hermann Hesse' },
+  { text: 'Realisiere tief, dass der gegenwärtige Moment alles ist, was du jemals hast.', author: 'Eckhart Tolle' },
+  { text: 'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.', author: 'Jon Kabat-Zinn' },
+  { text: 'Die einzige wahre Sicherheit liegt nicht im Besitz, sondern in der inneren Ruhe.', author: 'Etty Hillesum' }
+];
+
+const COMPLETION_MESSAGES = [
+  'Du hast dir gerade etwas Gutes getan. Spür einen Moment nach.',
+  'Dein Nervensystem dankt dir. Bleib noch einen Moment hier.',
+  'Eine kleine Insel der Ruhe. Schön, dass du da warst.',
+  'Geschafft. Wie fühlt sich das an?',
+  'Atme noch einmal tief durch. Du bist da.',
+  'Ein Reset für das System. Wirkt nach — auch wenn du jetzt weitermachst.',
+  'Was du geübt hast, bleibt. Auch leise.'
+];
+
+// ============ STORAGE ============
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch (e) {}
+  updateStreakDisplay();
+  updateSoundUI();
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function updateStreak() {
+  const today = new Date().toISOString().split('T')[0];
+  if (state.lastDate === today) {
+    state.totalSessions = (state.totalSessions || 0) + 1;
+    saveState();
+    updateStreakDisplay();
+    return;
+  }
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  state.streak = (state.lastDate === yesterday) ? state.streak + 1 : 1;
+  state.lastDate = today;
+  state.totalSessions = (state.totalSessions || 0) + 1;
+  saveState();
+  updateStreakDisplay();
+}
+
+function updateStreakDisplay() {
+  document.getElementById('streakNum').textContent = state.streak || 0;
+}
+
+// ============ NAVIGATION ============
+function showScreen(id) {
+  document.querySelectorAll('#app > div').forEach(s => s.classList.add('hidden'));
+  const screen = document.getElementById(id);
+  screen.classList.remove('hidden');
+  document.getElementById('app').scrollTop = 0;
+}
+
+function goHome() {
+  stopExercise();
+  currentMode = null;
+  showScreen('screen-home');
+  showRandomGreeting();
+}
+
+function showRandomGreeting() {
+  const g = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
+  document.getElementById('greetingText').textContent = '„' + g.text + '"';
+  document.getElementById('greetingAuthor').textContent = g.author;
+}
+
+function goBackToMode() {
+  stopExercise();
+  if (currentMode) {
+    showMode(currentMode);
+  } else {
+    goHome();
+  }
+}
+
+function confirmStop() {
+  if (isPlaying || bodyscanPlaying) {
+    document.getElementById('modalStop').classList.remove('hidden');
+    return;
+  }
+  goBackToMode();
+}
+
+function confirmStopYes() {
+  document.getElementById('modalStop').classList.add('hidden');
+  goBackToMode();
+}
+
+function confirmStopNo() {
+  document.getElementById('modalStop').classList.add('hidden');
+}
+
+function showMode(modeKey) {
+  currentMode = modeKey;
+  const mode = MODES[modeKey];
+  document.getElementById('modeTitle').textContent = mode.title;
+  document.getElementById('modeSubtitle').textContent = mode.subtitle;
+
+  const list = document.getElementById('exerciseList');
+  list.innerHTML = '';
+  mode.exercises.forEach(exKey => {
+    const ex = EXERCISES[exKey];
+    const card = document.createElement('button');
+    card.className = 'exercise-card';
+    card.onclick = () => startExercise(exKey);
+    card.innerHTML = `
+      <div class="exercise-symbol">${ex.symbol}</div>
+      <div class="exercise-info">
+        <div class="exercise-name">${ex.name}</div>
+        <div class="exercise-meta">${ex.meta}</div>
+        <div class="exercise-tagline">${ex.tagline || ''}</div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  showScreen('screen-mode');
+}
+
+// ============ WAKE LOCK ============
+async function requestWakeLock() {
+  if ('wakeLock' in navigator) {
+    try { wakeLock = await navigator.wakeLock.request('screen'); } catch (e) {}
+  }
+}
+
+function releaseWakeLock() {
+  if (wakeLock) {
+    wakeLock.release().catch(() => {});
+    wakeLock = null;
+  }
+}
+
+function haptic(pattern) {
+  if ('vibrate' in navigator) {
+    try { navigator.vibrate(pattern); } catch (e) {}
+  }
+}
+
+// ============ EXERCISE FLOW ============
+function startExercise(key) {
+  currentExercise = EXERCISES[key];
+  currentExercise.key = key;
+  elapsedSeconds = 0;
+  cycleCount = 0;
+  isPlaying = false;
+  requestWakeLock();
+  if (state.soundEnabled) ensureAudioCtx();
+
+  if (currentExercise.type === 'breath') startBreathExercise();
+  else if (currentExercise.type === 'bodyscan') startBodyScan();
+  else if (currentExercise.type === 'grounding') startGrounding();
+  else if (currentExercise.type === 'static') showScreen(currentExercise.staticScreen);
+}
+
+function stopExercise() {
+  isPlaying = false;
+  bodyscanPlaying = false;
+  if (breathTimeout) clearTimeout(breathTimeout);
+  if (timerInterval) clearInterval(timerInterval);
+  if (bodyscanInterval) clearInterval(bodyscanInterval);
+  releaseWakeLock();
+  stopDrone();
+  const circle = document.getElementById('breathCircle');
+  if (circle) {
+    circle.classList.remove('expand', 'contract', 'humming-circle');
+  }
+}
+
+// ============ BREATHING ============
+function startBreathExercise() {
+  document.getElementById('breathExerciseName').textContent = currentExercise.name;
+  document.getElementById('breathCycle').textContent = `0 / ${currentExercise.cycles} Zyklen`;
+  document.getElementById('breathInstruction').textContent = 'Bereit?';
+  document.getElementById('breathCounter').textContent = 'Mach es dir bequem. Tipp auf Play.';
+  document.getElementById('breathTimer').textContent = '0:00';
+
+  const circle = document.getElementById('breathCircle');
+  circle.classList.remove('humming-circle', 'expand', 'contract');
+  if (currentExercise.circleClass) {
+    circle.classList.add(currentExercise.circleClass);
+  }
+
+  const btn = document.getElementById('playPauseBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+
+  showScreen('screen-breath');
+}
+
+function togglePlay() {
+  if (isPlaying) pauseBreath();
+  else playBreath();
+}
+
+function playBreath() {
+  isPlaying = true;
+  const btn = document.getElementById('playPauseBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+
+  if (state.soundEnabled && currentExercise.droneFreq) {
+    startDrone(currentExercise.droneFreq);
+  }
+
+  timerInterval = setInterval(() => {
+    elapsedSeconds++;
+    document.getElementById('breathTimer').textContent = formatTime(elapsedSeconds);
+  }, 1000);
+
+  runBreathCycle(0);
+}
+
+function pauseBreath() {
+  isPlaying = false;
+  if (breathTimeout) clearTimeout(breathTimeout);
+  if (timerInterval) clearInterval(timerInterval);
+  stopDrone();
+  const btn = document.getElementById('playPauseBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+}
+
+function runBreathCycle(stepIndex) {
+  if (!isPlaying) return;
+  const pattern = currentExercise.pattern;
+  const totalCycles = currentExercise.cycles;
+
+  if (cycleCount >= totalCycles) {
+    completeExercise();
+    return;
+  }
+
+  const step = pattern[stepIndex];
+  const circle = document.getElementById('breathCircle');
+  circle.style.transition = `transform ${step.duration}ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow ${step.duration}ms ease`;
+  circle.classList.remove('expand', 'contract');
+  void circle.offsetWidth;
+  if (step.circle === 'expand' || step.circle === 'contract') {
+    circle.classList.add(step.circle);
+  }
+
+  document.getElementById('breathInstruction').textContent = step.label;
+  const seconds = Math.round(step.duration / 1000);
+  document.getElementById('breathCounter').textContent = `${seconds} Sekunden`;
+
+  if (step.sound === 'inhale') playInhaleTone();
+  else if (step.sound === 'exhale') playExhaleTone();
+  else if (step.sound === 'hold') playHoldTone();
+
+  if (step.phase.startsWith('inhale')) haptic(15);
+  else if (step.phase.startsWith('exhale')) haptic([15, 50, 15]);
+  else if (step.phase.startsWith('hold')) haptic(8);
+
+  breathTimeout = setTimeout(() => {
+    if (!isPlaying) return;
+    const nextIndex = stepIndex + 1;
+    if (nextIndex >= pattern.length) {
+      cycleCount++;
+      document.getElementById('breathCycle').textContent = `${cycleCount} / ${totalCycles} Zyklen`;
+      runBreathCycle(0);
+    } else {
+      runBreathCycle(nextIndex);
+    }
+  }, step.duration);
+}
+
+// ============ BODY SCAN ============
+function startBodyScan() {
+  bodyscanIndex = 0;
+  bodyscanPlaying = false;
+  elapsedSeconds = 0;
+  document.getElementById('bodyscanArea').textContent = 'Beginnen wir';
+  document.getElementById('bodyscanInstruction').textContent = 'Setz oder leg dich bequem hin. Schließe wenn möglich die Augen.';
+  document.getElementById('bodyscanProgress').textContent = `0 / ${BODYSCAN_AREAS.length}`;
+  document.getElementById('bodyscanTimer').textContent = '0:00';
+  const btn = document.getElementById('bodyscanPlayBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  showScreen('screen-bodyscan');
+}
+
+function toggleBodyscan() {
+  if (bodyscanPlaying) pauseBodyscan();
+  else playBodyscan();
+}
+
+function playBodyscan() {
+  bodyscanPlaying = true;
+  const btn = document.getElementById('bodyscanPlayBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+
+  if (state.soundEnabled && currentExercise.droneFreq) {
+    startDrone(currentExercise.droneFreq);
+  }
+
+  showBodyscanArea(bodyscanIndex);
+
+  timerInterval = setInterval(() => {
+    elapsedSeconds++;
+    document.getElementById('bodyscanTimer').textContent = formatTime(elapsedSeconds);
+  }, 1000);
+
+  bodyscanInterval = setInterval(() => {
+    if (!bodyscanPlaying) return;
+    bodyscanIndex++;
+    if (bodyscanIndex >= BODYSCAN_AREAS.length) {
+      completeExercise();
+    } else {
+      showBodyscanArea(bodyscanIndex);
+    }
+  }, BODYSCAN_DURATION_PER_AREA * 1000);
+}
+
+function pauseBodyscan() {
+  bodyscanPlaying = false;
+  if (bodyscanInterval) clearInterval(bodyscanInterval);
+  if (timerInterval) clearInterval(timerInterval);
+  stopDrone();
+  const btn = document.getElementById('bodyscanPlayBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+}
+
+function showBodyscanArea(idx) {
+  const data = BODYSCAN_AREAS[idx];
+  const areaEl = document.getElementById('bodyscanArea');
+  const instrEl = document.getElementById('bodyscanInstruction');
+
+  areaEl.style.opacity = '0';
+  instrEl.style.opacity = '0';
+
+  setTimeout(() => {
+    // Schutz: Wenn inzwischen pausiert oder beendet wurde, nicht mehr zeigen
+    if (!bodyscanPlaying) return;
+    areaEl.textContent = data.area;
+    instrEl.textContent = data.instruction;
+    areaEl.style.opacity = '1';
+    instrEl.style.opacity = '1';
+    haptic(20);
+    playInhaleTone();
+  }, 800);
+
+  document.getElementById('bodyscanProgress').textContent = `${idx + 1} / ${BODYSCAN_AREAS.length}`;
+}
+
+// ============ GROUNDING ============
+function startGrounding() {
+  groundingStep = 0;
+  showGroundingStep();
+  showScreen('screen-grounding');
+}
+
+function showGroundingStep() {
+  if (groundingStep >= GROUNDING_STEPS.length) {
+    completeExercise();
+    return;
+  }
+
+  const data = GROUNDING_STEPS[groundingStep];
+  const stepEl = document.getElementById('groundingStep');
+  stepEl.style.animation = 'none';
+  void stepEl.offsetWidth;
+  stepEl.style.animation = 'fadeInUp 0.5s ease-out';
+
+  document.getElementById('groundingNum').textContent = data.num;
+  document.getElementById('groundingSense').textContent = data.sense;
+  document.getElementById('groundingPrompt').textContent = data.prompt;
+
+  const dotsContainer = document.getElementById('groundingDots');
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i < GROUNDING_STEPS.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'grounding-dot' + (i <= groundingStep ? ' active' : '');
+    dotsContainer.appendChild(dot);
+  }
+
+  const btn = document.getElementById('groundingNextBtn');
+  btn.textContent = groundingStep === GROUNDING_STEPS.length - 1 ? 'Fertig' : 'Weiter';
+
+  haptic(15);
+  playInhaleTone();
+}
+
+function nextGrounding() {
+  groundingStep++;
+  showGroundingStep();
+}
+
+function completeStaticExercise() {
+  completeExercise();
+}
+
+// ============ COMPLETION ============
+function completeExercise() {
+  isPlaying = false;
+  bodyscanPlaying = false;
+  if (breathTimeout) clearTimeout(breathTimeout);
+  if (timerInterval) clearInterval(timerInterval);
+  if (bodyscanInterval) clearInterval(bodyscanInterval);
+  releaseWakeLock();
+  stopDrone();
+
+  updateStreak();
+  haptic([30, 60, 30, 60, 30]);
+  playCompletionChime();
+
+  document.getElementById('completionText').textContent =
+    COMPLETION_MESSAGES[Math.floor(Math.random() * COMPLETION_MESSAGES.length)];
+
+  showScreen('screen-done');
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+// ============ INIT ============
+loadState();
+showRandomGreeting();
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && (isPlaying || bodyscanPlaying)) {
+    requestWakeLock();
+    // AudioContext resumen, falls von iOS suspended
+    if (state.soundEnabled && audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => {});
+    }
+  }
+});
+
+document.addEventListener('click', () => {
+  if (state.soundEnabled) ensureAudioCtx();
+});
+
+document.addEventListener('touchmove', (e) => {
+  const screen = document.querySelector('#app > div:not(.hidden)');
+  if (screen && (screen.id === 'screen-breath' || screen.id === 'screen-bodyscan')) {
+    if (e.target.closest('button') === null) {
+      e.preventDefault();
+    }
+  }
+}, { passive: false });
+</script>
+</body>
+</html>
