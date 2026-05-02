@@ -1444,6 +1444,111 @@ let diaryFilter = 'all';
 let pendingDeleteId = null;
 const BODYSCAN_DURATION_PER_AREA = 30;
 
+// ============ iOS AUDIO UNMUTE ============
+// iOS Safari blockiert Web Audio bei aktivem Stumm-Schalter.
+// Trick: Eine stumme HTML5-Audio-Datei dauerhaft loopen lassen,
+// das verschiebt iOS-Audio auf den Media Channel statt auf den Ringer Channel.
+// Quelle: github.com/swevans/unmute, audjust.com
+const SILENT_MP3_DATA_URI = "data:audio/mp3;base64," +
+      "SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA" +
+      "//NwwAAAAAAAAAAAAEluZm8AAAAPAAAAFgAACbEAHR0dHSgoKCgoMzMzMz09" +
+      "PT09SEhISFNTU1NTXl5eXmlpaWlpc3Nzc35+fn5+iYmJiZSUlJSUnp6enp6p" +
+      "qamptLS0tLS/v7+/ysrKysrU1NTU39/f39/q6urq9fX19fX/////AAAAAExh" +
+      "dmM2MC4zMQAAAAAAAAAAAAAAACQELwAAAAAAAAmxyOFTSgAAAAAAAAAAAAAA" +
+      "AAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/" +
+      "80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NC" +
+      "xKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVM" +
+      "QU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DE" +
+      "pAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxB" +
+      "TUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMA" +
+      "AANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1F" +
+      "My4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAA" +
+      "A0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUz" +
+      "LjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANI" +
+      "AAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" +
+      "VVVVVVVV";
+
+let silentAudioElement = null;
+let unmuteActivated = false;
+
+function activateIOSAudioUnmute() {
+  if (unmuteActivated) return;
+  unmuteActivated = true;
+  try {
+    silentAudioElement = document.createElement('audio');
+    silentAudioElement.setAttribute('x-webkit-airplay', 'deny');
+    silentAudioElement.preload = 'auto';
+    silentAudioElement.loop = true;
+    silentAudioElement.controls = false;
+    silentAudioElement.muted = false;
+    silentAudioElement.volume = 1.0;
+    silentAudioElement.src = SILENT_MP3_DATA_URI;
+    silentAudioElement.style.display = 'none';
+    document.body.appendChild(silentAudioElement);
+    const playPromise = silentAudioElement.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(() => {
+        // Playback blockiert? Wird beim naechsten User-Click nochmal versucht
+        unmuteActivated = false;
+      });
+    }
+  } catch (e) {
+    unmuteActivated = false;
+  }
+}
+
+function deactivateIOSAudioUnmute() {
+  if (silentAudioElement) {
+    try {
+      silentAudioElement.pause();
+      silentAudioElement.src = '';
+      silentAudioElement.remove();
+    } catch (e) {}
+    silentAudioElement = null;
+  }
+  unmuteActivated = false;
+}
+
 // ============ AUDIO ============
 let audioCtx = null;
 let droneNodes = [];
@@ -1706,10 +1811,13 @@ function toggleSound() {
   saveState();
   updateSoundUI();
   if (state.soundEnabled) {
+    // iOS-Stumm-Schalter umgehen: stumme MP3 als Heartbeat starten
+    activateIOSAudioUnmute();
     ensureAudioCtx();
     playStartTone();
   } else {
     stopDrone();
+    deactivateIOSAudioUnmute();
   }
 }
 
@@ -2678,11 +2786,19 @@ document.addEventListener('visibilitychange', () => {
     if (state.soundEnabled && audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume().catch(() => {});
     }
+    // iOS pausiert das Silent-Audio im Hintergrund - neu starten
+    if (state.soundEnabled && silentAudioElement && silentAudioElement.paused) {
+      silentAudioElement.play().catch(() => {});
+    }
   }
 });
 
 document.addEventListener('click', () => {
-  if (state.soundEnabled) ensureAudioCtx();
+  if (state.soundEnabled) {
+    ensureAudioCtx();
+    // Falls Unmute beim ersten Versuch fehlschlug, hier nochmal versuchen
+    if (!unmuteActivated) activateIOSAudioUnmute();
+  }
 });
 
 // Prevent scroll bounce on iOS during exercises

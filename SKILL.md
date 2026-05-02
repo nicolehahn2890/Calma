@@ -267,15 +267,48 @@ Master-Gain: 0 → 0.04 in 3s
 
 ---
 
-## iOS-Audio-Spezifika
+## iOS-Audio-Spezifika (WICHTIG!)
 
-PROBLEM: Bei aktivem Stumm-Schalter (oranger Schalter an der iPhone-Seite) blockiert
-iOS Safari ALLE Web Audio API Toene, auch wenn die Lautstaerke voll aufgedreht ist.
-Das ist ein bekannter iOS-Bug, kein App-Fehler.
+PROBLEM: Bei aktivem Stumm-Schalter blockiert iOS Safari standardmaessig
+ALLE Web Audio API Toene, auch wenn die Lautstaerke voll aufgedreht ist.
 
-LOESUNG fuer User: Stumm-Schalter ausschalten (orange weg), dann funktioniert alles.
+LOESUNG IN CALMA: iOS-Audio-Unmute-Trick eingebaut.
 
-KEIN HACK in der App noetig — der User muss einmal den Schalter umlegen.
+### Wie der Trick funktioniert
+1. iOS hat zwei Audio-Channels: "Ringer Channel" (vom Stumm-Schalter blockiert)
+   und "Media Channel" (immer aktiv)
+2. Web Audio API laeuft normalerweise auf Ringer Channel
+3. HTML5 <audio>-Elemente laufen auf Media Channel
+4. Wenn ein <audio>-Element parallel zur Web Audio laeuft, "verschiebt" iOS
+   alle Audio-Aktivitaet auf den Media Channel — auch die Web Audio Toene
+5. Wir embedden eine ~0.5s stumme MP3 als Base64-Data-URI direkt im HTML
+   (kein externer Datei-Download noetig)
+6. Beim Aktivieren des Sounds wird ein <audio>-Element mit dieser MP3 in Loop gestartet
+7. Web Audio Toene kommen jetzt durch, auch bei aktivem Stumm-Schalter
+
+### Code-Komponenten
+- SILENT_MP3_DATA_URI: ~3.4 KB Base64 stumme MP3 (~0.5s, geloopt)
+- activateIOSAudioUnmute(): erstellt versteckten <audio>-Tag und startet Loop
+- deactivateIOSAudioUnmute(): stoppt und entfernt das Element
+- silentAudioElement: globale Referenz auf das Audio-Element
+- unmuteActivated: flag, true wenn aktiv
+
+### Aufgerufen wird
+- toggleSound() bei Sound-Aktivierung
+- Globaler click-Listener als Fallback (falls erster Versuch blockiert)
+- visibilitychange-Listener: Audio-Element neu starten nach Hintergrund
+
+### Hinweis fuer User
+Der Trick funktioniert ohne dass der User etwas tun muss.
+Beim ersten Tippen auf "Ton an" startet alles automatisch, auch bei aktivem Stumm-Schalter.
+
+### Stumme MP3 generieren (falls Re-Generation noetig)
+```bash
+ffmpeg -y -f lavfi -i anullsrc=r=22050:cl=mono -t 0.5 -c:a libmp3lame -b:a 32k silent.mp3
+base64 silent.mp3 | tr -d '\n'
+```
+WICHTIG: NUR loopfaehige stumme MP3s funktionieren. Keine WAV oder OGG verwenden,
+weil iOS bei Loop-Playback haengen bleibt.
 
 ---
 
@@ -367,6 +400,8 @@ Wichtig: updateStreakDisplay() IMMER aufrufen, auch bei Same-Day-Sessions.
 12. Icons: NUR SVG mit currentColor + stroke-width 1.4. KEINE bunten Emojis.
 13. Bei Schreibuebungen: HTML-Escape via escapeHtml(), \\n zu <br> beim Anzeigen
 14. completionChimeTimeouts canceln in stopExercise
+15. iOS-Audio-Unmute (SILENT_MP3_DATA_URI) NIEMALS entfernen — sonst kein Ton bei
+    aktivem Stumm-Schalter auf iPhone
 
 ---
 
