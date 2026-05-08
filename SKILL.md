@@ -30,7 +30,7 @@ Deutsch, Du-Anrede. Deployment immer ueber GitHub Browser-Interface
 - Repository: github.com/nicolehahn2890/Calma
 - Technologie: Standalone HTML-Datei (kein Framework, kein Build-Schritt)
 - Dateiname: index.html
-- Aktuelle Version: Calma 2.1
+- Aktuelle Version: Calma 2.2 (bilingual ES/DE)
 - localStorage-Keys:
   - calma_v3 (Settings, Streak, Sound)
   - calma_diary_v3 (Tagebuch-Eintraege)
@@ -68,7 +68,36 @@ KEINE bunten Emojis, alle Icons sind handgezeichnete SVGs in einer einzigen Lini
 
 ---
 
-## App-Architektur (Calma 2.1)
+## App-Architektur (Calma 2.2 — bilingual)
+
+### Sprach-Architektur (NEU in 2.2)
+Die App ist bilingual ES/DE:
+- **Spanisch ist Hauptsprache** (gross, Standard-Stil)
+- **Deutsch ist Echo darunter** (klein, kursiv, gedaempft, ~0.65em)
+- **Tonalitaet**: kastilisches Spanisch mit "tu", warm aber direkt
+- **UI-Buttons NUR Spanisch** (Volver, Guardar, Continuar, Salir, Hecho, Eliminar, Mantener, Sonido on/off, Diario)
+- **Sound-Optionen**: Silencio, Drone, Lluvia
+- Tagebuch-Eintraege werden in der Sprache gespeichert, in der Nicole schreibt
+
+### Bilingual-Datenstruktur
+Alle uebersetzbaren Texte sind `{ es: "...", de: "..." }`-Objekte:
+```javascript
+name: { es: 'Suspiro fisiologico', de: 'Doppelseufzer' }
+tagline: { es: '...', de: '...' }
+prompts: [{ q: { es, de }, placeholder: { es, de } }]
+```
+
+### Bilingual Helper-Funktionen
+```
+bi(obj)    -> HTML-String mit beiden Sprachen (Spanisch gross, Deutsch klein darunter)
+biES(obj)  -> Plain-Text Spanisch (fuer textarea placeholder, etc.)
+biDE(obj)  -> Plain-Text Deutsch
+```
+
+### CSS-Klassen
+- `.bi` — Container fuer bilingualen Text
+- `.bi-de` — Deutscher Text klein, kursiv, gedaempft (0.65em opacity 0.65)
+- `.bi-inline .bi-de` — Inline-Variante (selten genutzt)
 
 ### State-Objekte
 
@@ -402,6 +431,11 @@ Wichtig: updateStreakDisplay() IMMER aufrufen, auch bei Same-Day-Sessions.
 14. completionChimeTimeouts canceln in stopExercise
 15. iOS-Audio-Unmute (SILENT_MP3_DATA_URI) NIEMALS entfernen — sonst kein Ton bei
     aktivem Stumm-Schalter auf iPhone
+16. Alle uebersetzbaren Texte als `{ es, de }`-Objekt — niemals nur ein String
+17. UI-Buttons NUR auf Spanisch (Volver, Guardar, Continuar, Salir, Hecho, Eliminar)
+18. bi() Helper fuer Anzeige verwenden — niemals .es oder .de direkt in textContent
+19. textarea-Placeholder NUR auf Spanisch (biES verwenden)
+20. Tagebuch-Eintraege haben backward-compat fuer alte String-Werte (typeof check)
 
 ---
 
@@ -460,9 +494,9 @@ WICHTIG: alte Eintraege haben das neue Feld nicht. Defensive Defaults setzen.
 
 ## Datei-Struktur
 
-Eine einzige Datei: index.html (~2700 Zeilen, Calma 2.1)
-- HTML (~530 Zeilen): App-Container mit allen Screens + 2 Modals
-- CSS (~890 Zeilen): Im <style>-Block
-- JavaScript (~1280 Zeilen): Im <script>-Block
+Eine einzige Datei: index.html (~2920 Zeilen, Calma 2.2 bilingual)
+- HTML (~590 Zeilen): App-Container mit allen Screens + 2 Modals + bilinguale Texte
+- CSS (~920 Zeilen): Im <style>-Block
+- JavaScript (~1410 Zeilen): Im <script>-Block
 
 Keine externen Dateien ausser Google Fonts CDN.

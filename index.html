@@ -148,6 +148,31 @@
     border-color: rgba(244, 234, 216, 0.3);
   }
 
+  /* BILINGUAL TEXT STYLING */
+  .bi {
+    display: block;
+  }
+
+  .bi-de {
+    display: block;
+    font-size: 0.65em;
+    color: var(--text-muted);
+    opacity: 0.65;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    margin-top: 2px;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  /* Inline bilingual: bei kurzen Worten (Buttons o.ä.) — nicht aktiv genutzt, aber verfügbar */
+  .bi-inline .bi-de {
+    display: inline;
+    margin-left: 6px;
+    font-size: 0.7em;
+  }
+
   /* HOME */
   .home {
     min-height: 100%;
@@ -203,6 +228,13 @@
     font-family: 'Cormorant Garamond', serif;
     line-height: 1.4;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .greeting-text > span:first-child {
+    font-size: 18px;
   }
 
   .greeting-author {
@@ -265,6 +297,15 @@
     color: var(--cream);
     margin-bottom: 4px;
     font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pillar-title .bi-de {
+    font-size: 11px;
+    margin-top: 0;
+    line-height: 1.2;
   }
 
   .pillar-desc {
@@ -273,6 +314,14 @@
     line-height: 1.4;
     letter-spacing: 0.02em;
     margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .pillar-desc .bi-de {
+    font-size: 9px;
+    opacity: 0.55;
   }
 
   /* Schreib-Übungen Indikator unten in der Kachel */
@@ -1067,7 +1116,7 @@
         <circle cx="24" cy="24" r="3" fill="#c97b5b"/>
       </svg>
       <h1 class="display home-title">Cal<em>ma</em></h1>
-      <p class="home-subtitle">Werkzeug für dein Nervensystem</p>
+      <p class="home-subtitle">Herramienta para tu sistema nervioso</p>
     </div>
 
     <div class="greeting" id="greeting">
@@ -1084,8 +1133,8 @@
             <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Atmen</h2>
-        <p class="pillar-desc">Vagusnerv aktivieren, Stress senken</p>
+        <h2 class="pillar-title">Respirar<span class="bi-de">Atmen</span></h2>
+        <p class="pillar-desc">Activar el nervio vago, bajar el estrés<span class="bi-de">Vagusnerv aktivieren, Stress senken</span></p>
       </button>
 
       <button class="pillar-card ankommen" onclick="showPillar('ankommen')">
@@ -1095,8 +1144,8 @@
             <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Ankommen</h2>
-        <p class="pillar-desc">Im Moment landen, Sinne nutzen</p>
+        <h2 class="pillar-title">Llegar<span class="bi-de">Ankommen</span></h2>
+        <p class="pillar-desc">Aterrizar en el momento, usar los sentidos<span class="bi-de">Im Moment landen, Sinne nutzen</span></p>
       </button>
 
       <button class="pillar-card gedanken" onclick="showPillar('gedanken')">
@@ -1106,11 +1155,11 @@
             <circle cx="12" cy="12" r="1" fill="currentColor"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Gedanken</h2>
-        <p class="pillar-desc">Muster erkennen, sanft umdeuten</p>
+        <h2 class="pillar-title">Pensamientos<span class="bi-de">Gedanken</span></h2>
+        <p class="pillar-desc">Reconocer patrones, reformular con suavidad<span class="bi-de">Muster erkennen, sanft umdeuten</span></p>
         <div class="pillar-journal-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4 L 16 4 L 18 6 L 18 20 L 4 20 Z"/><path d="M7 9 L 14 9 M7 13 L 14 13 M7 17 L 12 17"/></svg>
-          <span>Tagebuch</span>
+          <span>Diario</span>
         </div>
       </button>
 
@@ -1122,11 +1171,11 @@
             <path d="M12 11 C 16 11, 19 8, 19 4 C 15 4, 12 7, 12 11 Z"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Dankbarkeit</h2>
-        <p class="pillar-desc">Sehen, was schon da ist</p>
+        <h2 class="pillar-title">Gratitud<span class="bi-de">Dankbarkeit</span></h2>
+        <p class="pillar-desc">Ver lo que ya está aquí<span class="bi-de">Sehen, was schon da ist</span></p>
         <div class="pillar-journal-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4 L 16 4 L 18 6 L 18 20 L 4 20 Z"/><path d="M7 9 L 14 9 M7 13 L 14 13 M7 17 L 12 17"/></svg>
-          <span>Tagebuch</span>
+          <span>Diario</span>
         </div>
       </button>
 
@@ -1136,11 +1185,11 @@
             <path d="M12 3 L 14.5 9.5 L 21 10 L 16 14.5 L 17.5 21 L 12 17.5 L 6.5 21 L 8 14.5 L 3 10 L 9.5 9.5 Z"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Stärkung</h2>
-        <p class="pillar-desc">Werte und innere Ressourcen</p>
+        <h2 class="pillar-title">Fortaleza<span class="bi-de">Stärkung</span></h2>
+        <p class="pillar-desc">Valores y recursos internos<span class="bi-de">Werte und innere Ressourcen</span></p>
         <div class="pillar-journal-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4 L 16 4 L 18 6 L 18 20 L 4 20 Z"/><path d="M7 9 L 14 9 M7 13 L 14 13 M7 17 L 12 17"/></svg>
-          <span>Tagebuch</span>
+          <span>Diario</span>
         </div>
       </button>
 
@@ -1150,11 +1199,11 @@
             <path d="M12 21 C 4 14, 4 8, 8 6 C 10 5, 12 6, 12 8 C 12 6, 14 5, 16 6 C 20 8, 20 14, 12 21 Z"/>
           </svg>
         </div>
-        <h2 class="pillar-title">Mitgefühl</h2>
-        <p class="pillar-desc">Freundlich mit dir selbst sein</p>
+        <h2 class="pillar-title">Compasión<span class="bi-de">Mitgefühl</span></h2>
+        <p class="pillar-desc">Ser amable contigo misma<span class="bi-de">Freundlich mit dir selbst sein</span></p>
         <div class="pillar-journal-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4 L 16 4 L 18 6 L 18 20 L 4 20 Z"/><path d="M7 9 L 14 9 M7 13 L 14 13 M7 17 L 12 17"/></svg>
-          <span>Tagebuch</span>
+          <span>Diario</span>
         </div>
       </button>
     </div>
@@ -1163,23 +1212,23 @@
       <div class="home-footer-row">
         <button class="footer-btn" onclick="showDiary()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 L 16 4 L 18 6 L 18 20 L 4 20 Z"/><path d="M7 9 L 14 9 M7 13 L 14 13 M7 17 L 12 17"/></svg>
-          <span>Tagebuch</span>
+          <span>Diario</span>
         </button>
         <button class="footer-btn">
           <span style="color: var(--terracotta); font-size: 8px;">●</span>
-          <span><span class="streak-num" id="streakNum">0</span> Tage</span>
+          <span><span class="streak-num" id="streakNum">0</span> días</span>
         </button>
         <button class="footer-btn" id="soundToggle" onclick="toggleSound()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9 L 9 9 L 13 5 L 13 19 L 9 15 L 5 15 Z"/><path d="M16 8 C 18 10, 18 14, 16 16" opacity="0.7"/></svg>
-          <span id="soundLabel">Ton</span>
+          <span id="soundLabel">Sonido</span>
         </button>
       </div>
       <div class="sound-picker" id="soundPicker" style="display: none;">
-        <div class="sound-picker-title">Klang</div>
+        <div class="sound-picker-title">Sonido</div>
         <div class="sound-picker-options">
-          <button class="sound-option" data-sound="silence" onclick="selectSound('silence')">Stille</button>
+          <button class="sound-option" data-sound="silence" onclick="selectSound('silence')">Silencio</button>
           <button class="sound-option" data-sound="drone" onclick="selectSound('drone')">Drone</button>
-          <button class="sound-option" data-sound="rain" onclick="selectSound('rain')">Regen</button>
+          <button class="sound-option" data-sound="rain" onclick="selectSound('rain')">Lluvia</button>
         </div>
       </div>
     </div>
@@ -1190,7 +1239,7 @@
     <div class="exercise-top" style="margin-bottom: 4px;">
       <button class="nav-back" onclick="goHome()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Zurück
+        Volver
       </button>
       <div style="flex: 1;"></div>
     </div>
@@ -1206,7 +1255,7 @@
     <div class="exercise-top">
       <button class="nav-back" onclick="confirmStop()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Beenden
+        Salir
       </button>
       <div class="exercise-title-bar">
         <div class="exercise-title-small" id="breathExerciseName"></div>
@@ -1239,7 +1288,7 @@
     <div class="exercise-top">
       <button class="nav-back" onclick="confirmStop()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Beenden
+        Salir
       </button>
       <div class="exercise-title-bar">
         <div class="exercise-title-small">Body Scan</div>
@@ -1268,10 +1317,10 @@
     <div class="exercise-top" style="margin-bottom: 12px;">
       <button class="nav-back" onclick="confirmStop()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Beenden
+        Salir
       </button>
       <div class="exercise-title-bar">
-        <div class="exercise-title-small">5-4-3-2-1 Grounding</div>
+        <div class="exercise-title-small">5-4-3-2-1</div>
       </div>
       <div class="nav-back-spacer"></div>
     </div>
@@ -1293,44 +1342,44 @@
     <div class="exercise-top" style="margin-bottom: 12px;">
       <button class="nav-back" onclick="goBackToPillar()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Zurück
+        Volver
       </button>
       <div class="exercise-title-bar">
-        <div class="exercise-title-small">Kalt-Reflex</div>
+        <div class="exercise-title-small">Reflejo de frío</div>
       </div>
       <div class="nav-back-spacer"></div>
     </div>
 
     <div class="screen-header">
-      <h2 class="screen-title" style="font-size: 30px;">Kalt-Reflex</h2>
-      <p class="screen-subtitle">Aktiviert den Tauchreflex — eine der schnellsten Methoden, das Nervensystem zu beruhigen.</p>
+      <h2 class="screen-title" style="font-size: 30px;">Reflejo de frío<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Kalt-Reflex</span></h2>
+      <p class="screen-subtitle">Activa el reflejo de inmersión — uno de los métodos más rápidos para calmar el sistema nervioso.<br><span class="bi-de">Aktiviert den Tauchreflex — eine der schnellsten Methoden, das Nervensystem zu beruhigen.</span></p>
     </div>
 
     <div class="static-content">
       <div class="static-card">
         <div class="static-step-num">1.</div>
-        <div class="static-step-text">Eine Schüssel mit kaltem Wasser füllen (etwa 10–15°C). Optional ein paar Eiswürfel dazu.</div>
+        <div class="static-step-text">Llena un cuenco con agua fría (unos 10–15°C). Opcional: añade unos cubitos de hielo.<span class="bi-de" style="display:block; margin-top: 6px">Eine Schüssel mit kaltem Wasser füllen (etwa 10–15°C). Optional ein paar Eiswürfel dazu.</span></div>
       </div>
       <div class="static-card">
         <div class="static-step-num">2.</div>
-        <div class="static-step-text">Tief einatmen, Luft anhalten und das Gesicht für 15–30 Sekunden ins Wasser tauchen — Stirn, Augen und Wangen sollten bedeckt sein.</div>
+        <div class="static-step-text">Inhala profundamente, contén la respiración y sumerge la cara durante 15–30 segundos — frente, ojos y mejillas cubiertos.<span class="bi-de" style="display:block; margin-top: 6px">Tief einatmen, Luft anhalten und das Gesicht für 15–30 Sekunden ins Wasser tauchen — Stirn, Augen und Wangen sollten bedeckt sein.</span></div>
       </div>
       <div class="static-card">
         <div class="static-step-num">3.</div>
-        <div class="static-step-text">Auftauchen, ruhig durch die Nase atmen. Bei Bedarf 2–3 Mal wiederholen.</div>
+        <div class="static-step-text">Sal del agua, respira tranquilamente por la nariz. Repite 2–3 veces si lo necesitas.<span class="bi-de" style="display:block; margin-top: 6px">Auftauchen, ruhig durch die Nase atmen. Bei Bedarf 2–3 Mal wiederholen.</span></div>
       </div>
       <div class="static-card">
-        <div class="static-step-num">Alternative</div>
-        <div class="static-step-text">Falls keine Schüssel da ist: ein kaltes, nasses Tuch fest auf Stirn und Wangen drücken, oder einen Eisbeutel an die Halsseiten halten.</div>
+        <div class="static-step-num">Alternativa</div>
+        <div class="static-step-text">Si no tienes un cuenco: aplica un paño frío y húmedo fuerte sobre frente y mejillas, o sujeta una bolsa de hielo a los lados del cuello.<span class="bi-de" style="display:block; margin-top: 6px">Falls keine Schüssel da ist: ein kaltes, nasses Tuch fest auf Stirn und Wangen drücken, oder einen Eisbeutel an die Halsseiten halten.</span></div>
       </div>
       <div class="info-box">
-        <div class="info-box-title">Warum das wirkt</div>
-        Kälte auf Stirn und Wangen löst den Tauchreflex aus — ein evolutionärer Mechanismus, der den Herzschlag verlangsamt und die parasympathische Aktivität sofort erhöht.
+        <div class="info-box-title">Por qué funciona<span class="bi-de" style="display: inline; margin-left: 8px">· Warum das wirkt</span></div>
+        El frío en la frente y las mejillas activa el reflejo de inmersión — un mecanismo evolutivo que ralentiza el latido cardíaco y aumenta la actividad parasimpática al instante.<span class="bi-de" style="display:block; margin-top: 6px">Kälte auf Stirn und Wangen löst den Tauchreflex aus — ein evolutionärer Mechanismus, der den Herzschlag verlangsamt und die parasympathische Aktivität sofort erhöht.</span>
       </div>
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-      <button class="completion-btn" onclick="completeStaticExercise()">Erledigt</button>
+      <button class="completion-btn" onclick="completeStaticExercise()">Hecho</button>
     </div>
   </div>
 
@@ -1339,7 +1388,7 @@
     <div class="exercise-top" style="margin-bottom: 12px;">
       <button class="nav-back" onclick="confirmStopJournal()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Beenden
+        Salir
       </button>
       <div class="exercise-title-bar">
         <div class="exercise-title-small" id="journalExerciseName"></div>
@@ -1351,7 +1400,7 @@
       <div class="journal-intro" id="journalIntro"></div>
       <div id="journalPrompts"></div>
       <div class="journal-actions">
-        <button class="completion-btn" onclick="saveJournal()">Speichern</button>
+        <button class="completion-btn" onclick="saveJournal()">Guardar</button>
       </div>
     </div>
   </div>
@@ -1361,13 +1410,13 @@
     <div class="exercise-top" style="margin-bottom: 4px;">
       <button class="nav-back" onclick="goHome()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Zurück
+        Volver
       </button>
       <div style="flex: 1;"></div>
     </div>
     <div class="screen-header">
-      <h2 class="screen-title">Tagebuch</h2>
-      <p class="screen-subtitle">Deine schriftlichen Einträge — chronologisch.</p>
+      <h2 class="screen-title">Diario<span class="bi-de" style="font-size: 14px; display: block; margin-top: 4px">Tagebuch</span></h2>
+      <p class="screen-subtitle">Tus entradas escritas, en orden cronológico.<br><span class="bi-de" style="font-size: 0.8em; opacity: 0.7">Deine schriftlichen Einträge — chronologisch.</span></p>
     </div>
 
     <div class="diary-filter" id="diaryFilter"></div>
@@ -1382,19 +1431,19 @@
       <circle cx="40" cy="40" r="12" stroke="#c97b5b" stroke-width="1" opacity="0.7"/>
       <circle cx="40" cy="40" r="4" fill="#c97b5b"/>
     </svg>
-    <h2 class="completion-title">Geschafft.</h2>
-    <p class="completion-text" id="completionText">Du hast dir gerade etwas Gutes getan. Spür einen Moment nach.</p>
-    <button class="completion-btn" onclick="goHome()">Zurück zum Start</button>
+    <h2 class="completion-title">Hecho.<span class="bi-de" style="display: block; font-size: 16px; margin-top: 4px">Geschafft.</span></h2>
+    <p class="completion-text" id="completionText"></p>
+    <button class="completion-btn" onclick="goHome()">Volver al inicio</button>
   </div>
 
   <!-- MODAL -->
   <div id="modalStop" class="modal-overlay hidden">
     <div class="modal">
-      <div class="modal-title">Übung beenden?</div>
-      <div class="modal-text">Du bist gerade mittendrin. Wirklich abbrechen?</div>
+      <div class="modal-title">¿Salir del ejercicio?<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Übung beenden?</span></div>
+      <div class="modal-text">Estás justo en medio. ¿Seguro que quieres salir?<br><span class="bi-de">Du bist gerade mittendrin. Wirklich abbrechen?</span></div>
       <div class="modal-actions">
-        <button class="modal-btn primary" onclick="confirmStopYes()">Ja, beenden</button>
-        <button class="modal-btn secondary" onclick="confirmStopNo()">Weitermachen</button>
+        <button class="modal-btn primary" onclick="confirmStopYes()">Sí, salir</button>
+        <button class="modal-btn secondary" onclick="confirmStopNo()">Continuar</button>
       </div>
     </div>
   </div>
@@ -1402,11 +1451,11 @@
   <!-- MODAL: Delete diary entry -->
   <div id="modalDelete" class="modal-overlay hidden">
     <div class="modal">
-      <div class="modal-title">Eintrag löschen?</div>
-      <div class="modal-text">Dieser Tagebuch-Eintrag wird endgültig entfernt.</div>
+      <div class="modal-title">¿Eliminar entrada?<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Eintrag löschen?</span></div>
+      <div class="modal-text">Esta entrada del diario se eliminará para siempre.<br><span class="bi-de">Dieser Tagebuch-Eintrag wird endgültig entfernt.</span></div>
       <div class="modal-actions">
-        <button class="modal-btn primary" onclick="confirmDeleteYes()">Ja, löschen</button>
-        <button class="modal-btn secondary" onclick="confirmDeleteNo()">Behalten</button>
+        <button class="modal-btn primary" onclick="confirmDeleteYes()">Sí, eliminar</button>
+        <button class="modal-btn secondary" onclick="confirmDeleteNo()">Mantener</button>
       </div>
     </div>
   </div>
@@ -1860,10 +1909,10 @@ function updateSoundUI() {
   const label = document.getElementById('soundLabel');
   if (state.soundEnabled) {
     btn.classList.add('active');
-    label.textContent = 'Ton an';
+    label.textContent = 'Sonido on';
   } else {
     btn.classList.remove('active');
-    label.textContent = 'Ton aus';
+    label.textContent = 'Sonido off';
   }
   updateSoundPickerUI();
 }
@@ -1871,44 +1920,44 @@ function updateSoundUI() {
 // ============ DATA: PILLARS & EXERCISES ============
 const PILLARS = {
   atmen: {
-    title: 'Atmen',
-    subtitle: 'Sechs Atemübungen, die das Nervensystem direkt erreichen.',
-    label: 'Atmen',
+    title: { es: 'Respirar', de: 'Atmen' },
+    subtitle: { es: 'Seis ejercicios de respiración que llegan directamente al sistema nervioso.', de: 'Sechs Atemübungen, die das Nervensystem direkt erreichen.' },
+    label: { es: 'Respirar', de: 'Atmen' },
     color: 'terracotta',
     exercises: ['physiological-sigh', 'box-breathing', '478-breathing', 'extended-exhale', 'vagus-humming', 'coherence']
   },
   ankommen: {
-    title: 'Ankommen',
-    subtitle: 'Aus dem Kopf zurück in den Körper und in den Raum.',
-    label: 'Ankommen',
+    title: { es: 'Llegar', de: 'Ankommen' },
+    subtitle: { es: 'Volver de la cabeza al cuerpo y al espacio que te rodea.', de: 'Aus dem Kopf zurück in den Körper und in den Raum.' },
+    label: { es: 'Llegar', de: 'Ankommen' },
     color: 'olive',
     exercises: ['grounding', 'body-scan', 'cold-face']
   },
   gedanken: {
-    title: 'Gedanken',
-    subtitle: 'Belastende Denkmuster sichtbar machen — und prüfen, ob sie stimmen.',
-    label: 'Gedanken',
+    title: { es: 'Pensamientos', de: 'Gedanken' },
+    subtitle: { es: 'Hacer visibles los patrones de pensamiento — y comprobar si son ciertos.', de: 'Belastende Denkmuster sichtbar machen — und prüfen, ob sie stimmen.' },
+    label: { es: 'Pensamientos', de: 'Gedanken' },
     color: 'sky',
     exercises: ['thought-record', 'cognitive-reframe']
   },
   dankbarkeit: {
-    title: 'Dankbarkeit',
-    subtitle: 'Wahrnehmen, was schon da ist. Eine der am besten erforschten Praktiken.',
-    label: 'Dankbarkeit',
+    title: { es: 'Gratitud', de: 'Dankbarkeit' },
+    subtitle: { es: 'Darse cuenta de lo que ya está aquí. Una de las prácticas más estudiadas.', de: 'Wahrnehmen, was schon da ist. Eine der am besten erforschten Praktiken.' },
+    label: { es: 'Gratitud', de: 'Dankbarkeit' },
     color: 'sand',
     exercises: ['three-good-things', 'gratitude-letter', 'small-joys']
   },
   staerkung: {
-    title: 'Stärkung',
-    subtitle: 'Werte, Stärken, Zukunft. Was dich trägt, sichtbar machen.',
-    label: 'Stärkung',
+    title: { es: 'Fortaleza', de: 'Stärkung' },
+    subtitle: { es: 'Valores, fortalezas, futuro. Hacer visible lo que te sostiene.', de: 'Werte, Stärken, Zukunft. Was dich trägt, sichtbar machen.' },
+    label: { es: 'Fortaleza', de: 'Stärkung' },
     color: 'plum',
     exercises: ['values-reflection', 'strengths-inventory', 'future-self']
   },
   mitgefuehl: {
-    title: 'Mitgefühl',
-    subtitle: 'Mit sich selbst so umgehen, wie mit einem geliebten Menschen.',
-    label: 'Mitgefühl',
+    title: { es: 'Compasión', de: 'Mitgefühl' },
+    subtitle: { es: 'Tratarte a ti misma como tratarías a alguien que quieres.', de: 'Mit sich selbst so umgehen, wie mit einem geliebten Menschen.' },
+    label: { es: 'Compasión', de: 'Mitgefühl' },
     color: 'rose',
     exercises: ['self-compassion-break', 'inner-friend']
   }
@@ -1917,274 +1966,293 @@ const PILLARS = {
 const EXERCISES = {
   // ============ ATMEN ============
   'physiological-sigh': {
-    name: 'Doppelseufzer', symbol: '~', meta: '2 Min · Stanford 2023',
-    tagline: 'Zweimal kurz einatmen, lang ausatmen. Kürzeste belegte Stress-Reduktion.',
+    name: { es: 'Suspiro fisiológico', de: 'Doppelseufzer' },
+    symbol: '~', meta: { es: '2 min · Stanford 2023', de: '2 Min · Stanford 2023' },
+    tagline: { es: 'Dos inhalaciones cortas, una exhalación larga. La técnica anti-estrés más rápida demostrada.', de: 'Zweimal kurz einatmen, lang ausatmen. Kürzeste belegte Stress-Reduktion.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 2500, label: 'Tief einatmen', circle: 'expand', sound: 'inhale' },
-      { phase: 'inhale2', duration: 1200, label: 'Nochmal kurz nach', circle: 'expand', sound: null },
-      { phase: 'exhale', duration: 6000, label: 'Lang ausatmen', circle: 'contract', sound: 'exhale' }
+      { phase: 'inhale', duration: 2500, label: { es: 'Inhala profundamente', de: 'Tief einatmen' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'inhale2', duration: 1200, label: { es: 'Una más, corta', de: 'Nochmal kurz nach' }, circle: 'expand', sound: null },
+      { phase: 'exhale', duration: 6000, label: { es: 'Exhala largo', de: 'Lang ausatmen' }, circle: 'contract', sound: 'exhale' }
     ],
     cycles: 12, droneFreq: 110
   },
   'box-breathing': {
-    name: 'Box-Atmung', symbol: '□', meta: '3 Min · Navy SEALs',
-    tagline: 'Vier gleichlange Phasen. Schafft Klarheit vor schweren Momenten.',
+    name: { es: 'Respiración cuadrada', de: 'Box-Atmung' },
+    symbol: '□', meta: { es: '3 min · Navy SEALs', de: '3 Min · Navy SEALs' },
+    tagline: { es: 'Cuatro fases iguales. Trae claridad antes de momentos difíciles.', de: 'Vier gleichlange Phasen. Schafft Klarheit vor schweren Momenten.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 4000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
-      { phase: 'hold1', duration: 4000, label: 'Halten', circle: 'hold', sound: 'hold' },
-      { phase: 'exhale', duration: 4000, label: 'Ausatmen', circle: 'contract', sound: 'exhale' },
-      { phase: 'hold2', duration: 4000, label: 'Halten', circle: 'hold', sound: 'hold' }
+      { phase: 'inhale', duration: 4000, label: { es: 'Inhala', de: 'Einatmen' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'hold1', duration: 4000, label: { es: 'Mantén', de: 'Halten' }, circle: 'hold', sound: 'hold' },
+      { phase: 'exhale', duration: 4000, label: { es: 'Exhala', de: 'Ausatmen' }, circle: 'contract', sound: 'exhale' },
+      { phase: 'hold2', duration: 4000, label: { es: 'Mantén', de: 'Halten' }, circle: 'hold', sound: 'hold' }
     ],
     cycles: 10, droneFreq: 110
   },
   '478-breathing': {
-    name: '4-7-8 Atmung', symbol: '◐', meta: '3 Min · Dr. Andrew Weil',
-    tagline: '4 ein, 7 halten, 8 aus. Gute Vorbereitung auf den Schlaf.',
+    name: { es: 'Respiración 4-7-8', de: '4-7-8 Atmung' },
+    symbol: '◐', meta: { es: '3 min · Dr. Andrew Weil', de: '3 Min · Dr. Andrew Weil' },
+    tagline: { es: '4 inhalar, 7 mantener, 8 exhalar. Buena preparación para dormir.', de: '4 ein, 7 halten, 8 aus. Gute Vorbereitung auf den Schlaf.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 4000, label: 'Einatmen durch die Nase', circle: 'expand', sound: 'inhale' },
-      { phase: 'hold', duration: 7000, label: 'Halten', circle: 'hold', sound: 'hold' },
-      { phase: 'exhale', duration: 8000, label: 'Durch den Mund ausatmen', circle: 'contract', sound: 'exhale' }
+      { phase: 'inhale', duration: 4000, label: { es: 'Inhala por la nariz', de: 'Einatmen durch die Nase' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'hold', duration: 7000, label: { es: 'Mantén', de: 'Halten' }, circle: 'hold', sound: 'hold' },
+      { phase: 'exhale', duration: 8000, label: { es: 'Exhala por la boca', de: 'Durch den Mund ausatmen' }, circle: 'contract', sound: 'exhale' }
     ],
     cycles: 6, droneFreq: 98
   },
   'extended-exhale': {
-    name: 'Lange Ausatmung', symbol: '∽', meta: '6 Min · 4 ein, 8 aus',
-    tagline: 'Doppelt so lang ausatmen wie einatmen. Senkt den Puls messbar.',
+    name: { es: 'Exhalación larga', de: 'Lange Ausatmung' },
+    symbol: '∽', meta: { es: '6 min · 4 inhalar, 8 exhalar', de: '6 Min · 4 ein, 8 aus' },
+    tagline: { es: 'Exhalar el doble de lo que inhalas. Baja el pulso de manera medible.', de: 'Doppelt so lang ausatmen wie einatmen. Senkt den Puls messbar.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 4000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
-      { phase: 'exhale', duration: 8000, label: 'Lang ausatmen', circle: 'contract', sound: 'exhale' }
+      { phase: 'inhale', duration: 4000, label: { es: 'Inhala', de: 'Einatmen' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 8000, label: { es: 'Exhala largo', de: 'Lang ausatmen' }, circle: 'contract', sound: 'exhale' }
     ],
     cycles: 25, droneFreq: 98
   },
   'vagus-humming': {
-    name: 'Summen', symbol: '♪', meta: '4 Min · Vagusnerv',
-    tagline: 'Beim Ausatmen "Mmmm" summen. Die Vibration aktiviert den Vagusnerv direkt.',
+    name: { es: 'Zumbido', de: 'Summen' },
+    symbol: '♪', meta: { es: '4 min · Nervio vago', de: '4 Min · Vagusnerv' },
+    tagline: { es: 'Tarareando "Mmmm" al exhalar. La vibración activa el nervio vago directamente.', de: 'Beim Ausatmen "Mmmm" summen. Die Vibration aktiviert den Vagusnerv direkt.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 3000, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
-      { phase: 'exhale', duration: 8000, label: 'Summen — "Mmmm..."', circle: 'contract', sound: null }
+      { phase: 'inhale', duration: 3000, label: { es: 'Inhala', de: 'Einatmen' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 8000, label: { es: 'Tararea — "Mmmm..."', de: 'Summen — "Mmmm..."' }, circle: 'contract', sound: null }
     ],
     cycles: 18, droneFreq: 110, circleClass: 'humming-circle'
   },
   'coherence': {
-    name: 'Kohärenz-Atmung', symbol: '○', meta: '5 Min · 5,5 ein · 5,5 aus',
-    tagline: 'Sechs Atemzüge pro Minute. Das Tempo, bei dem Herz und Gehirn sich abstimmen.',
+    name: { es: 'Respiración coherente', de: 'Kohärenz-Atmung' },
+    symbol: '○', meta: { es: '5 min · 5,5 inhalar · 5,5 exhalar', de: '5 Min · 5,5 ein · 5,5 aus' },
+    tagline: { es: 'Seis respiraciones por minuto. El ritmo donde el corazón y el cerebro se sincronizan.', de: 'Sechs Atemzüge pro Minute. Das Tempo, bei dem Herz und Gehirn sich abstimmen.' },
     type: 'breath',
     pattern: [
-      { phase: 'inhale', duration: 5500, label: 'Einatmen', circle: 'expand', sound: 'inhale' },
-      { phase: 'exhale', duration: 5500, label: 'Ausatmen', circle: 'contract', sound: 'exhale' }
+      { phase: 'inhale', duration: 5500, label: { es: 'Inhala', de: 'Einatmen' }, circle: 'expand', sound: 'inhale' },
+      { phase: 'exhale', duration: 5500, label: { es: 'Exhala', de: 'Ausatmen' }, circle: 'contract', sound: 'exhale' }
     ],
     cycles: 27, droneFreq: 110
   },
 
   // ============ ANKOMMEN ============
   'grounding': {
-    name: '5-4-3-2-1', symbol: '◈', meta: '3-5 Min',
-    tagline: 'Fünf Sinne durchgehen. Holt dich raus aus dem Kopf, rein in den Raum.',
+    name: { es: '5-4-3-2-1', de: '5-4-3-2-1' },
+    symbol: '◈', meta: { es: '3-5 min', de: '3-5 Min' },
+    tagline: { es: 'Recorrer los cinco sentidos. Te saca de la cabeza y te trae al espacio.', de: 'Fünf Sinne durchgehen. Holt dich raus aus dem Kopf, rein in den Raum.' },
     type: 'grounding'
   },
   'body-scan': {
-    name: 'Body Scan', symbol: '◇', meta: '5 Min · 10 Bereiche',
-    tagline: 'Mit der Aufmerksamkeit von der Stirn bis zu den Füßen wandern.',
+    name: { es: 'Body Scan', de: 'Body Scan' },
+    symbol: '◇', meta: { es: '5 min · 10 zonas', de: '5 Min · 10 Bereiche' },
+    tagline: { es: 'Llevar la atención de la frente hasta los pies, despacio.', de: 'Mit der Aufmerksamkeit von der Stirn bis zu den Füßen wandern.' },
     type: 'bodyscan', droneFreq: 98
   },
   'cold-face': {
-    name: 'Kalt-Reflex', symbol: '❄', meta: '1 Min · Tauchreflex',
-    tagline: 'Kaltes Wasser auf das Gesicht. Verlangsamt den Herzschlag in Sekunden.',
+    name: { es: 'Reflejo de frío', de: 'Kalt-Reflex' },
+    symbol: '❄', meta: { es: '1 min · Reflejo de inmersión', de: '1 Min · Tauchreflex' },
+    tagline: { es: 'Agua fría en la cara. Reduce el ritmo cardíaco en segundos.', de: 'Kaltes Wasser auf das Gesicht. Verlangsamt den Herzschlag in Sekunden.' },
     type: 'static', staticScreen: 'screen-coldface'
   },
 
   // ============ GEDANKEN ============
   'thought-record': {
-    name: 'Gedanken-Protokoll', symbol: '✎', meta: '5-10 Min · ABC-Modell',
-    tagline: 'Sechs Schritte aus der Verhaltenstherapie. Macht Gedanken sichtbar und prüfbar.',
+    name: { es: 'Registro de pensamientos', de: 'Gedanken-Protokoll' },
+    symbol: '✎', meta: { es: '5-10 min · Modelo ABC', de: '5-10 Min · ABC-Modell' },
+    tagline: { es: 'Seis pasos de la terapia cognitiva. Hace los pensamientos visibles y comprobables.', de: 'Sechs Schritte aus der Verhaltenstherapie. Macht Gedanken sichtbar und prüfbar.' },
     type: 'journal',
-    intro: 'Ein Werkzeug aus der kognitiven Verhaltenstherapie. Kein Frage muss perfekt beantwortet werden — schon das Aufschreiben hilft.',
+    intro: { es: 'Una herramienta de la terapia cognitivo-conductual. No hace falta responder a todo a la perfección — escribir ya ayuda.', de: 'Ein Werkzeug aus der kognitiven Verhaltenstherapie. Keine Frage muss perfekt beantwortet werden — schon das Aufschreiben hilft.' },
     prompts: [
-      { q: 'Die Situation', placeholder: 'Was ist passiert? Wann, wo, mit wem?' },
-      { q: 'Der automatische Gedanke', placeholder: 'Was ist mir spontan durch den Kopf geschossen?' },
-      { q: 'Das Gefühl dabei', placeholder: 'Welches Gefühl? Wie stark, von 1 bis 10?' },
-      { q: 'Was diesen Gedanken stützt', placeholder: 'Welche Beobachtungen sprechen dafür?' },
-      { q: 'Was dagegen spricht', placeholder: 'Was übersehe ich? Was würde jemand sagen, der mich gut kennt?' },
-      { q: 'Eine ausgewogenere Sicht', placeholder: 'Wie könnte ich das fairer formulieren?' }
+      { q: { es: 'La situación', de: 'Die Situation' }, placeholder: { es: '¿Qué pasó? ¿Cuándo, dónde, con quién?', de: 'Was ist passiert? Wann, wo, mit wem?' } },
+      { q: { es: 'El pensamiento automático', de: 'Der automatische Gedanke' }, placeholder: { es: '¿Qué se me cruzó por la cabeza?', de: 'Was ist mir spontan durch den Kopf geschossen?' } },
+      { q: { es: 'El sentimiento que apareció', de: 'Das Gefühl dabei' }, placeholder: { es: '¿Qué sentí? ¿Con qué intensidad, del 1 al 10?', de: 'Welches Gefühl? Wie stark, von 1 bis 10?' } },
+      { q: { es: 'Lo que apoya este pensamiento', de: 'Was diesen Gedanken stützt' }, placeholder: { es: '¿Qué hechos lo sostienen?', de: 'Welche Beobachtungen sprechen dafür?' } },
+      { q: { es: 'Lo que lo contradice', de: 'Was dagegen spricht' }, placeholder: { es: '¿Qué se me escapa? ¿Qué diría alguien que me conoce bien?', de: 'Was übersehe ich? Was würde jemand sagen, der mich gut kennt?' } },
+      { q: { es: 'Una visión más equilibrada', de: 'Eine ausgewogenere Sicht' }, placeholder: { es: '¿Cómo lo formularía con más justicia?', de: 'Wie könnte ich das fairer formulieren?' } }
     ]
   },
   'cognitive-reframe': {
-    name: 'Umdeuten', symbol: '↻', meta: '3-5 Min',
-    tagline: 'Einen schweren Gedanken aus der Distanz anschauen — und sanfter formulieren.',
+    name: { es: 'Reformular', de: 'Umdeuten' },
+    symbol: '↻', meta: { es: '3-5 min', de: '3-5 Min' },
+    tagline: { es: 'Mirar un pensamiento difícil desde la distancia — y formularlo con más suavidad.', de: 'Einen schweren Gedanken aus der Distanz anschauen — und sanfter formulieren.' },
     type: 'journal',
-    intro: 'Manche Gedanken fühlen sich an wie Wahrheit, sind aber Geschichten, die wir uns erzählen. Hier ist Platz, eine davon zu überprüfen.',
+    intro: { es: 'Algunos pensamientos parecen verdades, pero son historias que nos contamos. Aquí hay espacio para revisar una.', de: 'Manche Gedanken fühlen sich an wie Wahrheit, sind aber Geschichten, die wir uns erzählen. Hier ist Platz, eine davon zu überprüfen.' },
     prompts: [
-      { q: 'Welcher Gedanke belastet mich?', placeholder: 'Ohne ihn schöner zu machen.' },
-      { q: 'Ist das wirklich Tatsache — oder Interpretation?', placeholder: 'Welche Beweise habe ich? Welche fehlen?' },
-      { q: 'Was würde ich einer Freundin in dieser Lage sagen?', placeholder: 'Aus dem Mund eines Menschen, der dich mag.' },
-      { q: 'Eine genauere, fairere Variante', placeholder: 'Wie sieht der Gedanke aus, wenn ich ehrlich UND freundlich bin?' }
+      { q: { es: '¿Qué pensamiento me pesa?', de: 'Welcher Gedanke belastet mich?' }, placeholder: { es: 'Sin embellecerlo.', de: 'Ohne ihn schöner zu machen.' } },
+      { q: { es: '¿Es realmente un hecho — o una interpretación?', de: 'Ist das wirklich Tatsache — oder Interpretation?' }, placeholder: { es: '¿Qué pruebas tengo? ¿Cuáles me faltan?', de: 'Welche Beweise habe ich? Welche fehlen?' } },
+      { q: { es: '¿Qué le diría a una amiga en esta situación?', de: 'Was würde ich einer Freundin in dieser Lage sagen?' }, placeholder: { es: 'Desde la voz de alguien que te quiere.', de: 'Aus dem Mund eines Menschen, der dich mag.' } },
+      { q: { es: 'Una versión más justa y precisa', de: 'Eine genauere, fairere Variante' }, placeholder: { es: '¿Cómo se ve si soy honesta Y amable?', de: 'Wie sieht der Gedanke aus, wenn ich ehrlich UND freundlich bin?' } }
     ]
   },
 
   // ============ DANKBARKEIT ============
   'three-good-things': {
-    name: 'Drei gute Dinge', symbol: '✿', meta: '3 Min · Seligman 2005',
-    tagline: 'Drei Dinge aufschreiben, die heute gut waren. Wirkt nachweislich nach Wochen.',
+    name: { es: 'Tres cosas buenas', de: 'Drei gute Dinge' },
+    symbol: '✿', meta: { es: '3 min · Seligman 2005', de: '3 Min · Seligman 2005' },
+    tagline: { es: 'Anotar tres cosas que estuvieron bien hoy. Demostrablemente eficaz a largo plazo.', de: 'Drei Dinge aufschreiben, die heute gut waren. Wirkt nachweislich nach Wochen.' },
     type: 'journal',
-    intro: 'Was war heute schön? Klein zählt. Selbst nur "der erste Schluck Kaffee" zählt.',
+    intro: { es: '¿Qué fue bonito hoy? Lo pequeño cuenta. Hasta "el primer sorbo de café" cuenta.', de: 'Was war heute schön? Klein zählt. Selbst nur "der erste Schluck Kaffee" zählt.' },
     prompts: [
-      { q: 'Eine Sache, die heute gut lief', placeholder: 'Was hat funktioniert?' },
-      { q: 'Ein Moment, der mich kurz lächeln ließ', placeholder: 'Ein Geräusch, ein Mensch, ein Bild.' },
-      { q: 'Etwas, was ich oft übersehe', placeholder: 'Was ist da, was ich für selbstverständlich halte?' }
+      { q: { es: 'Algo que salió bien hoy', de: 'Eine Sache, die heute gut lief' }, placeholder: { es: '¿Qué funcionó?', de: 'Was hat funktioniert?' } },
+      { q: { es: 'Un momento que me hizo sonreír', de: 'Ein Moment, der mich kurz lächeln ließ' }, placeholder: { es: 'Un sonido, una persona, una imagen.', de: 'Ein Geräusch, ein Mensch, ein Bild.' } },
+      { q: { es: 'Algo que suelo pasar por alto', de: 'Etwas, was ich oft übersehe' }, placeholder: { es: '¿Qué tengo que doy por sentado?', de: 'Was ist da, was ich für selbstverständlich halte?' } }
     ]
   },
   'gratitude-letter': {
-    name: 'Wertschätzungs-Brief', symbol: '✉', meta: '10 Min · Seligman-Studie',
-    tagline: 'An jemanden schreiben, dem du nie genug gedankt hast. Wirkt bis zu einem Monat.',
+    name: { es: 'Carta de gratitud', de: 'Wertschätzungs-Brief' },
+    symbol: '✉', meta: { es: '10 min · Estudio Seligman', de: '10 Min · Seligman-Studie' },
+    tagline: { es: 'Escribir a alguien a quien nunca le agradeciste lo suficiente. Efecto hasta un mes.', de: 'An jemanden schreiben, dem du nie genug gedankt hast. Wirkt bis zu einem Monat.' },
     type: 'journal',
-    intro: 'Es gibt einen Menschen, der dir etwas gegeben hat — Zeit, Aufmerksamkeit, einen Rat. Vielleicht weiß er es selbst nicht. Schreib es hier auf.',
+    intro: { es: 'Hay alguien que te dio algo — tiempo, atención, un consejo. Quizá ni lo sabe. Escríbelo aquí.', de: 'Es gibt einen Menschen, der dir etwas gegeben hat — Zeit, Aufmerksamkeit, einen Rat. Vielleicht weiß er es selbst nicht. Schreib es hier auf.' },
     prompts: [
-      { q: 'An wen denke ich?', placeholder: 'Name, Beziehung — wie immer du willst.' },
-      { q: 'Was hat diese Person konkret getan?', placeholder: 'Eine Situation, ein Wort, eine Geste.' },
-      { q: 'Was hat sich dadurch in meinem Leben verändert?', placeholder: 'Auch wenn der Effekt klein ist.' },
-      { q: 'Was würde ich gern sagen, wenn ich es jetzt könnte?', placeholder: 'In meinen Worten, ohne sie zu polieren.' }
+      { q: { es: '¿En quién pienso?', de: 'An wen denke ich?' }, placeholder: { es: 'Nombre, relación — como prefieras.', de: 'Name, Beziehung — wie immer du willst.' } },
+      { q: { es: '¿Qué hizo concretamente esta persona?', de: 'Was hat diese Person konkret getan?' }, placeholder: { es: 'Una situación, una palabra, un gesto.', de: 'Eine Situation, ein Wort, eine Geste.' } },
+      { q: { es: '¿Qué cambió en mi vida gracias a eso?', de: 'Was hat sich dadurch in meinem Leben verändert?' }, placeholder: { es: 'Aunque el efecto sea pequeño.', de: 'Auch wenn der Effekt klein ist.' } },
+      { q: { es: '¿Qué me gustaría decirle si pudiera ahora?', de: 'Was würde ich gern sagen, wenn ich es jetzt könnte?' }, placeholder: { es: 'Con mis palabras, sin pulirlas.', de: 'In meinen Worten, ohne sie zu polieren.' } }
     ]
   },
   'small-joys': {
-    name: 'Kleine Freuden', symbol: '☼', meta: '2 Min · Mikro-Praxis',
-    tagline: 'Drei sinnliche Momente von heute. Trainiert die Wahrnehmung.',
+    name: { es: 'Pequeñas alegrías', de: 'Kleine Freuden' },
+    symbol: '☼', meta: { es: '2 min · Micro-práctica', de: '2 Min · Mikro-Praxis' },
+    tagline: { es: 'Tres momentos sensoriales del día. Entrena la percepción.', de: 'Drei sinnliche Momente von heute. Trainiert die Wahrnehmung.' },
     type: 'journal',
-    intro: 'Drei kleine Freuden aus heute — Geschmack, Klang, Berührung. Was hat dein Körper genossen?',
+    intro: { es: 'Tres pequeñas alegrías de hoy — sabor, sonido, tacto. ¿Qué disfrutó tu cuerpo?', de: 'Drei kleine Freuden aus heute — Geschmack, Klang, Berührung. Was hat dein Körper genossen?' },
     prompts: [
-      { q: 'Etwas, das gut geschmeckt hat', placeholder: 'Geschmack, Wärme, Konsistenz.' },
-      { q: 'Etwas, das ich gesehen oder gehört habe', placeholder: 'Licht, Klang, Bewegung.' },
-      { q: 'Etwas, das sich gut auf der Haut angefühlt hat', placeholder: 'Stoff, Wasser, Sonne, Bewegung.' }
+      { q: { es: 'Algo que me supo bien', de: 'Etwas, das gut geschmeckt hat' }, placeholder: { es: 'Sabor, calor, textura.', de: 'Geschmack, Wärme, Konsistenz.' } },
+      { q: { es: 'Algo que vi o escuché', de: 'Etwas, das ich gesehen oder gehört habe' }, placeholder: { es: 'Luz, sonido, movimiento.', de: 'Licht, Klang, Bewegung.' } },
+      { q: { es: 'Algo que sentí bien sobre la piel', de: 'Etwas, das sich gut auf der Haut angefühlt hat' }, placeholder: { es: 'Tela, agua, sol, movimiento.', de: 'Stoff, Wasser, Sonne, Bewegung.' } }
     ]
   },
 
   // ============ STÄRKUNG ============
   'values-reflection': {
-    name: 'Was mir wichtig ist', symbol: '◊', meta: '5-10 Min · Werte',
-    tagline: 'Eigene Werte aufschreiben. Aktiviert nachweislich das Selbstwert-System im Gehirn.',
+    name: { es: 'Lo que me importa', de: 'Was mir wichtig ist' },
+    symbol: '◊', meta: { es: '5-10 min · Valores', de: '5-10 Min · Werte' },
+    tagline: { es: 'Anotar los propios valores. Activa demostrablemente el sistema de autoestima en el cerebro.', de: 'Eigene Werte aufschreiben. Aktiviert nachweislich das Selbstwert-System im Gehirn.' },
     type: 'journal',
-    intro: 'Werte sind keine Ziele, sondern eine Richtung. Wer klar weiß, wofür er steht, lebt mit weniger innerem Reibung.',
+    intro: { es: 'Los valores no son metas, sino una dirección. Quien sabe claramente lo que defiende, vive con menos fricción interna.', de: 'Werte sind keine Ziele, sondern eine Richtung. Wer klar weiß, wofür er steht, lebt mit weniger innerem Reibung.' },
     prompts: [
-      { q: 'Was war mir heute wichtig?', placeholder: 'Auch wenn ich es nicht erreicht habe.' },
-      { q: 'Wann habe ich heute "im Einklang mit mir" gehandelt?', placeholder: 'Eine Entscheidung, die sich richtig anfühlte.' },
-      { q: 'Drei Worte, die mich beschreiben, wenn ich ich selbst bin', placeholder: 'z.B. ehrlich, neugierig, mutig, ruhig — was passt?' }
+      { q: { es: '¿Qué fue importante para mí hoy?', de: 'Was war mir heute wichtig?' }, placeholder: { es: 'Aunque no lo haya conseguido.', de: 'Auch wenn ich es nicht erreicht habe.' } },
+      { q: { es: '¿Cuándo actué hoy "en línea conmigo misma"?', de: 'Wann habe ich heute "im Einklang mit mir" gehandelt?' }, placeholder: { es: 'Una decisión que se sintió correcta.', de: 'Eine Entscheidung, die sich richtig anfühlte.' } },
+      { q: { es: 'Tres palabras que me describen cuando soy yo misma', de: 'Drei Worte, die mich beschreiben, wenn ich ich selbst bin' }, placeholder: { es: 'p. ej. honesta, curiosa, valiente, tranquila — ¿qué encaja?', de: 'z.B. ehrlich, neugierig, mutig, ruhig — was passt?' } }
     ]
   },
   'strengths-inventory': {
-    name: 'Meine Stärken', symbol: '✦', meta: '5 Min',
-    tagline: 'Was du heute geleistet hast — auch wenn niemand sonst es gesehen hat.',
+    name: { es: 'Mis fortalezas', de: 'Meine Stärken' },
+    symbol: '✦', meta: { es: '5 min', de: '5 Min' },
+    tagline: { es: 'Lo que hiciste hoy — aunque nadie más lo viera.', de: 'Was du heute geleistet hast — auch wenn niemand sonst es gesehen hat.' },
     type: 'journal',
-    intro: 'Stärken sind selten laut. Manchmal zeigen sie sich darin, dass du aufgestanden bist oder ruhig geblieben bist. Was war heute deine?',
+    intro: { es: 'Las fortalezas casi nunca son ruidosas. A veces se muestran en levantarte o en mantener la calma. ¿Cuál fue la tuya hoy?', de: 'Stärken sind selten laut. Manchmal zeigen sie sich darin, dass du aufgestanden bist oder ruhig geblieben bist. Was war heute deine?' },
     prompts: [
-      { q: 'Eine Sache, auf die ich heute ein bisschen stolz bin', placeholder: 'Auch winzig.' },
-      { q: 'Wann war ich heute mutig, geduldig oder freundlich?', placeholder: 'Mir oder anderen gegenüber.' },
-      { q: 'Was war heute schwer, ohne dass ich es gemerkt habe?', placeholder: 'Was habe ich einfach durchgezogen?' }
+      { q: { es: 'Algo de lo que estoy un poco orgullosa hoy', de: 'Eine Sache, auf die ich heute ein bisschen stolz bin' }, placeholder: { es: 'Por pequeño que sea.', de: 'Auch winzig.' } },
+      { q: { es: '¿Cuándo fui hoy valiente, paciente o amable?', de: 'Wann war ich heute mutig, geduldig oder freundlich?' }, placeholder: { es: 'Conmigo o con otros.', de: 'Mir oder anderen gegenüber.' } },
+      { q: { es: '¿Qué fue difícil hoy sin que me diera cuenta?', de: 'Was war heute schwer, ohne dass ich es gemerkt habe?' }, placeholder: { es: '¿Qué hice y simplemente seguí adelante?', de: 'Was habe ich einfach durchgezogen?' } }
     ]
   },
   'future-self': {
-    name: 'Mein Zukunfts-Ich', symbol: '◯', meta: '10 Min · Visualisierung',
-    tagline: 'Eine Version von dir in einem Jahr — wie sie lebt und was sie dir sagen würde.',
+    name: { es: 'Mi yo futuro', de: 'Mein Zukunfts-Ich' },
+    symbol: '◯', meta: { es: '10 min · Visualización', de: '10 Min · Visualisierung' },
+    tagline: { es: 'Una versión de ti dentro de un año — cómo vive y qué te diría.', de: 'Eine Version von dir in einem Jahr — wie sie lebt und was sie dir sagen würde.' },
     type: 'journal',
-    intro: 'Stell dir die Person vor, die du in einem Jahr sein willst. Sie ist nicht weit weg — sie wartet darauf, dass du den Weg dahin nimmst.',
+    intro: { es: 'Imagínate la persona que quieres ser dentro de un año. No está lejos — espera a que tomes el camino hacia ella.', de: 'Stell dir die Person vor, die du in einem Jahr sein willst. Sie ist nicht weit weg — sie wartet darauf, dass du den Weg dahin nimmst.' },
     prompts: [
-      { q: 'Wie sieht ihr Morgen aus?', placeholder: 'Wo wacht sie auf, was hört sie?' },
-      { q: 'Was tut sie, was ihr Energie gibt?', placeholder: 'Beruflich, körperlich, mit anderen.' },
-      { q: 'Was hat sie losgelassen?', placeholder: 'Eine Gewohnheit, eine Sicht auf sich, einen Kontakt.' },
-      { q: 'Was würde sie mir heute zuflüstern?', placeholder: 'Ein Satz von ihr an mich.' }
+      { q: { es: '¿Cómo es su mañana?', de: 'Wie sieht ihr Morgen aus?' }, placeholder: { es: '¿Dónde se despierta, qué escucha?', de: 'Wo wacht sie auf, was hört sie?' } },
+      { q: { es: '¿Qué hace que le da energía?', de: 'Was tut sie, was ihr Energie gibt?' }, placeholder: { es: 'Profesional, físico, con otros.', de: 'Beruflich, körperlich, mit anderen.' } },
+      { q: { es: '¿Qué ha soltado?', de: 'Was hat sie losgelassen?' }, placeholder: { es: 'Un hábito, una visión de sí, un contacto.', de: 'Eine Gewohnheit, eine Sicht auf sich, einen Kontakt.' } },
+      { q: { es: '¿Qué me susurraría hoy?', de: 'Was würde sie mir heute zuflüstern?' }, placeholder: { es: 'Una frase suya para mí.', de: 'Ein Satz von ihr an mich.' } }
     ]
   },
 
   // ============ MITGEFÜHL ============
   'self-compassion-break': {
-    name: 'Mitgefühl-Pause', symbol: '♡', meta: '3 Min · Kristin Neff',
-    tagline: 'Drei Sätze für schwere Momente. In Studien: Stress -24%.',
+    name: { es: 'Pausa de compasión', de: 'Mitgefühl-Pause' },
+    symbol: '♡', meta: { es: '3 min · Kristin Neff', de: '3 Min · Kristin Neff' },
+    tagline: { es: 'Tres frases para momentos difíciles. En estudios: estrés -24%.', de: 'Drei Sätze für schwere Momente. In Studien: Stress -24%.' },
     type: 'journal',
-    intro: 'Drei Schritte nach Kristin Neff. Du sagst dir selbst, was eine gute Freundin sagen würde — laut, im Kopf oder schriftlich.',
+    intro: { es: 'Tres pasos según Kristin Neff. Te dices a ti misma lo que te diría una buena amiga — en voz alta, mentalmente o por escrito.', de: 'Drei Schritte nach Kristin Neff. Du sagst dir selbst, was eine gute Freundin sagen würde — laut, im Kopf oder schriftlich.' },
     prompts: [
-      { q: '1. Anerkennen: Was tut gerade weh?', placeholder: '"Das ist gerade schwer." Sag, was los ist.' },
-      { q: '2. Verbundenheit: Wer fühlt das auch?', placeholder: '"Das geht vielen so." Du bist nicht allein damit.' },
-      { q: '3. Freundlichkeit: Was brauche ich jetzt?', placeholder: '"Möge ich gut zu mir sein." Was wäre jetzt nährend?' }
+      { q: { es: '1. Reconocer: ¿qué duele ahora?', de: '1. Anerkennen: Was tut gerade weh?' }, placeholder: { es: '"Esto es duro ahora." Di lo que pasa.', de: '"Das ist gerade schwer." Sag, was los ist.' } },
+      { q: { es: '2. Conexión: ¿quién más siente esto?', de: '2. Verbundenheit: Wer fühlt das auch?' }, placeholder: { es: '"Le pasa a mucha gente." No estás sola.', de: '"Das geht vielen so." Du bist nicht allein damit.' } },
+      { q: { es: '3. Amabilidad: ¿qué necesito ahora?', de: '3. Freundlichkeit: Was brauche ich jetzt?' }, placeholder: { es: '"Que sea buena conmigo." ¿Qué me nutriría ahora?', de: '"Möge ich gut zu mir sein." Was wäre jetzt nährend?' } }
     ]
   },
   'inner-friend': {
-    name: 'Innerer Freund', symbol: '♥', meta: '5 Min · Brief an dich',
-    tagline: 'Ein Brief von einer liebevollen Stimme — geschrieben von dir, an dich.',
+    name: { es: 'Amiga interior', de: 'Innerer Freund' },
+    symbol: '♥', meta: { es: '5 min · Carta a ti misma', de: '5 Min · Brief an dich' },
+    tagline: { es: 'Una carta de una voz amable — escrita por ti, para ti.', de: 'Ein Brief von einer liebevollen Stimme — geschrieben von dir, an dich.' },
     type: 'journal',
-    intro: 'Stell dir vor, eine sehr liebevolle Freundin sieht dich gerade in dem, was du durchmachst. Hier schreibt sie dir.',
+    intro: { es: 'Imagínate que una amiga muy querida te ve ahora mismo en lo que estás pasando. Aquí te escribe ella.', de: 'Stell dir vor, eine sehr liebevolle Freundin sieht dich gerade in dem, was du durchmachst. Hier schreibt sie dir.' },
     prompts: [
-      { q: 'Was sieht sie an mir, was ich oft übersehe?', placeholder: 'Was würde sie wertschätzen?' },
-      { q: 'Was würde sie zu meiner härtesten Selbstkritik sagen?', placeholder: 'Mit Wärme, nicht mit Härte.' },
-      { q: 'Was wünscht sie mir gerade?', placeholder: 'Welchen Wunsch hätte sie für mich?' }
+      { q: { es: '¿Qué ve ella en mí que yo paso por alto?', de: 'Was sieht sie an mir, was ich oft übersehe?' }, placeholder: { es: '¿Qué valoraría?', de: 'Was würde sie wertschätzen?' } },
+      { q: { es: '¿Qué le diría a mi crítica más dura?', de: 'Was würde sie zu meiner härtesten Selbstkritik sagen?' }, placeholder: { es: 'Con calidez, no con dureza.', de: 'Mit Wärme, nicht mit Härte.' } },
+      { q: { es: '¿Qué me desea ahora?', de: 'Was wünscht sie mir gerade?' }, placeholder: { es: '¿Qué deseo tendría para mí?', de: 'Welchen Wunsch hätte sie für mich?' } }
     ]
   }
 };
 
 // ============ GROUNDING / BODYSCAN DATA ============
 const GROUNDING_STEPS = [
-  { num: 5, sense: 'Sehen', prompt: 'Schau dich um — finde 5 Dinge, die du sehen kannst. Nimm dir Zeit.' },
-  { num: 4, sense: 'Spüren', prompt: 'Berühre 4 Dinge. Spür die Textur, die Temperatur, das Gewicht.' },
-  { num: 3, sense: 'Hören', prompt: 'Lausche — welche 3 Geräusche nimmst du wahr? Auch die leisen.' },
-  { num: 2, sense: 'Riechen', prompt: 'Atme bewusst durch die Nase. Welche 2 Gerüche sind da?' },
-  { num: 1, sense: 'Schmecken', prompt: 'Bemerke einen Geschmack im Mund. Du bist hier. Du bist da.' }
+  { num: 5, sense: { es: 'Ver', de: 'Sehen' }, prompt: { es: 'Mira a tu alrededor — encuentra 5 cosas que puedas ver. Tómate tu tiempo.', de: 'Schau dich um — finde 5 Dinge, die du sehen kannst. Nimm dir Zeit.' } },
+  { num: 4, sense: { es: 'Tocar', de: 'Spüren' }, prompt: { es: 'Toca 4 cosas. Siente la textura, la temperatura, el peso.', de: 'Berühre 4 Dinge. Spür die Textur, die Temperatur, das Gewicht.' } },
+  { num: 3, sense: { es: 'Oír', de: 'Hören' }, prompt: { es: 'Escucha — ¿qué 3 sonidos percibes? También los suaves.', de: 'Lausche — welche 3 Geräusche nimmst du wahr? Auch die leisen.' } },
+  { num: 2, sense: { es: 'Oler', de: 'Riechen' }, prompt: { es: 'Respira conscientemente por la nariz. ¿Qué 2 olores hay?', de: 'Atme bewusst durch die Nase. Welche 2 Gerüche sind da?' } },
+  { num: 1, sense: { es: 'Saborear', de: 'Schmecken' }, prompt: { es: 'Nota un sabor en la boca. Estás aquí. Estás presente.', de: 'Bemerke einen Geschmack im Mund. Du bist hier. Du bist da.' } }
 ];
 
 const BODYSCAN_AREAS = [
-  { area: 'Stirn & Augen', instruction: 'Spür deine Stirn. Lass die Falte zwischen den Augenbrauen weich werden.' },
-  { area: 'Kiefer', instruction: 'Öffne den Mund leicht. Lass den Kiefer schwer werden, die Zunge entspannen.' },
-  { area: 'Nacken', instruction: 'Atme in deinen Nacken. Lass die Schultern fallen — sie dürfen schwer sein.' },
-  { area: 'Brust', instruction: 'Spür deinen Brustkorb beim Atmen. Sanft. Ohne Eile.' },
-  { area: 'Bauch', instruction: 'Leg innerlich die Hand auf den Bauch. Lass ihn weich werden.' },
-  { area: 'Rücken', instruction: 'Wandere durch deinen Rücken — von oben bis ins Kreuz. Loslassen.' },
-  { area: 'Arme & Hände', instruction: 'Spür deine Arme schwer werden. Jeder Finger einzeln.' },
-  { area: 'Beine', instruction: 'Wandere weiter — Oberschenkel, Knie, Waden. Lass los.' },
-  { area: 'Füße', instruction: 'Komm an in den Füßen. Sie tragen dich. Spür den Boden.' },
-  { area: 'Ganzer Körper', instruction: 'Spür deinen ganzen Körper auf einmal. Du bist hier. Atme.' }
+  { area: { es: 'Frente y ojos', de: 'Stirn & Augen' }, instruction: { es: 'Siente la frente. Deja que la arruga entre las cejas se afloje.', de: 'Spür deine Stirn. Lass die Falte zwischen den Augenbrauen weich werden.' } },
+  { area: { es: 'Mandíbula', de: 'Kiefer' }, instruction: { es: 'Abre la boca un poco. Deja la mandíbula pesada, la lengua relajada.', de: 'Öffne den Mund leicht. Lass den Kiefer schwer werden, die Zunge entspannen.' } },
+  { area: { es: 'Cuello', de: 'Nacken' }, instruction: { es: 'Respira hacia el cuello. Deja caer los hombros — pueden ser pesados.', de: 'Atme in deinen Nacken. Lass die Schultern fallen — sie dürfen schwer sein.' } },
+  { area: { es: 'Pecho', de: 'Brust' }, instruction: { es: 'Siente el pecho al respirar. Suave. Sin prisa.', de: 'Spür deinen Brustkorb beim Atmen. Sanft. Ohne Eile.' } },
+  { area: { es: 'Vientre', de: 'Bauch' }, instruction: { es: 'Pon mentalmente la mano en el vientre. Deja que se ablande.', de: 'Leg innerlich die Hand auf den Bauch. Lass ihn weich werden.' } },
+  { area: { es: 'Espalda', de: 'Rücken' }, instruction: { es: 'Recorre la espalda — desde arriba hasta el sacro. Soltar.', de: 'Wandere durch deinen Rücken — von oben bis ins Kreuz. Loslassen.' } },
+  { area: { es: 'Brazos y manos', de: 'Arme & Hände' }, instruction: { es: 'Siente los brazos pesados. Cada dedo individualmente.', de: 'Spür deine Arme schwer werden. Jeder Finger einzeln.' } },
+  { area: { es: 'Piernas', de: 'Beine' }, instruction: { es: 'Sigue bajando — muslos, rodillas, pantorrillas. Soltar.', de: 'Wandere weiter — Oberschenkel, Knie, Waden. Lass los.' } },
+  { area: { es: 'Pies', de: 'Füße' }, instruction: { es: 'Llega a los pies. Te sostienen. Siente el suelo.', de: 'Komm an in den Füßen. Sie tragen dich. Spür den Boden.' } },
+  { area: { es: 'Cuerpo entero', de: 'Ganzer Körper' }, instruction: { es: 'Siente todo el cuerpo a la vez. Estás aquí. Respira.', de: 'Spür deinen ganzen Körper auf einmal. Du bist hier. Atme.' } }
 ];
 
 const GREETINGS = [
   // Stoa & Antike
-  { text: 'Es gibt für den Menschen keine ungestörtere Zufluchtsstätte als seine eigene Seele.', author: 'Marc Aurel' },
-  { text: 'Beginne jeden Tag mit der festen Absicht, dich nicht aus der Ruhe bringen zu lassen.', author: 'Marc Aurel' },
-  { text: 'Unser Leben ist das, wozu unser Denken es macht.', author: 'Marc Aurel' },
-  { text: 'Es ist nicht wenig Zeit, die wir haben, sondern es ist viel Zeit, die wir nicht nutzen.', author: 'Seneca' },
-  { text: 'Dankbarkeit ist nicht nur die größte aller Tugenden, sondern auch die Mutter aller anderen.', author: 'Cicero' },
-  { text: 'Wahrer Reichtum besteht darin, mit dem zufrieden zu sein, was man hat.', author: 'Sokrates' },
+  { text: { es: 'No hay refugio más tranquilo para el ser humano que su propia alma.', de: 'Es gibt für den Menschen keine ungestörtere Zufluchtsstätte als seine eigene Seele.' }, author: 'Marco Aurelio' },
+  { text: { es: 'Comienza cada día con la firme intención de no dejarte alterar.', de: 'Beginne jeden Tag mit der festen Absicht, dich nicht aus der Ruhe bringen zu lassen.' }, author: 'Marco Aurelio' },
+  { text: { es: 'Nuestra vida es lo que nuestro pensamiento hace de ella.', de: 'Unser Leben ist das, wozu unser Denken es macht.' }, author: 'Marco Aurelio' },
+  { text: { es: 'No tenemos poco tiempo, sino que perdemos mucho.', de: 'Es ist nicht wenig Zeit, die wir haben, sondern es ist viel Zeit, die wir nicht nutzen.' }, author: 'Séneca' },
+  { text: { es: 'La gratitud no es solo la mayor de las virtudes, sino la madre de todas las demás.', de: 'Dankbarkeit ist nicht nur die größte aller Tugenden, sondern auch die Mutter aller anderen.' }, author: 'Cicerón' },
+  { text: { es: 'La verdadera riqueza consiste en estar contento con lo que se tiene.', de: 'Wahrer Reichtum besteht darin, mit dem zufrieden zu sein, was man hat.' }, author: 'Sócrates' },
 
   // Östliche Weisheit
-  { text: 'Hast du die Geduld zu warten, bis sich der Schlamm setzt und das Wasser klar wird?', author: 'Laotse' },
-  { text: 'Stille ist die Herrin der Bewegung.', author: 'Laotse' },
-  { text: 'Atme ein und du weißt, dass du am Leben bist. Atme aus und du weißt, dass das Leben dich trägt.', author: 'Thích Nhất Hạnh' },
-  { text: 'Der gegenwärtige Moment ist immer voller Wunder.', author: 'Thích Nhất Hạnh' },
-  { text: 'Die Wunde ist der Ort, an dem das Licht in dich eintritt.', author: 'Rumi' },
-  { text: 'Du selbst, genauso wie irgendjemand im ganzen Universum, verdienst deine Liebe und Zuneigung.', author: 'Buddha' },
-  { text: 'Wer andere kennt, ist klug. Wer sich selbst kennt, ist weise.', author: 'Laotse' },
+  { text: { es: '¿Tienes la paciencia de esperar hasta que el barro se asiente y el agua se aclare?', de: 'Hast du die Geduld zu warten, bis sich der Schlamm setzt und das Wasser klar wird?' }, author: 'Lao-Tsé' },
+  { text: { es: 'El silencio es el dueño del movimiento.', de: 'Stille ist die Herrin der Bewegung.' }, author: 'Lao-Tsé' },
+  { text: { es: 'Inhala y sabes que estás vivo. Exhala y sabes que la vida te sostiene.', de: 'Atme ein und du weißt, dass du am Leben bist. Atme aus und du weißt, dass das Leben dich trägt.' }, author: 'Thich Nhat Hanh' },
+  { text: { es: 'El momento presente siempre está lleno de maravillas.', de: 'Der gegenwärtige Moment ist immer voller Wunder.' }, author: 'Thich Nhat Hanh' },
+  { text: { es: 'La herida es el lugar por donde la luz entra en ti.', de: 'Die Wunde ist der Ort, an dem das Licht in dich eintritt.' }, author: 'Rumi' },
+  { text: { es: 'Tú, igual que cualquiera en el universo entero, mereces tu amor y tu cariño.', de: 'Du selbst, genauso wie irgendjemand im ganzen Universum, verdienst deine Liebe und Zuneigung.' }, author: 'Buda' },
+  { text: { es: 'Quien conoce a otros es inteligente. Quien se conoce a sí mismo es sabio.', de: 'Wer andere kennt, ist klug. Wer sich selbst kennt, ist weise.' }, author: 'Lao-Tsé' },
 
   // Moderne Denker:innen
-  { text: 'Du musst das Leben nicht verstehen, dann wird es werden wie ein Fest.', author: 'Rainer Maria Rilke' },
-  { text: 'In jedem Anfang wohnt ein Zauber inne.', author: 'Hermann Hesse' },
-  { text: 'Realisiere tief, dass der gegenwärtige Moment alles ist, was du jemals hast.', author: 'Eckhart Tolle' },
-  { text: 'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.', author: 'Jon Kabat-Zinn' },
-  { text: 'Die einzige wahre Sicherheit liegt nicht im Besitz, sondern in der inneren Ruhe.', author: 'Etty Hillesum' },
-  { text: 'Behandle dich selbst mit der gleichen Freundlichkeit, die du einem guten Freund schenken würdest.', author: 'Kristin Neff' },
-  { text: 'Wenn wir uns nicht selbst lieben können, wie sollen wir andere lieben?', author: 'Thích Nhất Hạnh' },
-  { text: 'Niemand kann dir Frieden bringen außer dir selbst.', author: 'Ralph Waldo Emerson' },
-  { text: 'Was wir denken, werden wir.', author: 'Buddha' },
-  { text: 'Im Innehalten liegt die Antwort.', author: 'Rilke' },
-  { text: 'Zwischen Reiz und Reaktion liegt ein Raum. In diesem Raum liegt unsere Macht, unsere Antwort zu wählen.', author: 'Viktor Frankl' },
-  { text: 'Wer ein Warum zu leben hat, erträgt fast jedes Wie.', author: 'Friedrich Nietzsche' }
+  { text: { es: 'No tienes que entender la vida, entonces se convertirá en una fiesta.', de: 'Du musst das Leben nicht verstehen, dann wird es werden wie ein Fest.' }, author: 'Rainer Maria Rilke' },
+  { text: { es: 'En cada comienzo habita una magia.', de: 'In jedem Anfang wohnt ein Zauber inne.' }, author: 'Hermann Hesse' },
+  { text: { es: 'Date cuenta profundamente de que el momento presente es todo lo que tienes.', de: 'Realisiere tief, dass der gegenwärtige Moment alles ist, was du jemals hast.' }, author: 'Eckhart Tolle' },
+  { text: { es: 'No puedes detener las olas, pero puedes aprender a surfear.', de: 'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.' }, author: 'Jon Kabat-Zinn' },
+  { text: { es: 'La única seguridad verdadera no está en lo que se posee, sino en la calma interior.', de: 'Die einzige wahre Sicherheit liegt nicht im Besitz, sondern in der inneren Ruhe.' }, author: 'Etty Hillesum' },
+  { text: { es: 'Trátate a ti misma con la misma amabilidad que le darías a un buen amigo.', de: 'Behandle dich selbst mit der gleichen Freundlichkeit, die du einem guten Freund schenken würdest.' }, author: 'Kristin Neff' },
+  { text: { es: 'Si no podemos amarnos a nosotros mismos, ¿cómo vamos a amar a los demás?', de: 'Wenn wir uns nicht selbst lieben können, wie sollen wir andere lieben?' }, author: 'Thich Nhat Hanh' },
+  { text: { es: 'Nadie puede traerte la paz salvo tú misma.', de: 'Niemand kann dir Frieden bringen außer dir selbst.' }, author: 'Ralph Waldo Emerson' },
+  { text: { es: 'En lo que pensamos, en eso nos convertimos.', de: 'Was wir denken, werden wir.' }, author: 'Buda' },
+  { text: { es: 'En el detenerse está la respuesta.', de: 'Im Innehalten liegt die Antwort.' }, author: 'Rilke' },
+  { text: { es: 'Entre estímulo y respuesta hay un espacio. En ese espacio está nuestro poder de elegir nuestra respuesta.', de: 'Zwischen Reiz und Reaktion liegt ein Raum. In diesem Raum liegt unsere Macht, unsere Antwort zu wählen.' }, author: 'Viktor Frankl' },
+  { text: { es: 'Quien tiene un porqué para vivir, puede soportar casi cualquier cómo.', de: 'Wer ein Warum zu leben hat, erträgt fast jedes Wie.' }, author: 'Friedrich Nietzsche' }
 ];
 
 const COMPLETION_MESSAGES = [
-  'Du hast dir gerade etwas Gutes getan. Spür einen Moment nach.',
-  'Dein Nervensystem dankt dir. Bleib noch einen Moment hier.',
-  'Eine kleine Insel der Ruhe. Schön, dass du da warst.',
-  'Geschafft. Wie fühlt sich das an?',
-  'Atme noch einmal tief durch. Du bist da.',
-  'Was du geübt hast, bleibt. Auch leise.'
+  { es: 'Acabas de hacer algo bueno por ti. Date un momento para sentirlo.', de: 'Du hast dir gerade etwas Gutes getan. Spür einen Moment nach.' },
+  { es: 'Tu sistema nervioso te lo agradece. Quédate aquí un momento más.', de: 'Dein Nervensystem dankt dir. Bleib noch einen Moment hier.' },
+  { es: 'Una pequeña isla de calma. Qué bien que hayas estado aquí.', de: 'Eine kleine Insel der Ruhe. Schön, dass du da warst.' },
+  { es: 'Hecho. ¿Cómo se siente?', de: 'Geschafft. Wie fühlt sich das an?' },
+  { es: 'Respira hondo una vez más. Estás aquí.', de: 'Atme noch einmal tief durch. Du bist da.' },
+  { es: 'Lo que practicaste se queda. También en silencio.', de: 'Was du geübt hast, bleibt. Auch leise.' }
 ];
 
 // ============ STORAGE ============
@@ -2229,6 +2297,32 @@ function updateStreakDisplay() {
   document.getElementById('streakNum').textContent = state.streak || 0;
 }
 
+// ============ BILINGUAL HELPERS ============
+// Spanisch ist Hauptsprache (groß), Deutsch ist Echo (klein darunter)
+// bi(obj) -> HTML-String mit beiden Versionen
+// biText(obj) -> Plain-Text "ES / DE" für textContent (selten benutzt)
+function bi(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return escapeHtml(obj);
+  const es = escapeHtml(obj.es || '');
+  const de = escapeHtml(obj.de || '');
+  if (!de) return `<span class="bi"><span>${es}</span></span>`;
+  return `<span class="bi"><span>${es}</span><span class="bi-de">${de}</span></span>`;
+}
+
+// Für innerHTML-freie Stellen (z.B. textarea placeholder) — nimm nur ES
+function biES(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  return obj.es || obj.de || '';
+}
+
+function biDE(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  return obj.de || obj.es || '';
+}
+
 // ============ NAVIGATION ============
 function showScreen(id) {
   document.querySelectorAll('#app > div').forEach(s => {
@@ -2249,7 +2343,11 @@ function goHome() {
 
 function showRandomGreeting() {
   const g = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-  document.getElementById('greetingText').textContent = '„' + g.text + '"';
+  const textEl = document.getElementById('greetingText');
+  // Spanisch groß, Deutsch klein darunter — alles in italic Cormorant
+  textEl.innerHTML =
+    '<span>„' + escapeHtml(g.text.es) + '"</span>' +
+    '<span class="bi-de" style="margin-top: 6px;">„' + escapeHtml(g.text.de) + '"</span>';
   document.getElementById('greetingAuthor').textContent = g.author;
 }
 
@@ -2294,8 +2392,8 @@ function confirmStopNo() {
 function showPillar(pillarKey) {
   currentPillar = pillarKey;
   const pillar = PILLARS[pillarKey];
-  document.getElementById('pillarTitle').textContent = pillar.title;
-  document.getElementById('pillarSubtitle').textContent = pillar.subtitle;
+  document.getElementById('pillarTitle').innerHTML = bi(pillar.title);
+  document.getElementById('pillarSubtitle').innerHTML = bi(pillar.subtitle);
 
   const list = document.getElementById('exerciseList');
   list.innerHTML = '';
@@ -2307,9 +2405,9 @@ function showPillar(pillarKey) {
     card.innerHTML = `
       <div class="exercise-symbol">${ex.symbol}</div>
       <div class="exercise-info">
-        <div class="exercise-name">${ex.name}</div>
-        <div class="exercise-meta">${ex.meta}</div>
-        <div class="exercise-tagline">${ex.tagline || ''}</div>
+        <div class="exercise-name">${bi(ex.name)}</div>
+        <div class="exercise-meta">${bi(ex.meta)}</div>
+        <div class="exercise-tagline">${bi(ex.tagline)}</div>
       </div>
     `;
     list.appendChild(card);
@@ -2369,10 +2467,10 @@ function stopExercise() {
 
 // ============ BREATHING ============
 function startBreathExercise() {
-  document.getElementById('breathExerciseName').textContent = currentExercise.name;
-  document.getElementById('breathCycle').textContent = `0 / ${currentExercise.cycles} Zyklen`;
-  document.getElementById('breathInstruction').textContent = 'Bereit?';
-  document.getElementById('breathCounter').textContent = 'Mach es dir bequem. Tipp auf Play.';
+  document.getElementById('breathExerciseName').innerHTML = bi(currentExercise.name);
+  document.getElementById('breathCycle').innerHTML = `<span>0 / ${currentExercise.cycles} ciclos</span><span class="bi-de"> · Zyklen</span>`;
+  document.getElementById('breathInstruction').innerHTML = '<span>¿Listo?</span><span class="bi-de">Bereit?</span>';
+  document.getElementById('breathCounter').innerHTML = '<span>Ponte cómoda. Pulsa Play.</span><span class="bi-de" style="display:block">Mach es dir bequem. Tipp auf Play.</span>';
   document.getElementById('breathTimer').textContent = '0:00';
 
   const circle = document.getElementById('breathCircle');
@@ -2431,9 +2529,9 @@ function runBreathCycle(stepIndex) {
   void circle.offsetWidth;
   if (step.circle === 'expand' || step.circle === 'contract') circle.classList.add(step.circle);
 
-  document.getElementById('breathInstruction').textContent = step.label;
+  document.getElementById('breathInstruction').innerHTML = bi(step.label);
   const seconds = Math.round(step.duration / 1000);
-  document.getElementById('breathCounter').textContent = `${seconds} Sekunden`;
+  document.getElementById('breathCounter').innerHTML = `<span>${seconds} segundos</span><span class="bi-de" style="display:block">${seconds} Sekunden</span>`;
 
   if (step.sound === 'inhale') playInhaleTone();
   else if (step.sound === 'exhale') playExhaleTone();
@@ -2448,7 +2546,7 @@ function runBreathCycle(stepIndex) {
     const nextIndex = stepIndex + 1;
     if (nextIndex >= pattern.length) {
       cycleCount++;
-      document.getElementById('breathCycle').textContent = `${cycleCount} / ${totalCycles} Zyklen`;
+      document.getElementById('breathCycle').innerHTML = `<span>${cycleCount} / ${totalCycles} ciclos</span><span class="bi-de"> · Zyklen</span>`;
       runBreathCycle(0);
     } else {
       runBreathCycle(nextIndex);
@@ -2461,8 +2559,8 @@ function startBodyScan() {
   bodyscanIndex = 0;
   bodyscanPlaying = false;
   elapsedSeconds = 0;
-  document.getElementById('bodyscanArea').textContent = 'Beginnen wir';
-  document.getElementById('bodyscanInstruction').textContent = 'Setz oder leg dich bequem hin. Schließe wenn möglich die Augen.';
+  document.getElementById('bodyscanArea').innerHTML = '<span>Empezamos</span><span class="bi-de" style="display:block; font-size: 0.5em">Beginnen wir</span>';
+  document.getElementById('bodyscanInstruction').innerHTML = '<span>Siéntate o túmbate cómodamente. Cierra los ojos si puedes.</span><span class="bi-de" style="display:block; margin-top: 4px">Setz oder leg dich bequem hin. Schließe wenn möglich die Augen.</span>';
   document.getElementById('bodyscanProgress').textContent = `0 / ${BODYSCAN_AREAS.length}`;
   document.getElementById('bodyscanTimer').textContent = '0:00';
   const btn = document.getElementById('bodyscanPlayBtn');
@@ -2519,8 +2617,8 @@ function showBodyscanArea(idx) {
 
   setTimeout(() => {
     if (!bodyscanPlaying) return;
-    areaEl.textContent = data.area;
-    instrEl.textContent = data.instruction;
+    areaEl.innerHTML = `<span>${escapeHtml(data.area.es)}</span><span class="bi-de" style="display:block; font-size: 0.5em; margin-top: 4px">${escapeHtml(data.area.de)}</span>`;
+    instrEl.innerHTML = `<span>${escapeHtml(data.instruction.es)}</span><span class="bi-de" style="display:block; margin-top: 6px">${escapeHtml(data.instruction.de)}</span>`;
     areaEl.style.opacity = '1';
     instrEl.style.opacity = '1';
     haptic(20);
@@ -2549,8 +2647,8 @@ function showGroundingStep() {
   stepEl.style.animation = 'fadeInUp 0.5s ease-out';
 
   document.getElementById('groundingNum').textContent = data.num;
-  document.getElementById('groundingSense').textContent = data.sense;
-  document.getElementById('groundingPrompt').textContent = data.prompt;
+  document.getElementById('groundingSense').innerHTML = `<span>${escapeHtml(data.sense.es)}</span><span class="bi-de" style="font-size: 0.85em; margin-left: 6px">· ${escapeHtml(data.sense.de)}</span>`;
+  document.getElementById('groundingPrompt').innerHTML = `<span>${escapeHtml(data.prompt.es)}</span><span class="bi-de" style="display:block; margin-top: 6px">${escapeHtml(data.prompt.de)}</span>`;
 
   const dotsContainer = document.getElementById('groundingDots');
   dotsContainer.innerHTML = '';
@@ -2561,7 +2659,7 @@ function showGroundingStep() {
   }
 
   const btn = document.getElementById('groundingNextBtn');
-  btn.textContent = groundingStep === GROUNDING_STEPS.length - 1 ? 'Fertig' : 'Weiter';
+  btn.textContent = groundingStep === GROUNDING_STEPS.length - 1 ? 'Listo' : 'Continuar';
 
   haptic(15);
   playInhaleTone();
@@ -2578,8 +2676,8 @@ function completeStaticExercise() {
 
 // ============ JOURNAL EXERCISES ============
 function startJournal() {
-  document.getElementById('journalExerciseName').textContent = currentExercise.name;
-  document.getElementById('journalIntro').textContent = currentExercise.intro;
+  document.getElementById('journalExerciseName').innerHTML = bi(currentExercise.name);
+  document.getElementById('journalIntro').innerHTML = bi(currentExercise.intro);
 
   const promptsContainer = document.getElementById('journalPrompts');
   promptsContainer.innerHTML = '';
@@ -2590,8 +2688,8 @@ function startJournal() {
     block.style.animationDelay = `${i * 0.05}s`;
     block.innerHTML = `
       <div class="journal-counter">${i + 1} / ${currentExercise.prompts.length}</div>
-      <div class="journal-prompt">${p.q}</div>
-      <textarea class="journal-textarea" data-prompt-index="${i}" placeholder="${p.placeholder || ''}"></textarea>
+      <div class="journal-prompt">${bi(p.q)}</div>
+      <textarea class="journal-textarea" data-prompt-index="${i}" placeholder="${escapeHtml(biES(p.placeholder))}"></textarea>
     `;
     promptsContainer.appendChild(block);
   });
@@ -2608,29 +2706,27 @@ function saveJournal() {
     const answer = t.value.trim();
     if (answer) hasContent = true;
     prompts.push({
-      q: currentExercise.prompts[i].q,
+      q: currentExercise.prompts[i].q, // {es, de} object
       a: answer
     });
   });
 
   if (!hasContent) {
-    // Nothing written - just complete without saving
     completeExercise();
     return;
   }
 
-  // Save to diary
   const entry = {
     id: Date.now() + '_' + Math.random().toString(36).slice(2, 8),
     date: new Date().toISOString(),
     pillar: currentPillar,
-    pillarLabel: PILLARS[currentPillar].label,
+    pillarLabel: PILLARS[currentPillar].label, // {es, de} object
     exerciseKey: currentExercise.key,
-    exerciseName: currentExercise.name,
+    exerciseName: currentExercise.name, // {es, de} object
     prompts: prompts
   };
 
-  diary.unshift(entry); // newest first
+  diary.unshift(entry);
   saveDiary();
 
   completeExercise();
@@ -2650,22 +2746,20 @@ function renderDiary() {
 
   const allBtn = document.createElement('button');
   allBtn.className = 'diary-filter-btn' + (diaryFilter === 'all' ? ' active' : '');
-  allBtn.textContent = 'Alle';
+  allBtn.textContent = 'Todas';
   allBtn.onclick = () => { diaryFilter = 'all'; renderDiary(); };
   filterContainer.appendChild(allBtn);
 
-  // Only show pillar filters that have entries
   const usedPillars = [...new Set(diary.map(e => e.pillar))];
   Object.keys(PILLARS).forEach(key => {
     if (!usedPillars.includes(key)) return;
     const btn = document.createElement('button');
     btn.className = 'diary-filter-btn' + (diaryFilter === key ? ' active' : '');
-    btn.textContent = PILLARS[key].label;
+    btn.textContent = biES(PILLARS[key].label);
     btn.onclick = () => { diaryFilter = key; renderDiary(); };
     filterContainer.appendChild(btn);
   });
 
-  // List
   const list = document.getElementById('diaryList');
   list.innerHTML = '';
 
@@ -2674,7 +2768,7 @@ function renderDiary() {
     : diary.filter(e => e.pillar === diaryFilter);
 
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="diary-empty">Noch keine Einträge.<br>Beginne mit einer schriftlichen Übung — sie erscheinen dann hier.</div>`;
+    list.innerHTML = `<div class="diary-empty">Aún no hay entradas.<br><span class="bi-de" style="font-size: 0.7em">Noch keine Einträge.</span><br><br>Empieza con un ejercicio escrito — aparecerán aquí.<br><span class="bi-de" style="font-size: 0.7em">Beginne mit einer schriftlichen Übung — sie erscheinen dann hier.</span></div>`;
     return;
   }
 
@@ -2686,22 +2780,32 @@ function renderDiary() {
     let promptsHtml = '';
     entry.prompts.forEach(p => {
       if (!p.a) return;
+      // Backward-Compat: alte Einträge haben p.q als String, neue als {es,de}
+      const qHtml = (typeof p.q === 'object') ? bi(p.q) : escapeHtml(p.q);
       promptsHtml += `
         <div class="diary-entry-qa">
-          <div class="diary-entry-q">${escapeHtml(p.q)}</div>
+          <div class="diary-entry-q">${qHtml}</div>
           <div>${escapeHtml(p.a).replace(/\n/g, '<br>')}</div>
         </div>
       `;
     });
 
+    // Backward-Compat für pillarLabel und exerciseName
+    const pillarLabelStr = (typeof entry.pillarLabel === 'object')
+      ? biES(entry.pillarLabel)
+      : entry.pillarLabel;
+    const exerciseNameHtml = (typeof entry.exerciseName === 'object')
+      ? bi(entry.exerciseName)
+      : escapeHtml(entry.exerciseName);
+
     card.innerHTML = `
       <div class="diary-entry-meta">
-        <div class="diary-entry-pillar">${entry.pillarLabel}</div>
+        <div class="diary-entry-pillar">${escapeHtml(pillarLabelStr)}</div>
         <div class="diary-entry-date">${dateStr}</div>
       </div>
-      <div class="diary-entry-exercise">${entry.exerciseName}</div>
+      <div class="diary-entry-exercise">${exerciseNameHtml}</div>
       <div class="diary-entry-content">${promptsHtml}</div>
-      <button class="diary-entry-delete" onclick="askDeleteEntry('${entry.id}')">Löschen</button>
+      <button class="diary-entry-delete" onclick="askDeleteEntry('${entry.id}')">Eliminar</button>
     `;
     list.appendChild(card);
   });
@@ -2764,8 +2868,9 @@ function completeExercise() {
   haptic([30, 60, 30, 60, 30]);
   playCompletionChime();
 
-  document.getElementById('completionText').textContent =
-    COMPLETION_MESSAGES[Math.floor(Math.random() * COMPLETION_MESSAGES.length)];
+  const msg = COMPLETION_MESSAGES[Math.floor(Math.random() * COMPLETION_MESSAGES.length)];
+  document.getElementById('completionText').innerHTML =
+    `<span>${escapeHtml(msg.es)}</span><span class="bi-de" style="display:block; margin-top: 8px">${escapeHtml(msg.de)}</span>`;
 
   showScreen('screen-done');
 }
