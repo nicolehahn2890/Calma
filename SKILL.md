@@ -494,9 +494,59 @@ WICHTIG: alte Eintraege haben das neue Feld nicht. Defensive Defaults setzen.
 
 ## Datei-Struktur
 
-Eine einzige Datei: index.html (~2920 Zeilen, Calma 2.2 bilingual)
+Haupt-Datei: index.html (~2920 Zeilen, Calma 2.2 bilingual)
 - HTML (~590 Zeilen): App-Container mit allen Screens + 2 Modals + bilinguale Texte
 - CSS (~920 Zeilen): Im <style>-Block
 - JavaScript (~1410 Zeilen): Im <script>-Block
 
-Keine externen Dateien ausser Google Fonts CDN.
+Zusatz-Dateien im Repo-Root (fuer Home-Bildschirm-Icon, siehe unten):
+- apple-touch-icon.png (180x180) — iPhone Home-Bildschirm
+- icon-192.png, icon-512.png — Android / PWA / Manifest
+- site.webmanifest — PWA-Manifest
+
+Code laeuft komplett in index.html. Keine externen Skripte/Styles ausser
+Google Fonts CDN. Die PNG/Manifest-Dateien werden NUR fuer das Home-Bildschirm-Icon
+eingebunden (statische Assets, keine Logik).
+
+---
+
+## Home-Bildschirm-Icon (App-Icon)
+
+Damit auf dem iPhone-Home-Bildschirm ein richtiges Icon erscheint (statt einem
+Safari-Screenshot der Seite), liegen im Repo-Root Icon-Dateien plus Manifest.
+
+### Eingebunden im <head> von index.html
+```html
+<meta name="apple-mobile-web-app-title" content="Calma">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="site.webmanifest">
+```
+`apple-mobile-web-app-title` = Label unter dem Icon auf dem Home-Bildschirm ("Calma").
+
+### Icon-Design (passt zur Calma-Aesthetik)
+- Warmer dunkler Hintergrund (#1a1410) mit sanftem Terracotta-Glow oben
+  und leichtem Olive-Glow unten — wie der App-Hintergrund
+- Motiv: das Atmen-Symbol (3 konzentrische Kreise + cremefarbener Punkt) in Terracotta (#c97b5b)
+- Vollflaechig quadratisch — iOS rundet die Ecken selbst (kein eigener Rahmen noetig)
+
+### Icon neu generieren (wenn Aenderung gewuenscht)
+Erzeugt wird das Icon per Python/Pillow-Skript. Master 1024px, runterskaliert
+auf 180/192/512 mit LANCZOS. Drei PNGs entstehen: apple-touch-icon.png (180),
+icon-192.png, icon-512.png. Bei Design-Aenderung: Skript anpassen, alle drei
+PNGs neu erzeugen, committen.
+
+### WICHTIG fuer Deployment
+- Die PNG-Dateien + site.webmanifest sind EIGENE Dateien im Repo (nicht in index.html).
+- Nicoles ueblicher Workflow ersetzt nur index.html — die Icon-Dateien bleiben
+  dabei unberuehrt erhalten, das ist OK.
+- Ein neues/geaendertes Icon erfordert das Hochladen der PNG-Dateien ueber das
+  GitHub-Browser-Interface (Add file > Upload files) — Stift-Symbol funktioniert
+  nur fuer Text-Dateien, nicht fuer Bilder.
+- relative Pfade (apple-touch-icon.png) loesen korrekt zu
+  https://nicolehahn2890.github.io/Calma/apple-touch-icon.png auf.
+
+### Icon auf iPhone installieren (fuer Nicole)
+Safari oeffnen > https://nicolehahn2890.github.io/Calma/ > Teilen-Symbol >
+"Zum Home-Bildschirm". Das Calma-Icon und der Name "Calma" erscheinen automatisch.
