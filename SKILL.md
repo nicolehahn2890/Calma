@@ -105,6 +105,14 @@ Linienstaerke — in den Glaskugeln werden sie weiss dargestellt.
 Die App ist bilingual ES/DE:
 - **Spanisch ist Hauptsprache** (gross, Standard-Stil)
 - **Deutsch ist Echo darunter** (klein, kursiv, gedaempft, ~0.65em)
+- **Ausnahmen (Luminous-Reskin, auf Nicoles Wunsch):**
+  - Home-Saeulen-Kacheln: NUR Spanisch — die deutschen Echo-Spans (Titel + Beschreibung)
+    wurden aus den `.pillar-title`/`.pillar-desc` der 6 Kacheln entfernt (waren zu klein/unleserlich).
+    Bei neuen Kacheln entsprechend KEIN `<span class="bi-de">` mehr einsetzen.
+  - Home-Begruessung (Zitat): die deutsche Zeile ist groesser/dunkler mit weissem Halo
+    (`.greeting-text .bi-de`), damit sie ueber der Textur lesbar ist — gleiche Serifenschrift
+    wie das spanische Zitat.
+  - Restliche App (Pillar-Liste, Uebungen, Tagebuch, Modals) bleibt bilingual mit Echo.
 - **Tonalitaet**: kastilisches Spanisch mit "tu", warm aber direkt
 - **UI-Buttons NUR Spanisch** (Volver, Guardar, Continuar, Salir, Hecho, Eliminar, Mantener, Sonido on/off, Diario)
 - **Sound-Optionen**: Silencio, Drone, Lluvia
