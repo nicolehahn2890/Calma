@@ -116,6 +116,7 @@
     z-index: 1;
     pointer-events: none;
     overflow: hidden;
+    transform: translateZ(0);   /* eigene Compositing-Ebene -> kein Repaint beim Scrollen */
   }
   .spark {
     position: absolute;
@@ -1223,8 +1224,8 @@
       linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.04) 34%, rgba(255,255,255,0.0) 58%, rgba(255,255,255,0.06) 100%),
       radial-gradient(130% 80% at 16% 4%, rgba(255,255,255,0.32), transparent 44%),
       var(--lux-glass);
-    -webkit-backdrop-filter: blur(2px) saturate(1.15);
-    backdrop-filter: blur(2px) saturate(1.15);
+    /* kein backdrop-filter auf den scrollenden Karten — der Blur war nur noch ein Hauch,
+       kostet aber auf iOS beim Scrollen viel Performance (ruckeln). Weggelassen. */
     border: 1px solid var(--lux-glass-brd);
     box-shadow:
       0 14px 36px rgba(150,110,190,0.18),
@@ -1371,6 +1372,20 @@
     text-shadow: 0 1px 8px rgba(255,255,255,0.9);
   }
   .home-subtitle { letter-spacing: 0.22em; font-weight: 600; color: var(--lux-ink-soft); }
+
+  /* Sekundaer-Text unter den Ueberschriften (Kachel-Beschreibung, Meta, Untertitel,
+     Diario-Marker): dunkler + kraeftiger weisser Halo, damit er ueber den sehr
+     transparenten Karten/dem bunten Hintergrund gut lesbar bleibt */
+  .pillar-desc,
+  .exercise-meta,
+  .exercise-tagline,
+  .screen-subtitle,
+  .pillar-journal-mark,
+  .diary-entry-content {
+    color: var(--lux-ink-soft);
+    font-weight: 500;
+    text-shadow: 0 1px 6px rgba(255,255,255,0.96), 0 0 2px rgba(255,255,255,0.9);
+  }
 
   /* Deutsche Echo-Zeilen app-weit ausblenden (zu klein/unleserlich ueber der Textur).
      Spanisch ist ueberall die sichtbare Sprache. */
@@ -3300,7 +3315,7 @@ function generateGlitter() {
   const layer = document.getElementById('glitter');
   if (!layer || layer.childElementCount) return;
   const frag = document.createDocumentFragment();
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 140; i++) {
     const s = document.createElement('span');
     const big = Math.random() < 0.34;
     s.className = 'spark' + (big ? ' spark-big' : '');
@@ -3315,7 +3330,7 @@ function generateGlitter() {
     s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
     frag.appendChild(s);
   }
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 6; i++) {
     const b = document.createElement('span');
     b.className = 'bokeh';
     const size = (14 + Math.random() * 46).toFixed(0);
