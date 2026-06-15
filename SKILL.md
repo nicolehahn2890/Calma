@@ -96,6 +96,10 @@ Signatur-Techniken (alle in index.html portiert, vanilla CSS/JS):
      Ueberschriften (.pillar-desc/.exercise-meta/.exercise-tagline/.screen-subtitle/
      .pillar-journal-mark/.diary-entry-content) auf --lux-ink-soft + kraeftigen weissen
      Halo gesetzt. Bei neuen Texten auf transparenten Karten denselben Halo verwenden.
+   - Home-Begruessungs-Zitat: liegt OHNE Karte direkt auf dem Hintergrund. Lesbarkeit
+     NUR ueber einen kraeftigen weissen Text-Halo (.greeting-text/.greeting-author + die
+     deutsche Zeile). KEINE Karte/keinen Hintergrund hinter das Zitat legen — wurde
+     ausdruecklich abgelehnt; immer nur den Halo verstaerken.
 3. Glaskugel-Icons (Signatur!): runde, glaenzende farbige Glas-Sphaeren mit
    Specular-Highlight, dunklem Rand, Glanz und Funkel-Punkt. Eingesetzt fuer
    Home-Grid (40px), Pillar-Header (46px, #pillarHeadBall), Uebungs-Zeilen
