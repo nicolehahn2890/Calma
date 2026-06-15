@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Calma">
-<meta name="theme-color" content="#1a1410">
+<meta name="theme-color" content="#ece2f8">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
@@ -14,25 +14,57 @@
 <title>Calma — Werkzeug für dein Nervensystem</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #1a1410;
-    --bg-soft: #221a14;
-    --surface: #2a201a;
-    --surface-2: #322620;
-    --cream: #f4ead8;
-    --cream-dim: #c9bfa9;
-    --terracotta: #c97b5b;
-    --terracotta-soft: #a86349;
-    --olive: #8a956b;
-    --olive-soft: #6b7556;
-    --sand: #d4b896;
-    --sky: #7a9bb0;
-    --rose: #b88a8a;
-    --plum: #8a7a9c;
-    --text: #f4ead8;
-    --text-muted: #9a8e76;
+    /* ===== Calma — Luminous (Perla) palette =====
+       Variable NAMES kept from the original warm-dark theme so the rest of the
+       CSS keeps working; only the VALUES are mapped to the iridescent pastel look. */
+    --bg: #ece2f8;                         /* light lavender page */
+    --bg-soft: #f5eefb;
+    --surface: rgba(255, 255, 255, 0.40);  /* frosted glass fill */
+    --surface-2: rgba(255, 255, 255, 0.60);
+    --cream: #3d2c52;                       /* primary text (deep plum) */
+    --cream-dim: #5a4775;                   /* secondary text */
+    --terracotta: #b78fe6;                  /* brand accent (lavender) */
+    --terracotta-soft: #9a6fd0;
+    --olive: #7fd6b8;                       /* secondary accent (mint) */
+    --olive-soft: #5bbf9d;
+    --sand: #ffd49a;                        /* peach */
+    --sky: #8fcdf0;                         /* sky */
+    --rose: #ffb3d9;                        /* rose */
+    --plum: #c4a9f0;                        /* lilac */
+    --text: #3d2c52;
+    --text-muted: #7c6699;
+
+    /* fonts */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+
+    /* extra luminous tokens */
+    --lux-ink: #3d2c52;
+    --lux-ink-soft: #5a4775;
+    --lux-ink-mute: #7c6699;
+    --lux-accent: #b78fe6;                  /* lavender */
+    --lux-accent-2: #7fd6b8;               /* mint */
+    --lux-bg-1: #eccdf0;                    /* page glow (pink-lavender) */
+    --lux-bg-2: #c4ece2;                    /* page glow (mint) */
+    --lux-glass: rgba(255, 255, 255, 0.40);
+    --lux-glass-2: rgba(255, 255, 255, 0.40);
+    --lux-glass-brd: rgba(255, 255, 255, 0.95);
+
+    /* pillar accents — one glass-bead colour per pillar */
+    --p-atmen:       #ff9ec4;   /* pink   */
+    --p-ankommen:    #8fe3c4;   /* mint   */
+    --p-gedanken:    #8fcdf0;   /* sky    */
+    --p-dankbarkeit: #ffd49a;   /* peach  */
+    --p-staerkung:   #c4a9f0;   /* lilac  */
+    --p-mitgefuehl:  #ffb3d9;   /* rose   */
+
+    /* holographic rainbow used for iridescent edges */
+    --holo: linear-gradient(115deg,
+      #ff9ec4 0%, #ffd49a 18%, #c4f0d0 36%, #8fcdf0 54%,
+      #c4a9f0 72%, #ffb3d9 88%, #ff9ec4 100%);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -45,15 +77,79 @@
 
   body {
     font-family: 'DM Sans', system-ui, sans-serif;
-    background: var(--bg);
     color: var(--text);
     font-weight: 300;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(ellipse at top, rgba(201, 123, 91, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom, rgba(138, 149, 107, 0.06) 0%, transparent 50%);
+    position: relative;
+    background:
+      radial-gradient(120% 70% at 15% 0%,  var(--lux-bg-1) 0%, transparent 60%),
+      radial-gradient(120% 80% at 100% 100%, var(--lux-bg-2) 0%, transparent 62%),
+      linear-gradient(165deg, var(--lux-bg-1), var(--lux-bg-2));
   }
+
+  /* pearl-marble photo texture, blended over the colored page */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -8%;
+    z-index: 0;
+    pointer-events: none;
+    background: url('./assets/textures/pearl-marble.png') center/cover no-repeat;
+    mix-blend-mode: multiply;
+    filter: saturate(1.4) contrast(1.05);
+  }
+  /* faint header vignette so the wordmark + overline stay legible */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(90% 16% at 50% 2%, rgba(255,255,255,0.66), transparent 72%);
+  }
+
+  /* fine diamond glitter layer — sits behind the cards (which use backdrop-filter) */
+  .glitter {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .spark {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.92) 28%, transparent 66%);
+    filter: drop-shadow(0 0 2.5px rgba(255,255,255,0.95));
+    animation: twinkle var(--tw, 3s) ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--lo, 0.15); transform: scale(0.6); }
+    50%      { opacity: var(--hi, 1);    transform: scale(1.15); }
+  }
+  .spark-big { filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px var(--lux-accent)); }
+  .spark-big::before, .spark-big::after {
+    content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  }
+  .spark-big::before { width: 1px; height: 440%; background: linear-gradient(transparent, #fff, transparent); }
+  .spark-big::after  { height: 1px; width: 440%; background: linear-gradient(90deg, transparent, #fff, transparent); }
+  .bokeh {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55), transparent 65%);
+    mix-blend-mode: screen;
+    filter: blur(1px);
+    animation: bokehFloat var(--bf, 14s) ease-in-out infinite;
+  }
+  @keyframes bokehFloat {
+    0%   { transform: translateY(20px) scale(0.9); opacity: 0; }
+    20%  { opacity: 0.9; }
+    100% { transform: translateY(-120px) scale(1.1); opacity: 0; }
+  }
+
+  /* keep app content above the texture + glitter */
+  .app { position: relative; z-index: 2; }
 
   .app {
     height: 100vh;
@@ -1107,20 +1203,289 @@
     color: var(--terracotta);
     background: rgba(201, 123, 91, 0.08);
   }
+
+  /* ==========================================================================
+     LUMINOUS (PERLA) — visual reskin layer.
+     Frosted glass, glass-bead icons, soap-bubble orb, iridescent edges.
+     Layered after the base rules so it wins by source order.
+     ========================================================================== */
+
+  /* ---- frosted-glass surfaces (every card / tile / panel) ---- */
+  .pillar-card,
+  .exercise-card,
+  .grounding-step,
+  .static-card,
+  .journal-intro,
+  .sound-picker,
+  .diary-entry,
+  .modal {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.14) 34%, rgba(255,255,255,0.02) 58%, rgba(255,255,255,0.18) 100%),
+      radial-gradient(130% 80% at 16% 4%, rgba(255,255,255,0.78), transparent 44%),
+      var(--lux-glass);
+    -webkit-backdrop-filter: blur(11px) saturate(1.7);
+    backdrop-filter: blur(11px) saturate(1.7);
+    border: 1px solid var(--lux-glass-brd);
+    box-shadow:
+      0 14px 36px rgba(150,110,190,0.22),
+      inset 0 1.5px 0 rgba(255,255,255,0.95),
+      inset 0 -14px 34px rgba(255,255,255,0.35);
+    position: relative;
+  }
+
+  /* iridescent hairline edge on the larger cards */
+  .pillar-card::before,
+  .exercise-card::before,
+  .grounding-step::before,
+  .static-card::before,
+  .diary-entry::before,
+  .modal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--holo);
+    opacity: 0.5;
+    -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000);
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .pillar-card { border-radius: 26px; }
+  .exercise-card { border-radius: 22px; }
+
+  /* per-pillar bead colour + soft coloured glow under each tile */
+  .pillar-card.atmen       { --ball: var(--p-atmen);       --glow: rgba(255,158,196,0.42); border-top: none; }
+  .pillar-card.ankommen    { --ball: var(--p-ankommen);    --glow: rgba(143,227,196,0.42); border-top: none; }
+  .pillar-card.gedanken    { --ball: var(--p-gedanken);    --glow: rgba(143,205,240,0.42); border-top: none; }
+  .pillar-card.dankbarkeit { --ball: var(--p-dankbarkeit); --glow: rgba(255,212,154,0.45); border-top: none; }
+  .pillar-card.staerkung   { --ball: var(--p-staerkung);   --glow: rgba(196,169,240,0.42); border-top: none; }
+  .pillar-card.mitgefuehl  { --ball: var(--p-mitgefuehl);  --glow: rgba(255,179,217,0.42); border-top: none; }
+  .pillar-card {
+    box-shadow:
+      0 14px 32px var(--glow, rgba(150,110,190,0.22)),
+      0 4px 14px rgba(150,110,190,0.16),
+      inset 0 1.5px 0 rgba(255,255,255,0.95),
+      inset 0 -16px 32px rgba(255,255,255,0.4);
+  }
+
+  /* ---- glass-bead icons (the signature element) ---- */
+  .pillar-icon,
+  .exercise-symbol,
+  .pillar-head-ball,
+  .logo-ball {
+    background-color: var(--ball, var(--lux-accent));
+    background-image:
+      radial-gradient(circle at 30% 22%, rgba(255,255,255,0.95), rgba(255,255,255,0) 22%),
+      radial-gradient(circle at 50% 84%, rgba(255,255,255,0.5),  rgba(255,255,255,0) 42%),
+      radial-gradient(circle at 46% 44%, rgba(255,255,255,0.25), rgba(255,255,255,0) 55%),
+      radial-gradient(circle at 50% 100%, #3d2c52, rgba(61,44,82,0) 70%);
+    box-shadow:
+      0 8px 22px var(--ball, var(--lux-accent)),
+      inset 2px 3px 9px rgba(255,255,255,0.65),
+      inset -3px -7px 14px rgba(40,20,60,0.45),
+      inset 0 0 0 1px rgba(255,255,255,0.5);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  /* tiny sparkle highlight on every bead */
+  .pillar-icon::after,
+  .exercise-symbol::after,
+  .pillar-head-ball::after,
+  .logo-ball::after {
+    content: '';
+    position: absolute;
+    top: 12%; right: 15%;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, rgba(255,255,255,0) 70%);
+    filter: drop-shadow(0 0 3px #fff);
+  }
+
+  /* home-grid pillar bead (40px) */
+  .pillar-icon {
+    width: 40px; height: 40px;
+    margin-bottom: 8px;
+    opacity: 1;
+    color: rgba(255,255,255,0.96);
+  }
+  .pillar-icon svg {
+    width: 20px; height: 20px;
+    filter: drop-shadow(0 1px 2px rgba(55,28,82,0.55));
+  }
+
+  /* exercise-row bead (40px) with the unicode glyph inside */
+  .exercise-symbol {
+    width: 40px; height: 40px;
+    margin-top: 2px;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(255,255,255,0.96);
+    text-shadow: 0 1px 2px rgba(55,28,82,0.55);
+    --ball: var(--list-ball, var(--lux-accent));
+  }
+
+  /* pillar-detail header bead (46px) */
+  .pillar-head-ball {
+    width: 46px; height: 46px;
+    margin: 6px 0 14px;
+    color: rgba(255,255,255,0.96);
+    --ball: var(--list-ball, var(--lux-accent));
+  }
+  .pillar-head-ball svg {
+    width: 22px; height: 22px;
+    filter: drop-shadow(0 1px 2px rgba(55,28,82,0.55));
+  }
+
+  /* ---- header logo lockup ---- */
+  .logo-ball {
+    width: 52px; height: 52px;
+    margin: 0 auto 12px;
+    --ball: #b9a0ef;
+    color: rgba(255,255,255,0.96);
+  }
+  .logo-ball svg { width: 25px; height: 25px; filter: drop-shadow(0 1px 2px rgba(55,28,82,0.55)); }
+  .logo-img {
+    width: 240px; max-width: 78%; height: auto;
+    display: block; margin: 0 auto 8px;
+    filter: drop-shadow(0 5px 12px rgba(150,110,190,0.4));
+  }
+
+  /* ---- typography halos for legibility over the texture ---- */
+  .display, .home-title, .screen-title, .modal-title, .completion-title,
+  .pillar-title, .exercise-name, .breath-instruction, .grounding-prompt,
+  .bodyscan-area, .greeting-text, .journal-prompt, .journal-intro,
+  .diary-entry-exercise, .grounding-num, .static-step-num {
+    text-shadow: 0 1px 5px rgba(255,255,255,0.55);
+  }
+  .home-subtitle, .greeting-author, .exercise-cycle, .breath-counter,
+  .grounding-sense, .diary-entry-pillar, .sound-picker-title,
+  .exercise-meta, .diary-filter, .info-box-title {
+    text-shadow: 0 1px 8px rgba(255,255,255,0.9);
+  }
+  .home-subtitle { letter-spacing: 0.22em; font-weight: 600; color: var(--lux-ink-soft); }
+
+  /* ---- ghost / chip buttons ---- */
+  .footer-btn,
+  .nav-back,
+  .diary-filter-btn,
+  .sound-option,
+  .modal-btn.secondary,
+  .completion-btn.secondary,
+  .icon-btn {
+    background: var(--lux-glass-2);
+    color: var(--lux-ink-soft);
+    border: 1px solid rgba(255,255,255,0.75);
+    -webkit-backdrop-filter: blur(9px) saturate(1.4);
+    backdrop-filter: blur(9px) saturate(1.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  /* ---- primary / selected gradient pills ---- */
+  .completion-btn,
+  .modal-btn.primary,
+  .icon-btn.primary,
+  .footer-btn.active,
+  .diary-filter-btn.active,
+  .sound-option.active {
+    background: linear-gradient(135deg, var(--lux-accent), var(--lux-accent-2));
+    color: #fff;
+    border: none;
+    box-shadow: 0 8px 22px rgba(255,130,190,0.38), inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  .footer-btn.active, .diary-filter-btn.active, .sound-option.active {
+    box-shadow: 0 6px 16px rgba(255,130,190,0.35);
+  }
+  .completion-btn:active,
+  .modal-btn.primary:active,
+  .icon-btn.primary:active { transform: scale(0.95); background: linear-gradient(135deg, var(--lux-accent), var(--lux-accent-2)); }
+  .completion-btn.secondary { background: var(--lux-glass-2); color: var(--lux-ink-soft); }
+
+  /* ---- modal overlay ---- */
+  .modal-overlay {
+    background: rgba(236, 226, 248, 0.55);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .modal { border-radius: 26px; }
+
+  /* ---- journal textarea (kept legible over the glitter) ---- */
+  .journal-textarea {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid var(--lux-glass-brd);
+    color: var(--lux-ink);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .journal-textarea:focus { border-color: var(--lux-accent); }
+
+  /* ---- diary entry accent rule + info box ---- */
+  .diary-entry { border-left: 3px solid var(--lux-accent); border-radius: 18px; }
+  .diary-entry-qa { border-bottom: 1px solid rgba(86,52,116,0.12); }
+  .info-box { background: rgba(127,214,184,0.14); }
+
+  /* ---- breathing orb → translucent soap bubble ---- */
+  .breath-circle {
+    background:
+      radial-gradient(circle at 32% 26%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 16%),
+      radial-gradient(circle at 38% 34%, var(--pc, var(--lux-accent)) 0%, var(--lux-accent-2) 55%, var(--lux-accent) 100%);
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow:
+      0 20px 60px var(--pc, var(--lux-accent)),
+      inset 0 0 60px rgba(255,255,255,0.4),
+      inset -16px -22px 50px rgba(150,110,190,0.3);
+  }
+  .breath-circle::after { border-color: rgba(255,255,255,0.6); }
+  .breath-circle.expand {
+    box-shadow:
+      0 30px 90px var(--pc, var(--lux-accent)),
+      inset 0 0 70px rgba(255,255,255,0.45),
+      inset -16px -22px 50px rgba(150,110,190,0.3);
+  }
+  .breath-circle.contract {
+    box-shadow:
+      0 14px 44px var(--lux-accent-2),
+      inset 0 0 50px rgba(255,255,255,0.35),
+      inset -16px -22px 50px rgba(150,110,190,0.3);
+  }
+  .humming-circle {
+    background:
+      radial-gradient(circle at 32% 26%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 16%),
+      radial-gradient(circle at 38% 34%, var(--lux-accent-2) 0%, #bdeede 55%, var(--lux-accent) 100%) !important;
+  }
+
+  /* ---- completion + diary detail tweaks ---- */
+  .diary-empty { color: var(--lux-ink-mute); }
+
+  /* ---- respect reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .spark { animation: none !important; opacity: 0.45 !important; }
+    .bokeh { animation: none !important; opacity: 0 !important; }
+  }
 </style>
 </head>
 <body>
+<div class="glitter" id="glitter" aria-hidden="true"></div>
 <div class="app" id="app">
 
   <!-- HOME -->
   <div id="screen-home" class="home">
     <div class="home-header">
-      <svg class="logo-mark" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="18" stroke="#c97b5b" stroke-width="1.2" opacity="0.8"/>
-        <circle cx="24" cy="24" r="10" stroke="#8a956b" stroke-width="1" opacity="0.7"/>
-        <circle cx="24" cy="24" r="3" fill="#c97b5b"/>
-      </svg>
-      <h1 class="display home-title">Cal<em>ma</em></h1>
+      <div class="logo-ball">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" opacity="0.45"/>
+          <circle cx="12" cy="12" r="5" opacity="0.8"/>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <img class="logo-img" src="./assets/calma-logo.png" alt="Calma">
       <p class="home-subtitle">Herramienta para tu sistema nervioso</p>
     </div>
 
@@ -1249,6 +1614,7 @@
       <div style="flex: 1;"></div>
     </div>
     <div class="screen-header">
+      <div class="pillar-head-ball" id="pillarHeadBall"></div>
       <h2 class="screen-title" id="pillarTitle"></h2>
       <p class="screen-subtitle" id="pillarSubtitle"></p>
     </div>
@@ -1431,10 +1797,10 @@
   <!-- COMPLETION -->
   <div id="screen-done" class="hidden completion">
     <svg class="completion-mark" viewBox="0 0 80 80" fill="none">
-      <circle cx="40" cy="40" r="36" stroke="#c97b5b" stroke-width="1" opacity="0.4"/>
-      <circle cx="40" cy="40" r="24" stroke="#8a956b" stroke-width="1" opacity="0.5"/>
-      <circle cx="40" cy="40" r="12" stroke="#c97b5b" stroke-width="1" opacity="0.7"/>
-      <circle cx="40" cy="40" r="4" fill="#c97b5b"/>
+      <circle cx="40" cy="40" r="36" stroke="#b78fe6" stroke-width="1" opacity="0.5"/>
+      <circle cx="40" cy="40" r="24" stroke="#7fd6b8" stroke-width="1" opacity="0.6"/>
+      <circle cx="40" cy="40" r="12" stroke="#b78fe6" stroke-width="1" opacity="0.8"/>
+      <circle cx="40" cy="40" r="4" fill="#b78fe6"/>
     </svg>
     <h2 class="completion-title">Hecho.<span class="bi-de" style="display: block; font-size: 16px; margin-top: 4px">Geschafft.</span></h2>
     <p class="completion-text" id="completionText"></p>
@@ -1968,6 +2334,20 @@ const PILLARS = {
   }
 };
 
+// Luminous: per-pillar glass-bead colour + hand-drawn icon (white over the bead)
+const PILLAR_BEAD = {
+  atmen: '#ff9ec4', ankommen: '#8fe3c4', gedanken: '#8fcdf0',
+  dankbarkeit: '#ffd49a', staerkung: '#c4a9f0', mitgefuehl: '#ffb3d9'
+};
+const PILLAR_ICON_SVG = {
+  atmen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" opacity="0.45"/><circle cx="12" cy="12" r="5" opacity="0.8"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>',
+  ankommen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 C 5 7, 9 5, 12 5 C 15 5, 19 7, 22 12 C 19 17, 15 19, 12 19 C 9 19, 5 17, 2 12 Z"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg>',
+  gedanken: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M 12 12 m -10 0 a 10 10 0 1 1 20 0 a 7.5 7.5 0 1 1 -15 0 a 5 5 0 1 1 10 0 a 2.5 2.5 0 1 1 -5 0"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
+  dankbarkeit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 L 12 11"/><path d="M12 13 C 8 13, 5 10, 5 6 C 9 6, 12 9, 12 13 Z"/><path d="M12 11 C 16 11, 19 8, 19 4 C 15 4, 12 7, 12 11 Z"/></svg>',
+  staerkung: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L 14.5 9.5 L 21 10 L 16 14.5 L 17.5 21 L 12 17.5 L 6.5 21 L 8 14.5 L 3 10 L 9.5 9.5 Z"/></svg>',
+  mitgefuehl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 C 4 14, 4 8, 8 6 C 10 5, 12 6, 12 8 C 12 6, 14 5, 16 6 C 20 8, 20 14, 12 21 Z"/></svg>'
+};
+
 const EXERCISES = {
   // ============ ATMEN ============
   'physiological-sigh': {
@@ -2400,6 +2780,11 @@ function showPillar(pillarKey) {
   document.getElementById('pillarTitle').innerHTML = bi(pillar.title);
   document.getElementById('pillarSubtitle').innerHTML = bi(pillar.subtitle);
 
+  // Luminous: tint this pillar's glass beads + fill the header bead
+  const bead = PILLAR_BEAD[pillarKey] || 'var(--lux-accent)';
+  document.getElementById('screen-pillar').style.setProperty('--list-ball', bead);
+  document.getElementById('pillarHeadBall').innerHTML = PILLAR_ICON_SVG[pillarKey] || '';
+
   const list = document.getElementById('exerciseList');
   list.innerHTML = '';
   pillar.exercises.forEach(exKey => {
@@ -2480,6 +2865,7 @@ function startBreathExercise() {
 
   const circle = document.getElementById('breathCircle');
   circle.classList.remove('humming-circle', 'expand', 'contract');
+  circle.style.setProperty('--pc', PILLAR_BEAD[currentPillar] || 'var(--lux-accent)');
   if (currentExercise.circleClass) circle.classList.add(currentExercise.circleClass);
 
   const btn = document.getElementById('playPauseBtn');
@@ -2886,9 +3272,46 @@ function formatTime(seconds) {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
+// ============ LUMINOUS GLITTER ============
+// ~200 twinkling diamond sparkles + a few slow soap-bubbles, generated once.
+function generateGlitter() {
+  const layer = document.getElementById('glitter');
+  if (!layer || layer.childElementCount) return;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < 200; i++) {
+    const s = document.createElement('span');
+    const big = Math.random() < 0.34;
+    s.className = 'spark' + (big ? ' spark-big' : '');
+    const size = (0.8 + Math.random() * 3.4).toFixed(2);
+    s.style.top = (Math.random() * 100).toFixed(2) + '%';
+    s.style.left = (Math.random() * 100).toFixed(2) + '%';
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.setProperty('--tw', (1.2 + Math.random() * 2.4).toFixed(2) + 's');
+    s.style.setProperty('--lo', (0.04 + Math.random() * 0.18).toFixed(2));
+    s.style.setProperty('--hi', (0.85 + Math.random() * 0.15).toFixed(2));
+    s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+    frag.appendChild(s);
+  }
+  for (let i = 0; i < 9; i++) {
+    const b = document.createElement('span');
+    b.className = 'bokeh';
+    const size = (14 + Math.random() * 46).toFixed(0);
+    b.style.left = (Math.random() * 92).toFixed(2) + '%';
+    b.style.bottom = '-10%';
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.setProperty('--bf', (10 + Math.random() * 12).toFixed(1) + 's');
+    b.style.animationDelay = (Math.random() * 10).toFixed(1) + 's';
+    frag.appendChild(b);
+  }
+  layer.appendChild(frag);
+}
+
 // ============ INIT ============
 loadState();
 showRandomGreeting();
+generateGlitter();
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && (isPlaying || bodyscanPlaying)) {
