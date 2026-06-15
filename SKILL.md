@@ -79,9 +79,18 @@ Beide ueber Google Fonts CDN.
 Signatur-Techniken (alle in index.html portiert, vanilla CSS/JS):
 1. Seite + Marmor: heller Verlauf (zwei Radial-Glows) + pearl-marble.png als
    body::before mit mix-blend-mode:multiply; body::after = Header-Vignette.
-2. Frosted-Glass-Karten: .pillar-card/.exercise-card/.modal etc. mit backdrop-filter,
-   weisser Hairline, irisierender Kante (::before mit --holo, mask-composite) und
-   sanftem farbigem Schatten.
+2. Glas-Karten (.pillar-card/.exercise-card/.diary-entry/.modal etc.): bewusst
+   TRANSPARENT gehalten, NICHT milchig. Der irisierende Hintergrund soll klar
+   durchscheinen (Nicoles Wunsch). Werte (im LUMINOUS-Block):
+   - weisse Glas-Fuellung: var(--lux-glass) = rgba(255,255,255,0.10)  (niedrig halten!)
+   - backdrop-filter: blur(2px) saturate(1.15)  (nur ein Hauch Blur — hoehere Werte
+     = milchig/Milchglas, genau das war unerwuenscht)
+   - dezente weisse Top-Glanz-Verlaeufe + weisse Hairline (--lux-glass-brd)
+   - irisierende Kante (::before mit --holo, mask-composite), sanfter farbiger Schatten
+   - AUSNAHME Modals: etwas dichter (linear 0.5->0.22 + rgba(255,255,255,0.42)),
+     damit Dialogtexte ueber dem geblurten Overlay lesbar bleiben
+   - Wenn es jemals wieder "milchig" wirkt: zuerst den blur-Wert senken, dann --lux-glass.
+   - Buttons/Chips nutzen --lux-glass-2 (0.40, unveraendert) — bewusst dichter fuer Tappbarkeit.
 3. Glaskugel-Icons (Signatur!): runde, glaenzende farbige Glas-Sphaeren mit
    Specular-Highlight, dunklem Rand, Glanz und Funkel-Punkt. Eingesetzt fuer
    Home-Grid (40px), Pillar-Header (46px, #pillarHeadBall), Uebungs-Zeilen
