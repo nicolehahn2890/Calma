@@ -134,15 +134,20 @@ prompts: [{ q: { es, de }, placeholder: { es, de } }]
 
 ### Bilingual Helper-Funktionen
 ```
-bi(obj)    -> HTML-String mit beiden Sprachen (Spanisch gross, Deutsch klein darunter)
+bi(obj)    -> HTML-String: <span class="bi"><span>ES</span><span class="bi-de">DE</span></span>
+              (das DE wird weiter erzeugt, ist aber per CSS ausgeblendet — siehe unten)
 biES(obj)  -> Plain-Text Spanisch (fuer textarea placeholder, etc.)
 biDE(obj)  -> Plain-Text Deutsch
 ```
 
 ### CSS-Klassen
 - `.bi` — Container fuer bilingualen Text
-- `.bi-de` — Deutscher Text klein, kursiv, gedaempft (0.65em opacity 0.65)
+- `.bi-de` — deutsche Echo-Zeile; im LUMINOUS-Block GLOBAL ausgeblendet:
+  `.bi-de { display:none !important; }` (Spanisch ist die sichtbare Sprache)
+- `.greeting-text .bi-de` — einzige Ausnahme: per `display:block !important` sichtbar
+  + groesser/lesbar (nur im Home-Begruessungs-Zitat)
 - `.bi-inline .bi-de` — Inline-Variante (selten genutzt)
+- Wieder-Einblenden: `display:none` aus `.bi-de` entfernen (Daten sind alle noch da)
 
 ### State-Objekte
 
@@ -423,7 +428,8 @@ Nur Eintraege mit MIND. EINER nicht-leeren Antwort werden gespeichert
 ### Anzeige (Tagebuch-Tab)
 - Filter-Pills oben: "Alle" + jede Saeule die Eintraege hat
 - Eintraege als Cards mit:
-  - Saeulen-Label oben (klein, terracotta)
+  - Saeulen-Label oben (klein, Akzent --terracotta = jetzt Lavendel #b78fe6)
+  - linke Akzentlinie der Card: --lux-accent (Lavendel)
   - Datum (Heute/Gestern/Datum)
   - Uebungs-Name
   - Q&A pro Prompt (nur die mit Antwort)
@@ -479,11 +485,16 @@ Wichtig: updateStreakDisplay() IMMER aufrufen, auch bei Same-Day-Sessions.
 14. completionChimeTimeouts canceln in stopExercise
 15. iOS-Audio-Unmute (SILENT_MP3_DATA_URI) NIEMALS entfernen — sonst kein Ton bei
     aktivem Stumm-Schalter auf iPhone
-16. Alle uebersetzbaren Texte als `{ es, de }`-Objekt — niemals nur ein String
+16. Alle uebersetzbaren Texte WEITERHIN als `{ es, de }`-Objekt pflegen — niemals nur
+    ein String. Das `de` wird zwar aktuell nicht angezeigt (siehe Regel 21), bleibt
+    aber als Daten erhalten, damit Wieder-Einblenden trivial ist.
 17. UI-Buttons NUR auf Spanisch (Volver, Guardar, Continuar, Salir, Hecho, Eliminar)
 18. bi() Helper fuer Anzeige verwenden — niemals .es oder .de direkt in textContent
 19. textarea-Placeholder NUR auf Spanisch (biES verwenden)
 20. Tagebuch-Eintraege haben backward-compat fuer alte String-Werte (typeof check)
+21. ANZEIGE ist Spanisch-only: deutsche Echo-Zeilen sind global ausgeblendet
+    (`.bi-de { display:none !important; }`, Ausnahme nur Home-Begruessung). Bei neuem
+    statischem Markup KEIN sichtbares Deutsch hardcoden; in Kacheln keine bi-de-Spans.
 
 ---
 
