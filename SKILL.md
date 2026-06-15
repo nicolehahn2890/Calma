@@ -83,21 +83,28 @@ Signatur-Techniken (alle in index.html portiert, vanilla CSS/JS):
    TRANSPARENT gehalten, NICHT milchig. Der irisierende Hintergrund soll klar
    durchscheinen (Nicoles Wunsch). Werte (im LUMINOUS-Block):
    - weisse Glas-Fuellung: var(--lux-glass) = rgba(255,255,255,0.10)  (niedrig halten!)
-   - backdrop-filter: blur(2px) saturate(1.15)  (nur ein Hauch Blur — hoehere Werte
-     = milchig/Milchglas, genau das war unerwuenscht)
+   - KEIN backdrop-filter auf den scrollenden Karten! War urspruenglich blur(11px),
+     verursachte auf iOS starkes Ruckeln beim Scrollen UND wirkte milchig. Komplett
+     entfernt. NICHT wieder einbauen (weder Blur noch Milchglas erwuenscht).
    - dezente weisse Top-Glanz-Verlaeufe + weisse Hairline (--lux-glass-brd)
    - irisierende Kante (::before mit --holo, mask-composite), sanfter farbiger Schatten
    - AUSNAHME Modals: etwas dichter (linear 0.5->0.22 + rgba(255,255,255,0.42)),
-     damit Dialogtexte ueber dem geblurten Overlay lesbar bleiben
-   - Wenn es jemals wieder "milchig" wirkt: zuerst den blur-Wert senken, dann --lux-glass.
+     damit Dialogtexte lesbar bleiben (Overlay hat eigenen blur(10px))
+   - Wenn es jemals wieder "milchig" wirkt: --lux-glass senken (kein Blur hinzufuegen).
    - Buttons/Chips nutzen --lux-glass-2 (0.40, unveraendert) — bewusst dichter fuer Tappbarkeit.
+   - LESBARKEIT: Weil die Karten sehr transparent sind, ist der Sekundaer-Text unter den
+     Ueberschriften (.pillar-desc/.exercise-meta/.exercise-tagline/.screen-subtitle/
+     .pillar-journal-mark/.diary-entry-content) auf --lux-ink-soft + kraeftigen weissen
+     Halo gesetzt. Bei neuen Texten auf transparenten Karten denselben Halo verwenden.
 3. Glaskugel-Icons (Signatur!): runde, glaenzende farbige Glas-Sphaeren mit
    Specular-Highlight, dunklem Rand, Glanz und Funkel-Punkt. Eingesetzt fuer
    Home-Grid (40px), Pillar-Header (46px, #pillarHeadBall), Uebungs-Zeilen
    (40px mit Unicode-Glyph) und Logo-Mark (52px, Lavendel #b9a0ef).
    Farbe via CSS-Var --ball / --list-ball (in showPillar gesetzt).
 4. Diamant-Glitzer: .glitter-Layer wird per generateGlitter() einmalig beim Laden
-   erzeugt (~200 funkelnde Punkte, ~34% 4-Punkt-Diamanten + 9 Seifenblasen).
+   erzeugt (140 funkelnde Punkte, ~34% 4-Punkt-Diamanten + 6 Seifenblasen; Anzahl
+   bewusst aus Performance-Gruenden reduziert). Layer ist fixed + transform:translateZ(0)
+   (eigene Compositing-Ebene, kein Repaint beim Scrollen).
    prefers-reduced-motion deaktiviert die Animation.
 5. Logo: assets/calma-logo.png (perlmutt Wortmarke) als Header-Wortmarke.
 6. Atem-Orb: durchscheinende Seifenblase, eingefaerbt pro Saeule via --pc
