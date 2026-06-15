@@ -30,7 +30,7 @@ Deutsch, Du-Anrede. Deployment immer ueber GitHub Browser-Interface
 - Repository: github.com/nicolehahn2890/Calma
 - Technologie: Standalone HTML-Datei (kein Framework, kein Build-Schritt)
 - Dateiname: index.html
-- Aktuelle Version: Calma 2.2 (bilingual ES/DE)
+- Aktuelle Version: Calma 2.2 (bilingual ES/DE) — Design-System "Luminous (Perla)"
 - localStorage-Keys:
   - calma_v3 (Settings, Streak, Sound)
   - calma_diary_v3 (Tagebuch-Eintraege)
@@ -41,30 +41,61 @@ Tagebuch-Eintraege weg.
 
 ---
 
-## Design-System
+## Design-System — "Luminous (Perla)"
 
-Hintergrund: #1a1410 (warm-dunkel)
-Surface: #2a201a
-Surface-2: #322620
-Cream (Text): #f4ead8
-Cream-dim: #c9bfa9
-Text-muted: #9a8e76
+Aesthetik: luminoeses, irisierendes Pastell. Heller traumhafter Hintergrund,
+Frosted-Glass-Karten, echte Perlmutt/Marmor-Textur, transparente farbige
+Glaskugel-Icons, perlmutt-Logo und feiner Diamant-Glitzer.
 
-Saeulen-Akzentfarben (jeweils oberer Rand der Kachel):
-- Atmen: #c97b5b (terracotta)
-- Ankommen: #8a956b (olive)
-- Gedanken: #7a9bb0 (sky)
-- Dankbarkeit: #d4b896 (sand)
-- Staerkung: #8a7a9c (plum)
-- Mitgefuehl: #b88a8a (rose)
+WICHTIG: Die CSS-Variablen-NAMEN sind dieselben geblieben wie im alten warm-dunklen
+Theme (--bg, --surface, --cream, --terracotta, --olive ...), nur die WERTE wurden
+auf Perla gemappt. So funktioniert der Rest des CSS unveraendert weiter. Nicht die
+Namen umbenennen — nur Werte anpassen.
+
+Palette (Perla):
+- --bg: #ece2f8 (heller Lavendel) / --bg-soft: #f5eefb
+- --surface: rgba(255,255,255,0.40) (Frosted Glass) / --surface-2: rgba(255,255,255,0.60)
+- --cream (Text): #3d2c52 (tiefes Pflaume) / --cream-dim: #5a4775 / --text-muted: #7c6699
+- --terracotta (Hauptakzent): #b78fe6 (Lavendel) / --olive (2. Akzent): #7fd6b8 (Mint)
+- weitere: --sky #8fcdf0, --sand #ffd49a (Pfirsich), --plum #c4a9f0 (Flieder), --rose #ffb3d9
+
+Zusatz-Tokens (neu): --lux-accent (#b78fe6), --lux-accent-2 (#7fd6b8),
+--lux-bg-1 (#eccdf0), --lux-bg-2 (#c4ece2), --lux-glass-brd (rgba(255,255,255,0.95)),
+--holo (irisierender Regenbogen-Gradient fuer Glas-Kanten).
+
+Saeulen-Akzent = Glaskugel-Farbe pro Saeule (CSS-Var + JS-Map PILLAR_BEAD):
+- Atmen: #ff9ec4 (pink)
+- Ankommen: #8fe3c4 (mint)
+- Gedanken: #8fcdf0 (sky)
+- Dankbarkeit: #ffd49a (peach)
+- Staerkung: #c4a9f0 (lilac)
+- Mitgefuehl: #ffb3d9 (rose)
 
 Fonts:
 - Cormorant Garamond (Display, kursiv fuer Akzente, Zitate, Ueberschriften)
-- DM Sans (Body)
+- DM Sans (Body; Overlines 600, uppercase, letter-spacing 0.22em)
 Beide ueber Google Fonts CDN.
 
-Aesthetik: warm-erdig, Spanien-Vibe (Andalusischer Innenhof).
-KEINE bunten Emojis, alle Icons sind handgezeichnete SVGs in einer einzigen Linienstaerke.
+Signatur-Techniken (alle in index.html portiert, vanilla CSS/JS):
+1. Seite + Marmor: heller Verlauf (zwei Radial-Glows) + pearl-marble.png als
+   body::before mit mix-blend-mode:multiply; body::after = Header-Vignette.
+2. Frosted-Glass-Karten: .pillar-card/.exercise-card/.modal etc. mit backdrop-filter,
+   weisser Hairline, irisierender Kante (::before mit --holo, mask-composite) und
+   sanftem farbigem Schatten.
+3. Glaskugel-Icons (Signatur!): runde, glaenzende farbige Glas-Sphaeren mit
+   Specular-Highlight, dunklem Rand, Glanz und Funkel-Punkt. Eingesetzt fuer
+   Home-Grid (40px), Pillar-Header (46px, #pillarHeadBall), Uebungs-Zeilen
+   (40px mit Unicode-Glyph) und Logo-Mark (52px, Lavendel #b9a0ef).
+   Farbe via CSS-Var --ball / --list-ball (in showPillar gesetzt).
+4. Diamant-Glitzer: .glitter-Layer wird per generateGlitter() einmalig beim Laden
+   erzeugt (~200 funkelnde Punkte, ~34% 4-Punkt-Diamanten + 9 Seifenblasen).
+   prefers-reduced-motion deaktiviert die Animation.
+5. Logo: assets/calma-logo.png (perlmutt Wortmarke) als Header-Wortmarke.
+6. Atem-Orb: durchscheinende Seifenblase, eingefaerbt pro Saeule via --pc
+   (in startBreathExercise gesetzt).
+
+KEINE bunten Emojis, alle Icons sind handgezeichnete SVGs in einer einzigen
+Linienstaerke — in den Glaskugeln werden sie weiss dargestellt.
 
 ---
 
@@ -229,9 +260,12 @@ Freundlich mit dir selbst sein (Kristin Neff)
 
 Alle Icons:
 - viewBox="0 0 24 24"
-- stroke="currentColor", stroke-width="1.4"
+- stroke="currentColor", stroke-width="1.4-1.5"
 - fill="none" (ausser kleine Akzente)
-- 24x24px, mit opacity 0.85
+- sitzen in der Glaskugel und werden weiss dargestellt
+  (color: rgba(255,255,255,0.96), drop-shadow fuer Tiefe)
+- die Pfade liegen doppelt vor: im Home-Grid-HTML und als JS-Map PILLAR_ICON_SVG
+  (fuer den Pillar-Header) — bei Aenderung an einem Icon BEIDE Stellen pflegen
 
 Tagebuch-Indikator (kleines Buch unten in Kachel):
 - Nur fuer Saeulen mit Schreib-Uebungen: gedanken, dankbarkeit, staerkung, mitgefuehl
@@ -483,9 +517,11 @@ Wichtig: updateStreakDisplay() IMMER aufrufen, auch bei Same-Day-Sessions.
 3. Im saveState/loadState beruecksichtigt? (ist generisch, sollte funktionieren)
 
 ### Farben aendern
-1. CSS-Variablen in :root anpassen
-2. theme-color Meta-Tag im <head>
-3. Drone-Frequenzen passen zur warmen Aesthetik (98-110 Hz)
+1. CSS-Variablen in :root anpassen (NAMEN behalten, nur Werte)
+2. Saeulen-Glaskugel-Farben: --p-* in :root UND die JS-Map PILLAR_BEAD anpassen
+3. theme-color Meta-Tag im <head> (#ece2f8) + site.webmanifest (background/theme_color)
+4. Der grosse "LUMINOUS (PERLA)"-Block am Ende des <style> ueberschreibt die
+   Basis-Regeln per Source-Order — Anpassungen dort vornehmen
 
 ### Tagebuch-Felder erweitern
 WICHTIG: alte Eintraege haben das neue Feld nicht. Defensive Defaults setzen.
@@ -494,10 +530,15 @@ WICHTIG: alte Eintraege haben das neue Feld nicht. Defensive Defaults setzen.
 
 ## Datei-Struktur
 
-Haupt-Datei: index.html (~2920 Zeilen, Calma 2.2 bilingual)
-- HTML (~590 Zeilen): App-Container mit allen Screens + 2 Modals + bilinguale Texte
-- CSS (~920 Zeilen): Im <style>-Block
-- JavaScript (~1410 Zeilen): Im <script>-Block
+Haupt-Datei: index.html (~3340 Zeilen, Calma 2.2 bilingual, Luminous-Reskin)
+- HTML (~600 Zeilen): App-Container mit allen Screens + 2 Modals + bilinguale Texte
+- CSS (~1300 Zeilen): Im <style>-Block (inkl. grossem LUMINOUS-Override-Block)
+- JavaScript (~1450 Zeilen): Im <script>-Block
+
+Design-Assets (NEU, im Ordner assets/ — von index.html via ./assets/... referenziert):
+- assets/calma-logo.png — perlmutt "Calma"-Wortmarke (Header-Logo)
+- assets/textures/pearl-marble.png — Marmor/Perlmutt-Seitentextur (Pflicht)
+- assets/textures/pearls.png — optionale 2. Perlmutt-Textur
 
 Zusatz-Dateien im Repo-Root (fuer Home-Bildschirm-Icon, siehe unten):
 - apple-touch-icon.png (180x180) — iPhone Home-Bildschirm
@@ -505,8 +546,9 @@ Zusatz-Dateien im Repo-Root (fuer Home-Bildschirm-Icon, siehe unten):
 - site.webmanifest — PWA-Manifest
 
 Code laeuft komplett in index.html. Keine externen Skripte/Styles ausser
-Google Fonts CDN. Die PNG/Manifest-Dateien werden NUR fuer das Home-Bildschirm-Icon
-eingebunden (statische Assets, keine Logik).
+Google Fonts CDN. WICHTIG: Seit dem Luminous-Reskin braucht die App zusaetzlich
+den Ordner assets/ (Logo + Marmor-Textur). Fehlt er, fehlen Logo und Textur.
+Die PNG/Manifest-Dateien im Root sind nur das Home-Bildschirm-Icon.
 
 ---
 
@@ -525,15 +567,18 @@ Safari-Screenshot der Seite), liegen im Repo-Root Icon-Dateien plus Manifest.
 ```
 `apple-mobile-web-app-title` = Label unter dem Icon auf dem Home-Bildschirm ("Calma").
 
-### Icon-Design (passt zur Calma-Aesthetik)
-- Warmer dunkler Hintergrund (#1a1410) mit sanftem Terracotta-Glow oben
-  und leichtem Olive-Glow unten — wie der App-Hintergrund
-- Motiv: das Atmen-Symbol (3 konzentrische Kreise + cremefarbener Punkt) in Terracotta (#c97b5b)
-- Vollflaechig quadratisch — iOS rundet die Ecken selbst (kein eigener Rahmen noetig)
+### Icon-Design (Luminous/Perla — passt zum neuen App-Look)
+- Irisierendes Pastell-Feld (Diagonal-Verlauf pink -> flieder -> sky -> mint)
+  mit sanftem weissem Glow oben — wie der App-Hintergrund
+- Motiv: zentrale Lavendel-Glaskugel (#b9a0ef) mit Specular-Highlight und dunklem
+  Rand, darin die weissen Atem-Ringe (2 konzentrische Kreise + Punkt) + Funkel-Punkt
+- Vollflaechig quadratisch, deckend (kein Transparenz-Rand) — iOS rundet die Ecken
+  selbst; wichtige Elemente in der zentralen ~80%-Safe-Zone (purpose "any maskable")
 
 ### Icon neu generieren (wenn Aenderung gewuenscht)
-Erzeugt wird das Icon per Python/Pillow-Skript. Master 1024px, runterskaliert
-auf 180/192/512 mit LANCZOS. Drei PNGs entstehen: apple-touch-icon.png (180),
+Erzeugt wird das Icon per Python/Pillow-Skript (Supersampling 4x, runterskaliert
+mit LANCZOS; Verlauf via 2x2-Eck-Gradient hochskaliert, Glaskugel aus radialen
+Highlights/Schatten + Gauss-Blur). Drei PNGs entstehen: apple-touch-icon.png (180),
 icon-192.png, icon-512.png. Bei Design-Aenderung: Skript anpassen, alle drei
 PNGs neu erzeugen, committen.
 
