@@ -1235,6 +1235,7 @@
   }
 
   /* iridescent hairline edge on the larger cards */
+  .greeting::before,
   .pillar-card::before,
   .exercise-card::before,
   .grounding-step::before,
@@ -1372,6 +1373,22 @@
     text-shadow: 0 1px 8px rgba(255,255,255,0.9);
   }
   .home-subtitle { letter-spacing: 0.22em; font-weight: 600; color: var(--lux-ink-soft); }
+
+  /* Begruessungs-Zitat: weiss hinterlegte Karte (bewusst deckender als die
+     transparenten Kacheln), damit das Zitat klar lesbar ist */
+  .greeting {
+    background:
+      radial-gradient(130% 90% at 16% 6%, rgba(255,255,255,0.9), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,0.74) 0%, rgba(255,255,255,0.56) 100%);
+    border: 1px solid var(--lux-glass-brd);
+    border-radius: 26px;
+    padding: 22px 20px 18px;
+    box-shadow:
+      0 14px 32px rgba(150,110,190,0.18),
+      inset 0 1.5px 0 rgba(255,255,255,0.95);
+    position: relative;
+    overflow: hidden;
+  }
 
   /* Sekundaer-Text unter den Ueberschriften (Kachel-Beschreibung, Meta, Untertitel,
      Diario-Marker): dunkler + kraeftiger weisser Halo, damit er ueber den sehr
