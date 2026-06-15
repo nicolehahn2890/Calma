@@ -1372,9 +1372,15 @@
   }
   .home-subtitle { letter-spacing: 0.22em; font-weight: 600; color: var(--lux-ink-soft); }
 
-  /* greeting: deutsche Echo-Zeile in derselben Serifenschrift wie das spanische
-     Zitat, groesser/dunkler + weisser Halo, damit sie ueber der Textur lesbar ist */
+  /* Deutsche Echo-Zeilen app-weit ausblenden (zu klein/unleserlich ueber der Textur).
+     Spanisch ist ueberall die sichtbare Sprache. */
+  .bi-de { display: none !important; }
+
+  /* Einzige Ausnahme: das Begruessungs-Zitat auf der Startseite — deutsche Zeile
+     in derselben Serifenschrift wie das spanische Zitat, groesser/dunkler + weisser
+     Halo, damit sie ueber der Textur lesbar ist */
   .greeting-text .bi-de {
+    display: block !important;
     font-size: 15px;
     line-height: 1.35;
     color: var(--lux-ink-soft);
@@ -1733,7 +1739,7 @@
 
     <div class="screen-header">
       <h2 class="screen-title" style="font-size: 30px;">Reflejo de frío<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Kalt-Reflex</span></h2>
-      <p class="screen-subtitle">Activa el reflejo de inmersión — uno de los métodos más rápidos para calmar el sistema nervioso.<br><span class="bi-de">Aktiviert den Tauchreflex — eine der schnellsten Methoden, das Nervensystem zu beruhigen.</span></p>
+      <p class="screen-subtitle">Activa el reflejo de inmersión — uno de los métodos más rápidos para calmar el sistema nervioso.</p>
     </div>
 
     <div class="static-content">
@@ -1797,7 +1803,7 @@
     </div>
     <div class="screen-header">
       <h2 class="screen-title">Diario<span class="bi-de" style="font-size: 14px; display: block; margin-top: 4px">Tagebuch</span></h2>
-      <p class="screen-subtitle">Tus entradas escritas, en orden cronológico.<br><span class="bi-de" style="font-size: 0.8em; opacity: 0.7">Deine schriftlichen Einträge — chronologisch.</span></p>
+      <p class="screen-subtitle">Tus entradas escritas, en orden cronológico.</p>
     </div>
 
     <div class="diary-filter" id="diaryFilter"></div>
@@ -1821,7 +1827,7 @@
   <div id="modalStop" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-title">¿Salir del ejercicio?<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Übung beenden?</span></div>
-      <div class="modal-text">Estás justo en medio. ¿Seguro que quieres salir?<br><span class="bi-de">Du bist gerade mittendrin. Wirklich abbrechen?</span></div>
+      <div class="modal-text">Estás justo en medio. ¿Seguro que quieres salir?</div>
       <div class="modal-actions">
         <button class="modal-btn primary" onclick="confirmStopYes()">Sí, salir</button>
         <button class="modal-btn secondary" onclick="confirmStopNo()">Continuar</button>
@@ -1833,7 +1839,7 @@
   <div id="modalDelete" class="modal-overlay hidden">
     <div class="modal">
       <div class="modal-title">¿Eliminar entrada?<span class="bi-de" style="display: block; font-size: 14px; margin-top: 4px">Eintrag löschen?</span></div>
-      <div class="modal-text">Esta entrada del diario se eliminará para siempre.<br><span class="bi-de">Dieser Tagebuch-Eintrag wird endgültig entfernt.</span></div>
+      <div class="modal-text">Esta entrada del diario se eliminará para siempre.</div>
       <div class="modal-actions">
         <button class="modal-btn primary" onclick="confirmDeleteYes()">Sí, eliminar</button>
         <button class="modal-btn secondary" onclick="confirmDeleteNo()">Mantener</button>
@@ -3169,7 +3175,7 @@ function renderDiary() {
     : diary.filter(e => e.pillar === diaryFilter);
 
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="diary-empty">Aún no hay entradas.<br><span class="bi-de" style="font-size: 0.7em">Noch keine Einträge.</span><br><br>Empieza con un ejercicio escrito — aparecerán aquí.<br><span class="bi-de" style="font-size: 0.7em">Beginne mit einer schriftlichen Übung — sie erscheinen dann hier.</span></div>`;
+    list.innerHTML = `<div class="diary-empty">Aún no hay entradas.<br><br>Empieza con un ejercicio escrito — aparecerán aquí.</div>`;
     return;
   }
 

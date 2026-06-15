@@ -105,14 +105,20 @@ Linienstaerke — in den Glaskugeln werden sie weiss dargestellt.
 Die App ist bilingual ES/DE:
 - **Spanisch ist Hauptsprache** (gross, Standard-Stil)
 - **Deutsch ist Echo darunter** (klein, kursiv, gedaempft, ~0.65em)
-- **Ausnahmen (Luminous-Reskin, auf Nicoles Wunsch):**
-  - Home-Saeulen-Kacheln: NUR Spanisch — die deutschen Echo-Spans (Titel + Beschreibung)
-    wurden aus den `.pillar-title`/`.pillar-desc` der 6 Kacheln entfernt (waren zu klein/unleserlich).
-    Bei neuen Kacheln entsprechend KEIN `<span class="bi-de">` mehr einsetzen.
-  - Home-Begruessung (Zitat): die deutsche Zeile ist groesser/dunkler mit weissem Halo
-    (`.greeting-text .bi-de`), damit sie ueber der Textur lesbar ist — gleiche Serifenschrift
-    wie das spanische Zitat.
-  - Restliche App (Pillar-Liste, Uebungen, Tagebuch, Modals) bleibt bilingual mit Echo.
+- **Ausnahmen (Luminous-Reskin, auf Nicoles Wunsch): deutsches Echo app-weit AUS.**
+  - Die deutschen Echo-Zeilen sind ueberall ausgeblendet via CSS: `.bi-de { display:none !important; }`.
+    Das betrifft alle Unterseiten — Pillar-Liste, Atem-/Bodyscan-/Grounding-Screen,
+    Schreibuebungen, Tagebuch, Completion und Modals. Spanisch ist die sichtbare Sprache.
+  - Die `{es,de}`-Datenstruktur und `bi()` bleiben unveraendert (das `de` wird weiter
+    mitgeliefert, nur nicht angezeigt) — so bleibt Wieder-Einblenden trivial moeglich.
+  - Home-Saeulen-Kacheln: die deutschen Spans wurden zusaetzlich direkt aus dem HTML
+    entfernt (`.pillar-title`/`.pillar-desc`). Bei neuen Kacheln KEIN `<span class="bi-de">`.
+  - Ein paar statische Stellen mit `<br><span class="bi-de">` (Cold-Face-/Diario-Subtitle,
+    Modals, Diario-Leerzustand) wurden ganz aus dem Markup geloescht, damit keine
+    Leerzeile zurueckbleibt.
+  - EINZIGE sichtbare Ausnahme: Home-Begruessung (Zitat) — `.greeting-text .bi-de` ist
+    per `display:block !important` sichtbar und groesser/dunkler mit weissem Halo
+    (gleiche Serifenschrift wie das spanische Zitat), damit es lesbar ist.
 - **Tonalitaet**: kastilisches Spanisch mit "tu", warm aber direkt
 - **UI-Buttons NUR Spanisch** (Volver, Guardar, Continuar, Salir, Hecho, Eliminar, Mantener, Sonido on/off, Diario)
 - **Sound-Optionen**: Silencio, Drone, Lluvia
